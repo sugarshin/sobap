@@ -2,12 +2,17 @@ Promise = require 'promise'
 _ = require 'lodash'
 jsonp = require 'jsonp'
 qs = require 'qs'
+crel = require 'crel'
+bean = require 'bean'
 
 KEY = '1cc33a2a2f3f364a'
-API = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
+API_GOURMET = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
 
-dist = document.createElement 'div'
-document.body.appendChild dist
+crel document.body, crel 'button', id: 'search', '近くの蕎麦屋を検索'
+search = document.getElementById 'search'
+
+crel document.body, crel 'div', id: 'dist'
+dist = document.getElementById 'dist'
 
 getGeo = ->
   new Promise (resolve, reject) ->
@@ -15,17 +20,10 @@ getGeo = ->
       if err? then reject err
       resolve pos
 
-getData = (pos) ->
-  q =
-    key: KEY
-    large_area: 'Z011'
-    format: 'jsonp'
-    type: 'lite'
-    lat: pos.coords.latitude
-    lng: pos.coords.longitude
+getData = (query) ->
   new Promise (resolve, reject) ->
-    jsonp API,
-      param: qs.stringify(q) + '&callback' # todo
+    jsonp API_GOURMET,
+      param: qs.stringify(query) + '&callback' # todo
     , (err, data) ->
       if err?
         console.error err
@@ -38,14 +36,24 @@ show = do ->
     new Promise (resolve, reject) ->
       _.forEach data, (v, k) ->
         if _.isPlainObject(v) or _.isArray(v)
+          crel dist, crel 'h2', "===== #{k} ====="
           _show v
         else
-          p = document.createElement 'p'
-          p.textContent = "#{k} => #{v}"
-          dist.appendChild p
+          crel dist, crel 'p', "#{k} => #{v}"
       resolve data
 
-Promise.resolve()
-  .then getGeo
-  .then getData
-  .then show
+bean.one search, 'click', (ev) ->
+  Promise.resolve()
+    .then getGeo
+    .then (geoPos) ->
+      q =
+        key: KEY
+        large_area: 'Z011'
+        format: 'jsonp'
+        type: 'lite'
+        keyword: '蕎麦'
+        range: 5
+        lat: geoPos.coords.latitude
+        lng: geoPos.coords.longitude
+      getData q
+    .then (data) -> show data.results.shop

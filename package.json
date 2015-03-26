@@ -13,6 +13,8 @@
     "coffeeify": "^1.0.0"
   },
   "dependencies": {
+    "bean": "^1.0.15",
+    "crel": "^2.1.8",
     "jsonp": "^0.2.0",
     "lodash": "^3.6.0",
     "promise": "^6.1.0",
