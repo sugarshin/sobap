@@ -29,3 +29,5 @@ build/Release
 node_modules
 
 ignore
+public/css/main.css
+public/js/main.js
