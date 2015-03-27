@@ -1,15 +1,34 @@
+"use strict"
+
 Promise = require 'promise'
+# React = require 'react'
 _ = require 'lodash'
 jsonp = require 'jsonp'
 qs = require 'qs'
 crel = require 'crel'
 bean = require 'bean'
 
+# Eatery = require './components/eatery'
+util = require './util'
+
 KEY = '1cc33a2a2f3f364a'
 API_GOURMET = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
+SOBA = '蕎麦'
+BASE_Q =
+  key: KEY
+  large_area: 'Z011'
+  format: 'jsonp'
+  type: 'lite'
+  range: 5
 
-crel document.body, crel 'button', id: 'search', '近くの蕎麦屋を検索'
-search = document.getElementById 'search'
+crel document.body, crel 'button', id: 'search-near', '近くの蕎麦屋を検索'
+searchNear = document.getElementById 'search-near'
+
+crel document.body, crel 'input', type: 'search', id: 'search-address', placeholder: '新宿'
+searchAddress = document.getElementById 'search-address'
+
+crel document.body, crel 'button', id: 'search-address-button', '住所キーワードで検索'
+searchAddressButton = document.getElementById 'search-address-button'
 
 crel document.body, crel 'div', id: 'dist'
 dist = document.getElementById 'dist'
@@ -28,32 +47,43 @@ getData = (query) ->
       if err?
         console.error err
         reject err
-      console.debug data
       resolve data
 
+getSearchWord =  ->
+  new Promise (resolve, reject) ->
+    resolve searchAddress.value
+
+# 仮
 show = do ->
   _show = (data) ->
-    new Promise (resolve, reject) ->
-      _.forEach data, (v, k) ->
-        if _.isPlainObject(v) or _.isArray(v)
-          crel dist, crel 'h2', "===== #{k} ====="
-          _show v
-        else
-          crel dist, crel 'p', "#{k} => #{v}"
-      resolve data
+    _.forEach data, (v, k) ->
+      if _.isPlainObject(v) or _.isArray(v)
+        crel dist, crel 'h2', "===== #{k} ====="
+        _show v
+      else
+        crel dist, crel 'p', "#{k} => #{v}"
 
-bean.one search, 'click', (ev) ->
+bean.on searchNear, 'click', (ev) ->
+  util.empty dist
   Promise.resolve()
     .then getGeo
     .then (geoPos) ->
-      q =
-        key: KEY
-        large_area: 'Z011'
-        format: 'jsonp'
-        type: 'lite'
-        keyword: '蕎麦'
-        range: 5
+      getData _.assign _.cloneDeep(BASE_Q),
+        keyword: SOBA
         lat: geoPos.coords.latitude
         lng: geoPos.coords.longitude
-      getData q
     .then (data) -> show data.results.shop
+
+bean.on searchAddressButton, 'click', ->
+  util.empty dist
+  Promise.resolve()
+    .then getSearchWord
+    .then (searchWord) ->
+      getData _.assign _.cloneDeep(BASE_Q),
+        keyword: "#{SOBA} #{searchWord}"
+    .then (data) ->
+      if data.results.results_returned is '0'
+        util.empty dist
+        crel dist, crel 'p', '見つかりませんでした'
+        return
+      show data.results.shop
