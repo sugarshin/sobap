@@ -13,13 +13,22 @@ util = require './util'
 
 KEY = '1cc33a2a2f3f364a'
 API_GOURMET = 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
-SOBA = '蕎麦'
 BASE_Q =
   key: KEY
-  large_area: 'Z011'
+  # large_area: 'Z011'
   format: 'jsonp'
+  food: 'R012'
   type: 'lite'
   range: 5
+
+# <food>
+# <code>R012</code>
+# <name>そば・うどん</name>
+# <food_category>
+# <code>FK01</code>
+# <name>和食</name>
+# </food_category>
+# </food>
 
 crel document.body, crel 'button', id: 'search-near', '近くの蕎麦屋を検索'
 searchNear = document.getElementById 'search-near'
@@ -47,6 +56,7 @@ getData = (query) ->
       if err?
         console.error err
         reject err
+      console.debug data
       resolve data
 
 getSearchWord =  ->
@@ -69,7 +79,6 @@ bean.on searchNear, 'click', (ev) ->
     .then getGeo
     .then (geoPos) ->
       getData _.assign _.cloneDeep(BASE_Q),
-        keyword: SOBA
         lat: geoPos.coords.latitude
         lng: geoPos.coords.longitude
     .then (data) -> show data.results.shop
@@ -80,7 +89,7 @@ bean.on searchAddressButton, 'click', ->
     .then getSearchWord
     .then (searchWord) ->
       getData _.assign _.cloneDeep(BASE_Q),
-        keyword: "#{SOBA} #{searchWord}"
+        keyword: searchWord
     .then (data) ->
       if data.results.results_returned is '0'
         util.empty dist

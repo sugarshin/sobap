@@ -3,16 +3,21 @@
   "version": "0.0.1",
   "description": "SOBAP",
   "scripts": {
-    "start": "npm run w-jade & npm run w-stylus & npm run watchify & npm run serve",
+    "mock": "cp -pvf node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff} design && jade -w design & stylus design/main.styl -I node_modules/nib/lib -w -c & live-server ./design/",
+    "start": "npm run cp-octicons && npm run jade-w & npm run stylus-w & npm run watchify & npm run serve",
     "serve": "live-server ./public/",
-    "w-jade": "jade -w src -o public",
-    "w-stylus": "stylus src/css/main.styl -I node_modules/nib/lib -w -c -o public/css/main.css",
+    "jade": "jade src -o public",
+    "jade-w": "npm run jade -- -w",
+    "stylus": "stylus -I node_modules/nib/lib -c src/css/main.styl -o public/css/main.css",
+    "stylus-w": "npm run stylus -- -w",
+    "browserify": "browserify src/js/main.coffee -t coffee-reactify --extension='.cjsx' --extension='.coffee' -o public/js/main.js",
     "watchify": "watchify src/js/main.coffee -v -t coffee-reactify --extension='.cjsx' --extension='.coffee' -o public/js/main.js",
-    "build-html": "jade src -o public",
-    "build-css": "stylus src/css/main.styl -I node_modules/nib/lib -c -p | cleancss --s1 > public/css/main.min.css",
-    "build-js": "browserify src/js/main.coffee -t coffee-reactify --extension='.cjsx' --extension='.coffee' | uglifyjs -m -c warnings=false --comments '/\\/*!/' > public/js/main.min.js",
+    "build-css": "npm run stylus && cat node_modules/octicons/octicons/octicons.css public/css/main.css | cleancss -o public/css/main.min.css",
+    "build-js": "npm run browserify | uglifyjs -m -c warnings=false --comments '/\\/*!/' > public/js/main.min.js",
     "replace-min": "replace 'main.js' 'main.min.js' public/index.html && replace 'main.css' 'main.min.css' public/index.html",
-    "build": "npm run build-html && npm run replace-min && npm run build-css && npm run build-js",
+    "replace-css": "replace '<link rel=\"stylesheet\" href=\"css/octicons.css\">' '' public/index.html",
+    "cp-octicons": "cp -pvf node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff} public/css",
+    "build": "npm run cp-octicons && npm run jade && npm run replace-min && npm run replace-css && npm run build-css && npm run build-js",
     "deploy": "git subtree push --prefix=public/ origin gh-pages --squash"
   },
   "author": "sugarshin",
@@ -21,9 +26,12 @@
     "node": "0.12.x"
   },
   "devDependencies": {
+    "bean": "^1.0.15",
     "browserify": "^9.0.3",
     "clean-css": "^3.1.8",
     "coffee-reactify": "^3.0.0",
+    "concat-cli": "^1.0.1",
+    "crel": "^2.1.8",
     "jade": "^1.9.2",
     "live-server": "^0.7.0",
     "nib": "^1.1.0",
@@ -33,10 +41,9 @@
     "watchify": "^2.6.2"
   },
   "dependencies": {
-    "bean": "^1.0.15",
-    "crel": "^2.1.8",
     "jsonp": "^0.2.0",
     "lodash": "^3.6.0",
+    "octicons": "^2.2.0",
     "promise": "^6.1.0",
     "qs": "^2.4.1",
     "react": "^0.13.1"
