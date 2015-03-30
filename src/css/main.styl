@@ -3,4 +3,78 @@
 
 normalize-css()
 
+@import "import/_variable"
+@import "import/_base"
 @import "import/_g-header"
+@import "import/_g-footer"
+
+.map
+  height 38vh
+
+.main
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  position relative
+  z-index 1
+.eateries
+  max-width 1024px
+  padding 1.25% .68%
+  margin 0 auto
+  box-sizing border-box
+  transition .3s top ease-out
+  display flex
+  flex-flow row wrap
+  justify-content space-between
+  align-content flex-start
+  align-items flex-start
+  // overflow hidden
+.eatery
+  // border-color clr_lgry
+  // border-style solid
+  // border-width 2px
+  // border-top 0
+  // border-left 0
+  background clr_wh
+  width 32.5%
+  // margin-left 1.25%
+  margin-bottom 1.25%
+  // float left
+  // margin auto
+  box-sizing border-box
+  padding .68%
+  color clr_bk
+  // &:nth-child(3n + 1)
+  //   margin-left 0
+  .eatery-name
+    margin-top 0
+    border-bottom 1px solid clr_lgry
+    line-height 2
+  .eatery-g-static-map
+    margin 16px 0
+    img
+      width 100%
+      height auto
+  .eatery-link-external
+    margin 16px 0
+    a
+      margin 0 4% 0 0
+  .eatery-memo-container
+    border-top 1px solid clr_lgry
+
+.btn
+  background clr_gry
+  display inline-block
+  border 1px solid clr_gry
+  border-radius 2px
+  padding 0 8px
+  height 32px
+  line-height 32px
+  font-size 14px
+  vertical-align middle
+  color clr_wh
+  text-decoration none
+  .octicon
+    margin 0 0 0 8px
+  &:hover
+    background clr_wh
+    color clr_gry

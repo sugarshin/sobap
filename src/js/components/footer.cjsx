@@ -2,14 +2,14 @@
 
 React = require 'react'
 jade = require 'react-jade'
-template = jade.compileFile __dirname + '/../templates/eatery.jade'
+template = jade.compileFile __dirname + '/../templates/footer.jade'
 
 module.exports =
-class Eatery
+class Footer
   # propTypes:
   #   prop: React.PropTypes.bool
 
   componentDidMount: ->
     console.log @
 
-  render: -> template this.props.data
+  render: -> template()
