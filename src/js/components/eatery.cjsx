@@ -5,11 +5,10 @@ jade = require 'react-jade'
 template = jade.compileFile __dirname + '/../templates/eatery.jade'
 
 module.exports =
-class Eatery
-  # propTypes:
-  #   prop: React.PropTypes.bool
+Eatery = React.createClass
+  propTypes:
+    data: React.PropTypes.object
 
   componentDidMount: ->
-    console.log @
 
   render: -> template this.props.data

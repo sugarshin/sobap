@@ -5,11 +5,13 @@ jade = require 'react-jade'
 template = jade.compileFile __dirname + '/../templates/header.jade'
 
 module.exports =
-class Header
+Header = React.createClass
   # propTypes:
-  #   prop: React.PropTypes.bool
+  #   onClickLocation: React.PropTypes.func.isRequired
+
+  _onChangeComplet: ->
+    this.props.onClickLocation()
 
   componentDidMount: ->
-    console.log @
 
-  render: -> template()
+  render: -> template onClick: this._onChangeComplet
