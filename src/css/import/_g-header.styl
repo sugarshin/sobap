@@ -1,12 +1,62 @@
 @charset "utf-8"
 
 .g-header
-  background #323b43
-  height 20px
+  padding 4px .68% 4px
+  height 32px
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  line-height 32px
+  position relative
+  z-index 1
   h1
     margin 0
-    font-size 12px
-    text-indent .5em
+    font-size 14px
+    display inline-block
     a
-      color #f4f7f9
+      color #fff
       text-decoration none
+
+.search-near-button
+  position absolute
+  top 4px
+  left 50%
+  margin-left -16px
+  display inline-block
+  width 48px
+  height 48px
+  line-height 52px
+  border-radius 50%
+  box-sizing border-box
+  text-align center
+  cursor pointer
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  z-index 1
+  span
+    color #fff
+    transition .1s font-size ease-out
+  &:hover
+    span
+      font-size 34px
+      color clr_red
+
+.search-keyword-container
+  position absolute
+  top 4px
+  right 4px
+  input[type="search"]
+    width 128px
+    appearance none
+    border 0
+  .search-keyword-button
+    display inline-block
+    width 32px
+    text-align center
+    cursor pointer
+    span
+      transition .1s font-size ease-out
+    &:hover
+      span
+        font-size 18px
+  .octicon
+    color #fff

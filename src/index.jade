@@ -4,13 +4,31 @@ html
     meta(charset="utf-8")
     title SOBAP
     meta(name="viewport" content="initial-scale=1.0, user-scalable=no")
+    link(href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet")
     link(rel="stylesheet" href="css/octicons.css")
     link(rel="stylesheet" href="css/main.css")
   body
-    header.g-header: h1: a(href="/") SOBAP
-    #eatery
+    //- header.g-header
+    //-   h1: a(href="/") SOBAP
+    //-   .search-bar
+    //-     .search-near-button
+    //-       span.mega-octicon.octicon-location
+    //-     .search-keyword-container
+    //-       input(type="search")
+    //-       .search-keyword-button
+    //-         span.octicon.octicon-search
     //- #map.map
-    //- script( src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k&sensor=true&callback=gmapInit")
+    //- .main
+    //-   .eateries
+    //- 
+    //- footer.g-footer
+    //-   p.copyright: small
+    //-     | &copy; 
+    //-     script.
+    //-       !function() {document.write(new Date().getFullYear());}();
+    //-     |  SOBAP
+    //- 
+    //- script( src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k&sensor=true")
     script(src="js/main.js")
       //- :coffee
       //-   do ->
