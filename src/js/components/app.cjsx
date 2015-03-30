@@ -2,24 +2,24 @@
 
 React = require 'react'
 Header = require './header'
+Eateries = require './eateries'
 Footer = require './footer'
-Eatery = require './eatery'
 
 module.exports =
-class App
+App = React.createClass
   # propTypes:
   #   prop: React.PropTypes.bool
 
   componentDidMount: ->
-    console.log @
+
+  onClickLocation: ->
 
   render: ->
     <div>
-      <Header />
+      <Header onClickLocation={@onClickLocation} />
+      <div id="map" className="map"></div>
       <div className="main">
-        <div className="Eateries">
-          <Eatery data={this.state.data} />
-        </div>
+        <Eateries />
       </div>
       <Footer />
     </div>

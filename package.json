@@ -26,16 +26,12 @@
     "node": "0.12.x"
   },
   "devDependencies": {
-    "bean": "^1.0.15",
     "browserify": "^9.0.3",
     "clean-css": "^3.1.8",
     "coffee-reactify": "^3.0.0",
-    "concat-cli": "^1.0.1",
-    "crel": "^2.1.8",
     "jade": "^1.9.2",
     "live-server": "^0.7.0",
     "nib": "^1.1.0",
-    "react-jade": "^2.4.0",
     "replace": "^0.3.0",
     "stylus": "^0.50.0",
     "uglify-js": "^2.4.17",
@@ -47,6 +43,7 @@
     "octicons": "^2.2.0",
     "promise": "^6.1.0",
     "qs": "^2.4.1",
-    "react": "^0.13.1"
+    "react": "^0.13.1",
+    "react-jade": "^2.4.0"
   }
 }

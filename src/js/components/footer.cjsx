@@ -5,11 +5,10 @@ jade = require 'react-jade'
 template = jade.compileFile __dirname + '/../templates/footer.jade'
 
 module.exports =
-class Footer
+Footer = React.createClass
   # propTypes:
   #   prop: React.PropTypes.bool
 
   componentDidMount: ->
-    console.log @
 
   render: -> template()

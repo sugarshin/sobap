@@ -3,8 +3,9 @@
   p.eatery-address= address
   .eatery-g-static-map
     a(href="http://maps.google.co.jp/maps?q=" + lat + "," + lng target="_blank")
-      img(src="http://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=17&markers=color:white&size=640x360&scale=2&key=AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k")
+      img(src="http://maps.googleapis.com/maps/api/staticmap?center=" + lat + "," + lng + "&zoom=17&markers=color:white%7C" + lat + "," + lng + "&size=320x180&scale=2&key=AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k&sensor=false")
   .eatery-catch-container
+    p= c
     p= genre.catch
     p= food.catch
   .eatery-link-external
@@ -14,7 +15,7 @@
     a.btn(href= urls.pc target="_blank")
       | Hotpepper
       span.octicon.octicon-link-external
-  - if shop_detial_memo || other_memo
+  if shop_detial_memo || other_memo
     .eatery-memo-container
       p= shop_detial_memo
       p= other_memo
