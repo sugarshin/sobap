@@ -30,5 +30,5 @@ node_modules
 
 ignore
 public/css/main.css
-public/css/octicons.*
+public/css/octicons.css
 public/js/main.js
