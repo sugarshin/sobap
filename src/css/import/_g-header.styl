@@ -42,10 +42,13 @@
 
 .search-keyword-container
   position absolute
-  top 4px
+  top 8px
   right 4px
+  line-height 1
   input[type="search"]
     width 128px
+    height 22px
+    line-height 22px
     appearance none
     border 0
     @media screen and (max-width: 767px)
@@ -59,10 +62,14 @@
     width 32px
     text-align center
     cursor pointer
-    span
+    button
+      appearance none
+      background none
+      border 0
+      outline none
       transition .1s font-size ease-out
     &:hover
-      span
+      button
         font-size 18px
   .octicon
     color #fff
