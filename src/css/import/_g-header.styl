@@ -20,7 +20,7 @@
   position absolute
   top 4px
   left 50%
-  margin-left -16px
+  transform translateX(-50%)
   display inline-block
   width 48px
   height 48px
@@ -48,6 +48,12 @@
     width 128px
     appearance none
     border 0
+    @media screen and (max-width: 767px)
+      width 96px
+
+    @media screen and (max-width: 567px)
+      width 64px
+
   .search-keyword-button
     display inline-block
     width 32px

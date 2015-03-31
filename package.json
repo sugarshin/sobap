@@ -10,7 +10,6 @@
     "jade-w": "npm run jade -- -w",
     "stylus": "stylus -I node_modules/nib/lib -c src/css/main.styl -o public/css/main.css",
     "stylus-w": "npm run stylus -- -w",
-    "browserify": "browserify src/js/main.cjsx -t coffee-reactify --extension='.cjsx' --extension='.coffee'",
     "watchify": "watchify src/js/main.cjsx -v -t coffee-reactify -t react-jade --extension='.cjsx' --extension='.coffee' -o public/js/main.js",
     "build-css": "npm run stylus && cat node_modules/octicons/octicons/octicons.css public/css/main.css | cleancss -o public/css/main.min.css",
     "build-js": "browserify src/js/main.cjsx -t coffee-reactify -t react-jade --extension='.cjsx' --extension='.coffee' | uglifyjs -m -c warnings=false --comments '/\\/*!/' > public/js/main.min.js",
