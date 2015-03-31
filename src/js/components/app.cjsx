@@ -13,8 +13,8 @@ App = React.createClass
   onClickLocation: -> @refs.shops.updateShopsByGeolocation()
 
   onClickSearchKeyword: ->
-    v = React.findDOMNode(@refs.header)
-        .querySelector('input[type=search]')
+    v = React.findDOMNode @refs.header
+        .querySelector 'input[type=search]'
         .value
     @refs.shops.updateShopsByKeyword v
 

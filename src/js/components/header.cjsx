@@ -2,7 +2,7 @@
 
 React = require 'react'
 jade = require 'react-jade'
-template = jade.compileFile __dirname + '/../templates/header.jade'
+template = jade.compileFile "#{__dirname}/../templates/header.jade"
 
 module.exports =
 Header = React.createClass
