@@ -2,24 +2,32 @@
 
 React = require 'react'
 Header = require './header'
-Eateries = require './eateries'
+Shops = require './shops'
 Footer = require './footer'
 
 module.exports =
 App = React.createClass
-  # propTypes:
-  #   prop: React.PropTypes.bool
 
   componentDidMount: ->
 
-  onClickLocation: ->
+  onClickLocation: -> @refs.shops.updateShopsByGeolocation()
+
+  onClickSearchKeyword: ->
+    v = React.findDOMNode(@refs.header)
+        .querySelector('input[type=search]')
+        .value
+    @refs.shops.updateShopsByKeyword v
 
   render: ->
     <div>
-      <Header onClickLocation={@onClickLocation} />
+      <Header
+        ref="header"
+        onClickLocation={@onClickLocation}
+        onClickSearchKeyword={@onClickSearchKeyword}
+      />
       <div id="map" className="map"></div>
       <div className="main">
-        <Eateries />
+        <Shops ref="shops" />
       </div>
       <Footer />
     </div>

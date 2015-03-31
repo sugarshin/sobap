@@ -5,18 +5,18 @@ qs = require 'qs'
 _ = require 'lodash'
 Promise = require 'promise'
 React = require 'react'
-Eatery = require './eatery'
+Shop = require './shop'
 { API_GOURMET, BASE_Q } = require '../env'
 
 module.exports =
-Eateries = React.createClass
-  getGeo: ->
+Shops = React.createClass
+  _getGeo: ->
     new Promise (resolve, reject) ->
       navigator.geolocation.getCurrentPosition (pos, err) ->
         if err? then reject err
         resolve pos
 
-  getData: (query) ->
+  _getData: (query) ->
     new Promise (resolve, reject) ->
       jsonp API_GOURMET,
         param: qs.stringify(query) + '&callback' # todo
@@ -24,35 +24,38 @@ Eateries = React.createClass
         if err?
           console.error err
           reject err
-        console.debug data
+        # console.debug data
         resolve data
 
-  getSearchWord: ->
+  _getSearchWord: ->
     new Promise (resolve, reject) ->
       resolve searchAddress.value
 
-  getInitialState: ->
-    eateries: []
+  componentDidMount: -> @updateShopsByGeolocation()
 
+  getInitialState: -> shops: []
 
-  updateEateriesByGeolocation: ->
+  updateShopsByGeolocation: ->
     Promise.resolve()
-      .then @getGeo
+      .then @_getGeo
       .then (geoPos) =>
         query = _.assign _.cloneDeep(BASE_Q),
           lat: geoPos.coords.latitude
           lng: geoPos.coords.longitude
-        @getData query
+        @_getData query
       .then (data) =>
-        @setState eateries: data.results.shop
+        @setState shops: data.results.shop
 
-  componentDidMount: -> @updateEateriesByGeolocation()
+  updateShopsByKeyword: (word) ->
+    Promise.resolve()
+      .then =>
+        query = _.assign _.cloneDeep(BASE_Q),
+          keyword: word
+        @_getData query
+      .then (data) =>
+        @setState shops: data.results.shop
 
   render: ->
-    eateries = @state.eateries.map (eatery) ->
-      eatery.c = eatery.catch
-      <Eatery data={eatery} />
-
-    <div className="eateries">
-      {eateries}
+    <div className="shops">
+      {@state.shops.map (shop) -> <Shop key={shop.id} data={shop} />}
     </div>
