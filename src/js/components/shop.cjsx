@@ -2,7 +2,7 @@
 
 React = require 'react'
 jade = require 'react-jade'
-template = jade.compileFile __dirname + '/../templates/shop.jade'
+template = jade.compileFile "#{__dirname}/../templates/shop.jade"
 
 module.exports =
 Shop = React.createClass
