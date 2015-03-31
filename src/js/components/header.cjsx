@@ -6,12 +6,13 @@ template = jade.compileFile __dirname + '/../templates/header.jade'
 
 module.exports =
 Header = React.createClass
-  # propTypes:
-  #   onClickLocation: React.PropTypes.func.isRequired
 
-  _onChangeComplet: ->
-    this.props.onClickLocation()
+  _onClickLocation: -> this.props.onClickLocation()
+  _onClickSearchKeyword: -> this.props.onClickSearchKeyword()
 
   componentDidMount: ->
 
-  render: -> template onClick: this._onChangeComplet
+  render: ->
+    template
+      onClickLocation: this._onClickLocation
+      onClickSearchKeyword: this._onClickSearchKeyword
