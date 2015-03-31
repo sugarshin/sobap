@@ -20,9 +20,11 @@
   @media screen and (max-width: 767px)
     width 47.5%
     margin 1.25%
+    padding: 1.25%;
 
   @media screen and (max-width: 567px)
     width 98.75%
+    padding: 2.5%;
 
   .shop-name
     margin-top 0
@@ -33,6 +35,11 @@
     img
       width 100%
       height auto
+      vertical-align top
+      transition transform .1s ease-out
+    a:hover
+      img
+        transform translateY(-1%) scale(1.02)
   .shop-link-external
     margin 16px 0
     a
