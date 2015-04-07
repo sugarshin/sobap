@@ -1,15 +1,17 @@
+# Shops
+
 "use strict"
 
+React = require 'react'
+Promise = require 'promise'
 jsonp = require 'jsonp'
 qs = require 'qs'
 _ = require 'lodash'
-Promise = require 'promise'
-React = require 'react'
 Shop = require './shop'
 { API_GOURMET, BASE_Q } = require '../env'
 
 module.exports =
-Shops = React.createClass
+React.createClass
   _getGeo: ->
     new Promise (resolve, reject) ->
       navigator.geolocation.getCurrentPosition (pos, err) ->
