@@ -1,3 +1,5 @@
+# App
+
 "use strict"
 
 React = require 'react'
@@ -6,7 +8,7 @@ Shops = require './shops'
 Footer = require './footer'
 
 module.exports =
-App = React.createClass
+React.createClass
 
   componentDidMount: ->
 

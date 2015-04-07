@@ -1,3 +1,5 @@
+# Header
+
 "use strict"
 
 React = require 'react'
@@ -5,7 +7,7 @@ jade = require 'react-jade'
 template = jade.compileFile "#{__dirname}/../templates/header.jade"
 
 module.exports =
-Header = React.createClass
+React.createClass
 
   _onClickLocation: -> this.props.onClickLocation()
   _onClickSearchKeyword: -> this.props.onClickSearchKeyword()
