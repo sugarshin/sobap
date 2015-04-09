@@ -7,8 +7,8 @@ Promise = require 'promise'
 jsonp = require 'jsonp'
 qs = require 'qs'
 _ = require 'lodash'
-Shop = require './shop'
 { API_GOURMET, BASE_Q } = require '../env'
+Shop = require './shop'
 
 module.exports =
 React.createClass
