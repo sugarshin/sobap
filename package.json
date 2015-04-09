@@ -38,10 +38,10 @@
     "watchify": "^2.6.2"
   },
   "dependencies": {
+    "bluebird": "^2.9.24",
     "jsonp": "^0.2.0",
     "lodash": "^3.6.0",
     "octicons": "^2.2.0",
-    "promise": "^6.1.0",
     "qs": "^2.4.1",
     "react": "^0.13.1",
     "react-jade": "^2.4.0"
