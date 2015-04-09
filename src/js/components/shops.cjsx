@@ -3,7 +3,7 @@
 "use strict"
 
 React = require 'react'
-Promise = require 'promise'
+Promise = require 'bluebird'
 jsonp = require 'jsonp'
 qs = require 'qs'
 _ = require 'lodash'
