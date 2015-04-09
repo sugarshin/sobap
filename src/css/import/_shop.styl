@@ -17,6 +17,7 @@
   color clr_bk
   // &:nth-child(3n + 1)
   //   margin-left 0
+  position relative
   @media screen and (max-width: 767px)
     width 47.5%
     margin 1.25%
@@ -39,10 +40,36 @@
       transition transform .1s ease-out
     a:hover
       img
-        transform translateY(-1%) scale(1.02)
+        transform translateY(-1%) scale(1.01)
   .shop-link-external
     margin 16px 0
     a
       margin 0 4% 4% 0
   .shop-memo-container
     border-top 1px solid clr_lgry
+  .star
+    position absolute
+    top 0
+    right 2%
+    width 12%
+    min-width 32px
+    text-align center
+    padding 5% 0
+    background lighten(clr_bk, 50%)
+    box-longshadow(clr_lgry, 4)
+    .star-button
+      appearance none
+      border 0
+      background none
+      padding 0
+      vertical-align top
+      span
+        color #fff
+        font-size 20px
+        transition font-size .1s ease-out
+    &.starred
+      background clr_bk
+      .star-button
+      span
+        color clr_yl
+        font-size 22px
