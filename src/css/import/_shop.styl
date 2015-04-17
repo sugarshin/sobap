@@ -1,29 +1,20 @@
 @charset "utf-8"
 
 .shop
-  // border-color clr_lgry
-  // border-style solid
-  // border-width 2px
-  // border-top 0
-  // border-left 0
+  _starWidth = 12%
   background clr_wh
   width 32.5%
-  // margin-left 1.25%
   margin-bottom 1.25%
-  // float left
-  // margin auto
   box-sizing border-box
   padding .68%
   color clr_bk
-  // &:nth-child(3n + 1)
-  //   margin-left 0
   position relative
   @media screen and (max-width: 767px)
     width 47.5%
     margin 1.25%
     padding: 1.25%;
 
-  @media screen and (max-width: 567px)
+  @media screen and (max-width: 481px)
     width 98.75%
     padding: 2.5%;
 
@@ -31,8 +22,10 @@
     margin-top 0
     border-bottom 1px solid clr_lgry
     line-height 2
+    padding-right _starWidth
   .shop-g-static-map
     margin 16px 0
+    overflow hidden
     img
       width 100%
       height auto
@@ -40,36 +33,54 @@
       transition transform .1s ease-out
     a:hover
       img
-        transform translateY(-1%) scale(1.01)
+        transform scale(1.06)
   .shop-link-external
     margin 16px 0
     a
       margin 0 4% 4% 0
   .shop-memo-container
     border-top 1px solid clr_lgry
-  .star
+  .star-button
+    appearance none
+    border 0
+    background none
+    display block
+    _unstarClr = lighten(clr_bk, 70%)
     position absolute
     top 0
     right 2%
-    width 12%
+    width _starWidth
     min-width 32px
     text-align center
-    padding 5% 0
-    background lighten(clr_bk, 50%)
-    box-longshadow(clr_lgry, 4)
-    .star-button
-      appearance none
-      border 0
-      background none
-      padding 0
-      vertical-align top
+    background _unstarClr
+    padding 0 0 3%
+    .star-button-inner
+      padding-top 35%
       span
+        // text-longshadow(lighten(clr_bk, 30%))
         color #fff
         font-size 20px
         transition font-size .1s ease-out
+    .star-button-f
+      position absolute
+      display block
+      width 50%
+      height 16px
+      bottom -8px
+      box-sizing border-box
+      z-index 1
+      background _unstarClr
+      &.left
+        left 0
+        transform skewY(-30deg)
+      &.right
+        right 0
+        transform skewY(30deg)
+    &:hover,
     &.starred
       background clr_bk
-      .star-button
-      span
-        color clr_yl
-        font-size 22px
+      .star-button-f
+        background clr_bk
+      .star-button-inner
+        span
+          color clr_yl
