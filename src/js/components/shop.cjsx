@@ -13,4 +13,9 @@ React.createClass
 
   componentDidMount: ->
 
-  render: -> template data: this.props.data
+  # _onClickStar: ->
+
+  render: ->
+    template
+      data: @props.data
+      onClickStar: @_onClickStar

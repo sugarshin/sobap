@@ -21,7 +21,7 @@ React.createClass
     @refs.shops.updateShopsByKeyword v
 
   render: ->
-    <div>
+    <div className="app">
       <Header
         ref="header"
         onClickLocation={@onClickLocation}
