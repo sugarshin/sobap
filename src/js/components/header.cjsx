@@ -9,12 +9,12 @@ template = jade.compileFile "#{__dirname}/../templates/header.jade"
 module.exports =
 React.createClass
 
-  _onClickLocation: -> this.props.onClickLocation()
-  _onClickSearchKeyword: -> this.props.onClickSearchKeyword()
+  _onClickLocation: -> @props.onClickLocation()
+  _onClickSearchKeyword: -> @props.onClickSearchKeyword()
 
   componentDidMount: ->
 
   render: ->
     template
-      onClickLocation: this._onClickLocation
-      onClickSearchKeyword: this._onClickSearchKeyword
+      onClickLocation: @_onClickLocation
+      onClickSearchKeyword: @_onClickSearchKeyword
