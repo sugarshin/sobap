@@ -4,7 +4,7 @@
   "description": "SOBAP",
   "private": true,
   "scripts": {
-    "mock": "cp -pvf node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff} design && jade -w design & stylus design/main.styl -I node_modules/nib/lib -w -c & npm run serve -- --files 'design/**/*.{styl,jade}' --server design",
+    "mock": "cp -pvf node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff} design && jade -w design & stylus design/main.styl -I node_modules/nib/lib -w -c & npm run serve -- --files 'design/*.{styl,jade}' --server design",
     "start": "npm run cp-octicons && npm run jade-w & npm run stylus-w & npm run watchify & npm run serve -- --files 'src/**/*.{styl,jade,coffee,cjsx}' --server public",
     "serve": "browser-sync start --host 127.0.0.1 --open external",
     "jade": "jade < src/index.jade > public/index.html",
