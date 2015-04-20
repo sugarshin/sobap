@@ -22,7 +22,7 @@
     .shop-memo-container
       p= data.shop_detial_memo
       p= data.other_memo
-  button.star-button(onClick=onClickStar)
+  button.star-button(type="button" onClick=onClickStar id=data.id class= ((starred)? 'starred' : ''))
     .star-button-inner
       span.star-button-f.left
       span.star-button-f.right

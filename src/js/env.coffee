@@ -9,3 +9,4 @@ module.exports =
     food: 'R012'
     type: 'lite'
     range: 5
+    count: 100

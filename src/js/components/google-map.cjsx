@@ -3,16 +3,16 @@
 "use strict"
 
 React = require 'react'
-Promise = require 'bluebird'
+# Promise = require 'bluebird'
 
 module.exports =
 React.createClass
 
-  getCurrentGeo: ->
-    new Promise (resolve, reject) ->
-      navigator.geolocation.getCurrentPosition (pos, err) ->
-        if err? then reject err
-        resolve pos
+  # getCurrentGeo: ->
+  #   new Promise (resolve, reject) ->
+  #     navigator.geolocation.getCurrentPosition (pos, err) ->
+  #       if err? then reject err
+  #       resolve pos
 
   # getInitialState: ->
 

@@ -1,4 +1,4 @@
-# Shop
+# StarredShop
 
 "use strict"
 
@@ -18,3 +18,4 @@ React.createClass
     template
       data: @props.data
       onClickStar: @props.onClickStar
+      starred: true
