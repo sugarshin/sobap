@@ -10,9 +10,11 @@ _ = require 'lodash'
 
 Header = require './header'
 GoogleMap = require './google-map'
+StarredShops = require './starred-shops'
 Shops = require './shops'
 Footer = require './footer'
 { API_GOURMET, BASE_Q } = require '../env'
+{ store } = require '../util'
 
 module.exports =
 React.createClass
@@ -25,17 +27,32 @@ React.createClass
   getShopData: (query) ->
     new Promise (resolve, reject) ->
       jsonp API_GOURMET,
-        param: qs.stringify(query) + '&callback' # todo
+        param: qs.stringify(query, arrayFormat: 'repeat') + '&callback' # todo
       , (err, data) ->
-        if err?
-          console.error err
-          reject err
-        # console.debug data
+        if err?　then reject err
         resolve data
 
-  getInitialState: -> shops: []
+  getInitialState: ->
+    shops: []
+    starredShops: []
 
-  componentDidMount: -> @updateShopsByGeolocation()
+  _starredIDs: []
+
+  componentWillMount: -> @fetchStarredID()
+
+  componentDidMount: ->
+    @updateStarredShops()
+    @updateShopsByGeolocation()
+
+  updateStarredShops: ->
+    console.log @_starredIDs
+    if @_starredIDs.length is 0 then return @setState starredShops: []
+    Promise.resolve()
+      .then =>
+        @getShopData _.assign _.cloneDeep(BASE_Q), id: @_starredIDs
+      .then (data) =>
+        console.log data.results.shop
+        @setState starredShops: data.results.shop
 
   updateShopsByGeolocation: ->
     currentGeo = null # todo
@@ -67,14 +84,33 @@ React.createClass
           lat: el.lat, lng: el.lng
         @refs.googleMap.updateByCurrentGeo　geos[0], geos
 
-  onClickLocation: ->
-    @updateShopsByGeolocation()
+  onClickLocation: ->　@updateShopsByGeolocation()
 
   onClickSearchKeyword: ->
     v = React.findDOMNode @refs.header
         .querySelector 'input[type=search]'
         .value
     @updateShopsByKeyword v
+
+  fetchStarredID: -> @_starredIDs = store 'starredShopsIDs'
+
+  saveStarredID: -> store 'starredShopsIDs', @_starredIDs
+
+  addStarredID: (ev, reactID) ->
+    @_starredIDs.push ev.currentTarget.id
+    @updateStarredShops()
+    @saveStarredID()
+
+  removeStarredID: (ev, reactID) ->
+    _.remove @_starredIDs, (el) -> el is ev.currentTarget.id
+    @updateStarredShops()
+    @saveStarredID()
+
+  toggleStarredID: (ev, reactID) ->
+    if _.find(@_starredIDs, (el) -> el is ev.currentTarget.id)
+      @removeStarredID ev, reactID
+    else
+      @addStarredID ev, reactID
 
   render: ->
     <div className="app">
@@ -85,7 +121,16 @@ React.createClass
       />
       <GoogleMap ref="googleMap" />
       <div className="main">
-        <Shops ref="shops" shops={@state.shops} />
+        <StarredShops
+          ref="starredShops"
+          shops={@state.starredShops}
+          onClickStar={@removeStarredID}
+        />
+        <Shops
+          ref="shops"
+          shops={@state.shops}
+          onClickStar={@toggleStarredID}
+        />
       </div>
       <Footer />
     </div>

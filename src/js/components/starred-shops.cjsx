@@ -1,9 +1,9 @@
-# Shops
+# StarredShops
 
 "use strict"
 
 React = require 'react'
-Shop = require './shop'
+StarredShop = require './starred-shop'
 
 module.exports =
 React.createClass
@@ -17,9 +17,9 @@ React.createClass
   #   console.log id
 
   render: ->
-    <div className="shops">
+    <div className="shops starred-shops">
       {@props.shops.map (shop) =>
-        <Shop
+        <StarredShop
           key={shop.id}
           data={shop}
           onClickStar={@props.onClickStar}
