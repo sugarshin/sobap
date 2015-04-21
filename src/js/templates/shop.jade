@@ -2,7 +2,7 @@
 - var latlng = data.lat + ',' + data.lng
 
 .shop
-  h3.shop-name= data.name
+  h3.shop-name: a(href= data.urls.pc target="_blank")= data.name
   p.shop-address= data.address
   .shop-g-static-map
     a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
