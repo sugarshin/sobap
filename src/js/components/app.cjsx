@@ -10,7 +10,6 @@ _ = require 'lodash'
 
 Header = require './header'
 GoogleMap = require './google-map'
-StarredShops = require './starred-shops'
 Shops = require './shops'
 Footer = require './footer'
 { API_GOURMET, BASE_Q } = require '../env'
@@ -45,13 +44,11 @@ React.createClass
     @updateShopsByGeolocation()
 
   updateStarredShops: ->
-    console.log @_starredIDs
     if @_starredIDs.length is 0 then return @setState starredShops: []
     Promise.resolve()
       .then =>
         @getShopData _.assign _.cloneDeep(BASE_Q), id: @_starredIDs
       .then (data) =>
-        console.log data.results.shop
         @setState starredShops: data.results.shop
 
   updateShopsByGeolocation: ->
@@ -87,6 +84,7 @@ React.createClass
   onClickLocation: ->　@updateShopsByGeolocation()
 
   onClickSearchKeyword: ->
+    # todo
     v = React.findDOMNode @refs.header
         .querySelector 'input[type=search]'
         .value
@@ -96,21 +94,24 @@ React.createClass
 
   saveStarredID: -> store 'starredShopsIDs', @_starredIDs
 
-  addStarredID: (ev, reactID) ->
-    @_starredIDs.push ev.currentTarget.id
+  addStarredID: (id) ->
+    @_starredIDs.push id
     @updateStarredShops()
     @saveStarredID()
 
-  removeStarredID: (ev, reactID) ->
-    _.remove @_starredIDs, (el) -> el is ev.currentTarget.id
+  removeStarredID: (id) ->
+    _.remove @_starredIDs, (el) -> el is id
     @updateStarredShops()
     @saveStarredID()
 
-  toggleStarredID: (ev, reactID) ->
-    if _.find(@_starredIDs, (el) -> el is ev.currentTarget.id)
-      @removeStarredID ev, reactID
+  toggleStarredID: (id) ->
+    if _.includes(@_starredIDs, id)
+      @removeStarredID id
     else
-      @addStarredID ev, reactID
+      @addStarredID id
+
+  onClickStar: (ev, reactID) -> @toggleStarredID ev.currentTarget.id
+  onClickStarredStar: (ev, reactID) -> @removeStarredID ev.currentTarget.id
 
   render: ->
     <div className="app">
@@ -121,15 +122,19 @@ React.createClass
       />
       <GoogleMap ref="googleMap" />
       <div className="main">
-        <StarredShops
+        <Shops
           ref="starredShops"
+          classNames={'shops starred-shops'}
           shops={@state.starredShops}
-          onClickStar={@removeStarredID}
+          onClickStar={@onClickStarredStar}
+          starredIDs={@_starredIDs}
         />
         <Shops
           ref="shops"
+          classNames={'shops'}
           shops={@state.shops}
-          onClickStar={@toggleStarredID}
+          onClickStar={@onClickStar}
+          starredIDs={@_starredIDs}
         />
       </div>
       <Footer />

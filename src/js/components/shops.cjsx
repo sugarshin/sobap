@@ -3,6 +3,7 @@
 "use strict"
 
 React = require 'react'
+_ = require 'lodash'
 Shop = require './shop'
 
 module.exports =
@@ -12,17 +13,14 @@ React.createClass
 
   getDefaultProps: -> shops: []
 
-  # onClickStar: (ev, id) ->
-  #   console.log ev.target
-  #   console.log id
-
   render: ->
-    <div className="shops">
+    <div className={@props.classNames}>
       {@props.shops.map (shop) =>
         <Shop
           key={shop.id}
           data={shop}
           onClickStar={@props.onClickStar}
+          isStarred={_.includes @props.starredIDs, shop.id}
         />
       }
     </div>
