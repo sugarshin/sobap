@@ -65,7 +65,7 @@ React.createClass
         @setState shops: data.results.shop
 
         geos = _.map data.results.shop, (el, i) ->
-          lat: el.lat, lng: el.lng
+          lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　currentGeo, geos
 
   updateShopsByKeyword: (keyword) ->
@@ -78,7 +78,7 @@ React.createClass
         @setState shops: data.results.shop
 
         geos = _.map data.results.shop, (el, i) ->
-          lat: el.lat, lng: el.lng
+          lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　geos[0], geos
 
   onClickLocation: ->　@updateShopsByGeolocation()
