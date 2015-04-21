@@ -10,11 +10,13 @@ module.exports =
 React.createClass
   propTypes:
     data: React.PropTypes.object
+    onClickStar: React.PropTypes.func
+    isStarred: React.PropTypes.bool
 
   componentDidMount: ->
 
   render: ->
-    # console.log @props.data
     template
       data: @props.data
       onClickStar: @props.onClickStar
+      starred: @props.isStarred
