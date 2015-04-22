@@ -1,8 +1,12 @@
-- var KEY = 'AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k'
-- var latlng = data.lat + ',' + data.lng
+include ./_helper.jade
+
+- var KEY = 'AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k';
+- var latlng = data.lat + ',' + data.lng;
 
 .shop
-  h3.shop-name: a(href= data.urls.pc target="_blank")= data.name
+  h3.shop-name
+    a(href= createURI(data.urls.pc) target="_blank")
+      img(src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145" height="0" width="0" border="0")= data.name
   p.shop-address= data.address
   .shop-g-static-map
     a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
@@ -15,7 +19,8 @@
     a.btn(href="//www.google.com/search?q=" + data.name target="_blank")
       | Google
       span.octicon.octicon-link-external
-    a.btn(href= data.urls.pc target="_blank")
+    a.btn(href= createURI(data.urls.pc) target="_blank")
+      img(src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145" height="0" width="0" border="0")
       | Hotpepper
       span.octicon.octicon-link-external
   if data.shop_detial_memo || data.other_memo

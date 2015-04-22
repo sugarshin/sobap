@@ -1,0 +1,7 @@
+- var baseUrl = 'http://ck.jp.ap.valuecommerce.com/servlet/referral';
+- var sid = 3210627;
+- var pid = 883436145;
+- var createURI = function(url) {
+  - var encodeUrl = encodeURIComponent(url);
+  - return baseUrl + '?sid=' + sid + '&pid=' + pid + '&vc_url=' + encodeUrl
+- };
