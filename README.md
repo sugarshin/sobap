@@ -1,5 +1,9 @@
 # sobap
 
-**WIP**
+SOBAP beta | 蕎麦マップ
 
-蕎麦マップ
+お蕎麦屋検索 SOBAP
+
+[http://sugarshin.github.io/sobap](http://sugarshin.github.io/sobap)
+
+© 2015 sugarshin
