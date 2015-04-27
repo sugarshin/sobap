@@ -3,7 +3,8 @@
 "use strict"
 
 React = require 'react'
-_ = require 'lodash'
+includes = require 'lodash.includes'
+map = require 'lodash.map'
 Shop = require './shop'
 
 module.exports =
@@ -15,12 +16,12 @@ React.createClass
 
   render: ->
     <div className={@props.classNames}>
-      {@props.shops.map (shop) =>
+      {map @props.shops, (shop) =>
         <Shop
           key={shop.id}
           data={shop}
           onClickStar={@props.onClickStar}
-          isStarred={_.includes @props.starredIDs, shop.id}
+          isStarred={includes @props.starredIDs, shop.id}
         />
       }
     </div>

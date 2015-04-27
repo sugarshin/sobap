@@ -6,7 +6,11 @@ React = require 'react'
 Promise = require 'bluebird'
 jsonp = require 'jsonp'
 qs = require 'qs'
-_ = require 'lodash'
+assign = require 'lodash.assign'
+cloneDeep = require 'lodash.clonedeep'
+map = require 'lodash.map'
+includes = require 'lodash.includes'
+remove = require 'lodash.remove'
 
 Header = require './header'
 GoogleMap = require './google-map'
@@ -47,7 +51,7 @@ React.createClass
     if @_starredIDs.length is 0 then return @setState starredShops: []
     Promise.resolve()
       .then =>
-        @getShopData _.assign _.cloneDeep(BASE_Q), id: @_starredIDs
+        @getShopData assign cloneDeep(BASE_Q), id: @_starredIDs
       .then (data) =>
         @setState starredShops: data.results.shop
 
@@ -59,25 +63,25 @@ React.createClass
         currentGeo =
           lat: geoPos.coords.latitude
           lng: geoPos.coords.longitude
-        query = _.assign _.cloneDeep(BASE_Q), currentGeo
+        query = assign cloneDeep(BASE_Q), currentGeo
         @getShopData query
       .then (data) =>
         @setState shops: data.results.shop
 
-        geos = _.map data.results.shop, (el, i) ->
+        geos = map data.results.shop, (el, i) ->
           lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　currentGeo, geos
 
   updateShopsByKeyword: (keyword) ->
     Promise.resolve()
       .then =>
-        query = _.assign _.cloneDeep(BASE_Q),
+        query = assign cloneDeep(BASE_Q),
           keyword: keyword
         @getShopData query
       .then (data) =>
         @setState shops: data.results.shop
 
-        geos = _.map data.results.shop, (el, i) ->
+        geos = map data.results.shop, (el, i) ->
           lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　geos[0], geos
 
@@ -100,12 +104,12 @@ React.createClass
     @saveStarredID()
 
   removeStarredID: (id) ->
-    _.remove @_starredIDs, (el) -> el is id
+    remove @_starredIDs, (el) -> el is id
     @updateStarredShops()
     @saveStarredID()
 
   toggleStarredID: (id) ->
-    if _.includes(@_starredIDs, id)
+    if includes(@_starredIDs, id)
       @removeStarredID id
     else
       @addStarredID id

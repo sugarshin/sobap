@@ -1,6 +1,6 @@
 {
   "name": "sobap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SOBAP",
   "private": true,
   "scripts": {
@@ -40,7 +40,11 @@
   "dependencies": {
     "bluebird": "^2.9.24",
     "jsonp": "^0.2.0",
-    "lodash": "^3.7.0",
+    "lodash.assign": "^3.1.0",
+    "lodash.clonedeep": "^3.0.0",
+    "lodash.includes": "^3.1.1",
+    "lodash.map": "^3.1.1",
+    "lodash.remove": "^3.0.1",
     "octicons": "^2.2.0",
     "qs": "^2.4.1",
     "react": "^0.13.2",
