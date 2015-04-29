@@ -6,28 +6,44 @@ include ./_helper.jade
 .shop
   h3.shop-name
     a(href= createURI(data.urls.pc) target="_blank")
-      img(src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145" height="0" width="0" border="0")= data.name
+      img(
+        src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+        height="0"
+        width="0"
+        border="0"
+      )= data.name
+
   p.shop-address= data.address
+
   .shop-g-static-map
     a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
       img(src="http://maps.googleapis.com/maps/api/staticmap?center=" + latlng + "&zoom=15&markers=color:white%7C" + latlng + "&size=320x180&scale=2&key=" + KEY + "&sensor=false")
+
   .shop-catch-container
     p= data.catch
     p= data.genre.catch
     p= data.food.catch
+
   .shop-link-external
     a.btn(href="//www.google.com/search?q=" + data.name target="_blank")
       | Google
       span.octicon.octicon-link-external
     a.btn(href= createURI(data.urls.pc) target="_blank")
-      img(src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145" height="0" width="0" border="0")
+      img(
+        src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+        height="0"
+        width="0"
+        border="0"
+      )
       | Hotpepper
       span.octicon.octicon-link-external
+
   if data.shop_detial_memo || data.other_memo
     .shop-memo-container
       p= data.shop_detial_memo
       p= data.other_memo
-  button.star-button(type="button" onClick=onClickStar id=data.id class= ((starred)? 'starred' : ''))
+
+  button.star-button(type="button" onClick=onClickStar id=data.id class= ((isStarred)? 'starred' : ''))
     .star-button-inner
       span.star-button-f.left
       span.star-button-f.right
