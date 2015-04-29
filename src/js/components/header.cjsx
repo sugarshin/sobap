@@ -12,8 +12,6 @@ React.createClass
   _onClickLocation: -> @props.onClickLocation()
   _onClickSearchKeyword: -> @props.onClickSearchKeyword()
 
-  componentDidMount: ->
-
   render: ->
     template
       onClickLocation: @_onClickLocation

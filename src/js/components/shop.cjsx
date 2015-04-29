@@ -13,10 +13,4 @@ React.createClass
     onClickStar: React.PropTypes.func
     isStarred: React.PropTypes.bool
 
-  componentDidMount: ->
-
-  render: ->
-    template
-      data: @props.data
-      onClickStar: @props.onClickStar
-      isStarred: @props.isStarred
+  render: -> template @props

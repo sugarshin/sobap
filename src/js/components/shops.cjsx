@@ -10,8 +10,6 @@ Shop = require './shop'
 module.exports =
 React.createClass
 
-  componentDidMount: ->
-
   getDefaultProps: -> shops: []
 
   render: ->
@@ -22,6 +20,5 @@ React.createClass
           data={shop}
           onClickStar={@props.onClickStar}
           isStarred={includes @props.starredIDs, shop.id}
-        />
-      }
+        />}
     </div>
