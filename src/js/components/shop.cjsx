@@ -19,4 +19,4 @@ React.createClass
     template
       data: @props.data
       onClickStar: @props.onClickStar
-      starred: @props.isStarred
+      isStarred: @props.isStarred
