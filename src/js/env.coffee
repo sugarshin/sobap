@@ -2,7 +2,7 @@
 
 module.exports =
   API_GOURMET: 'http://webservice.recruit.co.jp/hotpepper/gourmet/v1/'
-  BASE_Q:
+  BASE_QUERY:
     key: '1cc33a2a2f3f364a'
     # large_area: 'Z011'
     format: 'jsonp'

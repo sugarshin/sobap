@@ -1,20 +1,23 @@
 "use strict"
 
 React = require 'react'
-Promise = require 'bluebird'
-jsonp = require 'jsonp'
-qs = require 'qs'
-assign = require 'object-assign'
-cloneDeep = require 'lodash.clonedeep'
-includes = require 'lodash.includes'
-remove = require 'lodash.remove'
+EventEmitter = require 'eventemitter3'
 
 Header = require './header'
 GoogleMap = require './google-map'
 Shops = require './shops'
 Footer = require './footer'
-{ API_GOURMET, BASE_Q } = require '../env'
-{ store } = require '../util'
+
+Actions = require '../actions/actions'
+ShopStore = require '../stores/shop-store'
+StarredShopStore = require '../stores/starred-shop-store'
+
+dispatcher = new EventEmitter
+
+actions = new Actions dispatcher
+
+shopStore = new ShopStore dispatcher
+starredShopStore = new StarredShopStore dispatcher
 
 module.exports =
 class App extends React.Component
@@ -26,98 +29,37 @@ class App extends React.Component
       shops: []
       starredShops: []
 
-  getCurrentGeo: ->
-    new Promise (resolve, reject) ->
-      navigator.geolocation.getCurrentPosition (pos, err) ->
-        if err? then reject err
-        resolve pos
+    shopStore.on 'change:shops', (data, currentGeo) =>
+      @setState shops: data.results.shop
 
-  getShopData: (query) ->
-    new Promise (resolve, reject) ->
-      jsonp API_GOURMET,
-        param: qs.stringify(query, arrayFormat: 'repeat') + '&callback' # todo
-      , (err, data) ->
-        if err?　then reject err
-        resolve data
+      geos = data.results.shop.map (el) ->
+        lat: el.lat, lng: el.lng, id: el.id
 
-  _starredIDs: []
+      @refs.googleMap.updateByCurrentGeo (if currentGeo? then currentGeo else geos[0]), geos
 
-  componentWillMount: ->
-    @fetchStarredID()
+    starredShopStore.on 'change:starredShops', (shop) =>
+      @setState starredShops: shop
 
   componentDidMount: ->
-    @updateStarredShops()
-    @updateShopsByGeolocation()
+    actions.updateStarredShop()
+    actions.updateShopsByGeo()
 
-  updateStarredShops: ->
-    if @_starredIDs.length is 0 then return @setState starredShops: []
-    Promise.resolve()
-      .then =>
-        @getShopData assign cloneDeep(BASE_Q), id: @_starredIDs
-      .then (data) =>
-        @setState starredShops: data.results.shop
-
-  updateShopsByGeolocation: ->
-    currentGeo = null # todo
-    Promise.resolve()
-      .then @getCurrentGeo
-      .then (geoPos) =>
-        currentGeo =
-          lat: geoPos.coords.latitude
-          lng: geoPos.coords.longitude
-        query = assign cloneDeep(BASE_Q), currentGeo
-        @getShopData query
-      .then (data) =>
-        @setState shops: data.results.shop
-
-        geos = data.results.shop.map (el) ->
-          lat: el.lat, lng: el.lng, id: el.id
-        @refs.googleMap.updateByCurrentGeo　currentGeo, geos
-
-  updateShopsByKeyword: (keyword) ->
-    Promise.resolve()
-      .then =>
-        query = assign cloneDeep(BASE_Q),
-          keyword: keyword
-        @getShopData query
-      .then (data) =>
-        @setState shops: data.results.shop
-
-        geos = data.results.shop.map (el) ->
-          lat: el.lat, lng: el.lng, id: el.id
-        @refs.googleMap.updateByCurrentGeo　geos[0], geos
-
-  onClickLocation: =>　@updateShopsByGeolocation()
+  onClickLocation: => actions.updateShopsByGeo()
 
   onClickSearchKeyword: =>
-    # todo
+    # TODO
     v = React.findDOMNode @refs.header
         .querySelector 'input[type=search]'
         .value
-    @updateShopsByKeyword v
+    actions.updateShopsByKeyword v
 
-  fetchStarredID: -> @_starredIDs = store 'starredShopsIDs'
-
-  saveStarredID: -> store 'starredShopsIDs', @_starredIDs
-
-  addStarredID: (id) ->
-    @_starredIDs.push id
-    @updateStarredShops()
-    @saveStarredID()
-
-  removeStarredID: (id) ->
-    remove @_starredIDs, (el) -> el is id
-    @updateStarredShops()
-    @saveStarredID()
-
-  toggleStarredID: (id) ->
-    if includes(@_starredIDs, id)
-      @removeStarredID id
-    else
-      @addStarredID id
-
-  onClickStar: (ev, reactID) => @toggleStarredID ev.currentTarget.id
-  onClickStarredStar: (ev, reactID) => @removeStarredID ev.currentTarget.id
+  onClickStar: (e) =>
+    actions.updateStarredShop e.currentTarget.id
+    return
+    # Returning `false` from an event handler is
+    # deprecated and will be ignored in a future release.
+    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
+    # 上記 warning の回避のため
 
   render: ->
     <div className="app">
@@ -129,18 +71,16 @@ class App extends React.Component
       <GoogleMap ref="googleMap" />
       <div className="main">
         <Shops
-          ref="starredShops"
           classNames={'shops starred-shops'}
           shops={@state.starredShops}
-          onClickStar={@onClickStarredStar}
-          starredIDs={@_starredIDs}
+          onClickStar={@onClickStar}
+          starredIDs={starredShopStore.getStarredIDs()}
         />
         <Shops
-          ref="shops"
           classNames={'shops'}
           shops={@state.shops}
           onClickStar={@onClickStar}
-          starredIDs={@_starredIDs}
+          starredIDs={starredShopStore.getStarredIDs()}
         />
       </div>
       <Footer />
