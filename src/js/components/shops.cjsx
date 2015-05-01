@@ -4,7 +4,6 @@
 
 React = require 'react'
 includes = require 'lodash.includes'
-map = require 'lodash.map'
 Shop = require './shop'
 
 module.exports =
@@ -14,7 +13,7 @@ React.createClass
 
   render: ->
     <div className={@props.classNames}>
-      {map @props.shops, (shop) =>
+      {@props.shops.map (shop) =>
         <Shop
           key={shop.id}
           data={shop}
