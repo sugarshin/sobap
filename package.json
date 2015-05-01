@@ -6,7 +6,7 @@
   "scripts": {
     "mock": "cp -pvf node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff} design && jade -w design & stylus design/main.styl -I node_modules/nib/lib -w -c & npm run serve -- --files 'design/*.{styl,jade}' --server design",
     "start": "npm run cp-octicons && npm run jade-w & npm run stylus-w & npm run watchify & npm run serve -- --files 'src/**/*.{styl,jade,coffee,cjsx}' --server public",
-    "serve": "browser-sync start --host 127.0.0.1 --open external",
+    "serve": "browser-sync start --host 127.0.0.1 --open external --no-notify",
     "jade": "jade < src/index.jade > public/index.html",
     "jade-w": "npm run jade -- -w",
     "stylus": "stylus -I node_modules/nib/lib -c src/css/main.styl -o public/css/main.css",
@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "bluebird": "^2.9.24",
+    "eventemitter3": "^1.0.1",
     "jsonp": "^0.2.0",
     "lodash.clonedeep": "^3.0.0",
     "lodash.includes": "^3.1.1",
