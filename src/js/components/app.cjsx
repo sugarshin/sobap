@@ -1,5 +1,3 @@
-# App
-
 "use strict"
 
 React = require 'react'
@@ -19,7 +17,15 @@ Footer = require './footer'
 { store } = require '../util'
 
 module.exports =
-React.createClass
+class App extends React.Component
+
+  constructor: (props) ->
+    super props
+
+    @state =
+      shops: []
+      starredShops: []
+
   getCurrentGeo: ->
     new Promise (resolve, reject) ->
       navigator.geolocation.getCurrentPosition (pos, err) ->
@@ -34,13 +40,10 @@ React.createClass
         if err?　then reject err
         resolve data
 
-  getInitialState: ->
-    shops: []
-    starredShops: []
-
   _starredIDs: []
 
-  componentWillMount: -> @fetchStarredID()
+  componentWillMount: ->
+    @fetchStarredID()
 
   componentDidMount: ->
     @updateStarredShops()
@@ -84,9 +87,9 @@ React.createClass
           lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　geos[0], geos
 
-  onClickLocation: ->　@updateShopsByGeolocation()
+  onClickLocation: =>　@updateShopsByGeolocation()
 
-  onClickSearchKeyword: ->
+  onClickSearchKeyword: =>
     # todo
     v = React.findDOMNode @refs.header
         .querySelector 'input[type=search]'
@@ -113,8 +116,8 @@ React.createClass
     else
       @addStarredID id
 
-  onClickStar: (ev, reactID) -> @toggleStarredID ev.currentTarget.id
-  onClickStarredStar: (ev, reactID) -> @removeStarredID ev.currentTarget.id
+  onClickStar: (ev, reactID) => @toggleStarredID ev.currentTarget.id
+  onClickStarredStar: (ev, reactID) => @removeStarredID ev.currentTarget.id
 
   render: ->
     <div className="app">
@@ -142,3 +145,6 @@ React.createClass
       </div>
       <Footer />
     </div>
+
+# App.propTypes =
+# App.defaultProps =

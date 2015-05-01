@@ -1,5 +1,3 @@
-# Shops
-
 "use strict"
 
 React = require 'react'
@@ -7,9 +5,10 @@ includes = require 'lodash.includes'
 Shop = require './shop'
 
 module.exports =
-React.createClass
+class Shops extends React.Component
 
-  getDefaultProps: -> shops: []
+  constructor: (props) ->
+    super props
 
   render: ->
     <div className={@props.classNames}>
@@ -21,3 +20,7 @@ React.createClass
           isStarred={includes @props.starredIDs, shop.id}
         />}
     </div>
+
+# Shops.propTypes =
+Shops.defaultProps =
+  shops: []

@@ -1,14 +1,12 @@
-# GoogleMap
-
 "use strict"
 
 React = require 'react'
 
 module.exports =
-React.createClass
+class GoogleMap extends React.Component
 
-  # getInitialState: ->
-  # getDefaultProps: ->
+  constructor: (props) ->
+    super props
 
   map: null
   currentMarker: null
@@ -57,11 +55,14 @@ React.createClass
       anchor: @marker
       content: contentString
 
-  onZoomChange: ->
-
-  onDragEnd: ->
+  # onZoomChange: ->
+  #
+  # onDragEnd: ->
 
   render: ->
     <div className="google-map">
       <div ref="mapCanvas" style={'height': '100%'}></div>
     </div>
+
+# GoogleMap.propTypes =
+# GoogleMap.defaultProps =
