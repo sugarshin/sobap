@@ -6,9 +6,8 @@ React = require 'react'
 Promise = require 'bluebird'
 jsonp = require 'jsonp'
 qs = require 'qs'
-assign = require 'lodash.assign'
+assign = require 'object-assign'
 cloneDeep = require 'lodash.clonedeep'
-map = require 'lodash.map'
 includes = require 'lodash.includes'
 remove = require 'lodash.remove'
 
@@ -68,7 +67,7 @@ React.createClass
       .then (data) =>
         @setState shops: data.results.shop
 
-        geos = map data.results.shop, (el, i) ->
+        geos = data.results.shop.map (el) ->
           lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　currentGeo, geos
 
@@ -81,7 +80,7 @@ React.createClass
       .then (data) =>
         @setState shops: data.results.shop
 
-        geos = map data.results.shop, (el, i) ->
+        geos = data.results.shop.map (el) ->
           lat: el.lat, lng: el.lng, id: el.id
         @refs.googleMap.updateByCurrentGeo　geos[0], geos
 
