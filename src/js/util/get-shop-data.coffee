@@ -4,7 +4,7 @@ Promise = require 'bluebird'
 jsonp = require 'jsonp'
 qs = require 'qs'
 
-{ API_GOURMET } = require '../env'
+{ API_GOURMET } = require '../conf'
 
 module.exports = (query) ->
   new Promise (resolve, reject) ->

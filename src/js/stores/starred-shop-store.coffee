@@ -1,5 +1,3 @@
-# Actions
-
 "use strict"
 
 Promise = require 'bluebird'
@@ -9,7 +7,7 @@ cloneDeep = require 'lodash.clonedeep'
 includes = require 'lodash.includes'
 remove = require 'lodash.remove'
 
-{ BASE_QUERY } = require '../env'
+{ BASE_QUERY } = require '../conf'
 { getShopData, store } = require '../util/'
 
 module.exports =

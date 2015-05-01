@@ -1,5 +1,3 @@
-# Actions
-
 "use strict"
 
 Promise = require 'bluebird'
@@ -7,7 +5,7 @@ EventEmitter = require 'eventemitter3'
 assign = require 'object-assign'
 cloneDeep = require 'lodash.clonedeep'
 
-{ BASE_QUERY } = require '../env'
+{ BASE_QUERY } = require '../conf'
 { getShopData, getCurrentGeo } = require '../util/'
 
 module.exports =
