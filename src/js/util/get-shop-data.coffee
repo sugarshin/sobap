@@ -4,11 +4,9 @@ Promise = require 'bluebird'
 jsonp = require 'jsonp'
 qs = require 'qs'
 
-{ API_GOURMET } = require '../conf'
-
-module.exports = (query) ->
+module.exports = (url, query) ->
   new Promise (resolve, reject) ->
-    jsonp API_GOURMET,
+    jsonp url,
       param: qs.stringify(query, arrayFormat: 'repeat') + '&callback' # todo
     , (err, data) ->
       if err?　then reject err

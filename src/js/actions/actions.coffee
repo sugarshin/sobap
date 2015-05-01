@@ -11,4 +11,4 @@ class Actions
 
   updateShopsByKeyword: (keyword) -> @dispatcher.emit 'updateShopsByKeyword', keyword
 
-  updateStarredShop: (id) -> @dispatcher.emit 'updateStarredShop', id
+  updateStarredShops: (id) -> @dispatcher.emit 'updateStarredShops', id

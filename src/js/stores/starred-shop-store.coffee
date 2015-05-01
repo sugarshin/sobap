@@ -3,11 +3,10 @@
 Promise = require 'bluebird'
 EventEmitter = require 'eventemitter3'
 assign = require 'object-assign'
-cloneDeep = require 'lodash.clonedeep'
 includes = require 'lodash.includes'
 remove = require 'lodash.remove'
 
-{ BASE_QUERY } = require '../conf'
+{ API_GOURMET, BASE_QUERY } = require '../conf'
 { getShopData, store } = require '../util/'
 
 module.exports =
@@ -15,7 +14,7 @@ class StarredShopStore extends EventEmitter
 
   constructor: (dispatcher) ->
     super
-    dispatcher.on 'updateStarredShop', @updateStarredShop
+    dispatcher.on 'updateStarredShops', @updateStarredShops
     dispatcher.on 'fetchStarredID', @fetchStarredID
     @state = starredShops: []
     @_starredIDs = store 'starredShopsIDs'
@@ -24,7 +23,7 @@ class StarredShopStore extends EventEmitter
 
   getStarredIDs: -> @_starredIDs
 
-  updateStarredShop: (id) =>
+  updateStarredShops: (id) =>
     if id?
       @_toggleStarredID id
       @_saveStarredID()
@@ -34,7 +33,7 @@ class StarredShopStore extends EventEmitter
 
     Promise.resolve()
       .then =>
-        getShopData assign cloneDeep(BASE_QUERY), id: @_starredIDs
+        getShopData API_GOURMET, assign {}, BASE_QUERY, id: @_starredIDs
       .then (data) =>
         @emit 'change:starredShops', data.results.shop
 

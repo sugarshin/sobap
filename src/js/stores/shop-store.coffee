@@ -3,9 +3,8 @@
 Promise = require 'bluebird'
 EventEmitter = require 'eventemitter3'
 assign = require 'object-assign'
-cloneDeep = require 'lodash.clonedeep'
 
-{ BASE_QUERY } = require '../conf'
+{ API_GOURMET, BASE_QUERY } = require '../conf'
 { getShopData, getCurrentGeo } = require '../util/'
 
 module.exports =
@@ -27,16 +26,13 @@ class ShopStore extends EventEmitter
         currentGeo =
           lat: geoPos.coords.latitude
           lng: geoPos.coords.longitude
-        query = assign cloneDeep(BASE_QUERY), currentGeo
-        getShopData query
+        getShopData API_GOURMET, assign {}, BASE_QUERY, currentGeo
       .then (data) =>
         @emit 'change:shops', data, currentGeo
 
   updateShopsByKeyword: (keyword) =>
     Promise.resolve()
       .then ->
-        query = assign cloneDeep(BASE_QUERY),
-          keyword: keyword
-        getShopData query
+        getShopData API_GOURMET, assign {}, BASE_QUERY, keyword: keyword
       .then (data) =>
         @emit 'change:shops', data
