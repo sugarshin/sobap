@@ -1,6 +1,5 @@
 "use strict"
 
-Promise = require 'bluebird'
 EventEmitter = require 'eventemitter3'
 
 module.exports =
