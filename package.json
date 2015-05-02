@@ -1,6 +1,6 @@
 {
   "name": "sobap",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "SOBAP",
   "private": true,
   "scripts": {
@@ -26,23 +26,23 @@
     "node": "0.12.x"
   },
   "devDependencies": {
-    "browser-sync": "^2.5.0",
-    "browserify": "^9.0.3",
-    "clean-css": "^3.1.8",
+    "browser-sync": "^2.6.9",
+    "browserify": "^10.0.0",
+    "clean-css": "^3.2.6",
     "coffee-reactify": "^3.0.0",
     "jade": "^1.9.2",
     "nib": "^1.1.0",
     "replace": "^0.3.0",
-    "stylus": "^0.50.0",
-    "uglify-js": "^2.4.17",
-    "watchify": "^2.6.2"
+    "stylus": "^0.51.1",
+    "uglify-js": "^2.4.20",
+    "watchify": "^3.2.1"
   },
   "dependencies": {
-    "bluebird": "^2.9.24",
+    "bluebird": "^2.9.25",
     "eventemitter3": "^1.0.1",
     "jsonp": "^0.2.0",
     "lodash.includes": "^3.1.1",
-    "lodash.remove": "^3.0.1",
+    "lodash.remove": "^3.1.0",
     "object-assign": "^2.0.0",
     "octicons": "^2.2.0",
     "qs": "^2.4.1",

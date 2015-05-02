@@ -20,7 +20,10 @@ class GoogleMap extends React.Component
 
     # todo
     geos.forEach (el, i) =>
-      m = @createMarker {latitude: el.lat, longitude: el.lng}, el.id
+      m = @createMarker
+        latitude: el.lat
+        longitude: el.lng
+      , el.id
       @markers.push m
       google.maps.event.addListener m, 'click', ->
         location.hash = m.url
