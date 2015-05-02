@@ -14,12 +14,20 @@ class GoogleMap extends React.Component
   markers: []
   infoWindow: null
 
-  updateByCurrentGeo: (center, geos) ->
-    @map.panTo new google.maps.LatLng center.lat, center.lng
+  updateByCurrentGeo: (geos, center) ->
+    # todo
+    if center?
+      @map.panTo new google.maps.LatLng center.lat, center.lng
+    else
+      bounds = new google.maps.LatLngBounds
+      geos.forEach (el) ->
+        bounds.extend new google.maps.LatLng el.lat, el.lng
+      @map.fitBounds bounds
+
     @removeAllMarker()
 
     # todo
-    geos.forEach (el, i) =>
+    geos.forEach (el) =>
       m = @createMarker
         latitude: el.lat
         longitude: el.lng
@@ -29,7 +37,7 @@ class GoogleMap extends React.Component
         location.hash = m.url
 
   removeAllMarker: ->
-    for marker, i in @markers
+    for marker in @markers
       marker.setMap null
 
   componentDidMount: ->

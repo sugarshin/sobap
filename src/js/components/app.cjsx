@@ -40,7 +40,7 @@ class App extends React.Component
     geos = shopStore.getShops().map (el) ->
       lat: el.lat, lng: el.lng, id: el.id
 
-    @refs.googleMap.updateByCurrentGeo (if currentGeo? then currentGeo else geos[0]), geos
+    @refs.googleMap.updateByCurrentGeo geos, (if currentGeo? then currentGeo else null)
 
   _onChangeStarredShops: =>
     @setState starredShops: starredShopStore.getStarredShops()
