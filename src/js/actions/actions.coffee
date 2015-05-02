@@ -18,7 +18,9 @@ class Actions
   #   @dispatcher.emit 'updateMap'
 
   updateShopsByGeo: ->
-    # currentGeo = null # todo
+
+    currentGeo = null # Provisional
+
     Promise.resolve()
     .then getCurrentGeo
     .then (geoPos) ->
@@ -27,7 +29,7 @@ class Actions
         lng: geoPos.coords.longitude
       getShopData API_GOURMET, assign {}, BASE_QUERY, currentGeo
     .then (data) =>
-      @dispatcher.emit 'updateShops', data#, currentGeo
+      @dispatcher.emit 'updateShops', data, currentGeo　# Provisional
 
   updateShopsByKeyword: (keyword) ->
     Promise.resolve()

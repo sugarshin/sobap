@@ -13,6 +13,7 @@ class ShopStore extends EventEmitter
 
   getShops: -> @state.shops
 
-  updateShops: (data) =>
+  # currentGeo Provisional
+  updateShops: (data, currentGeo) =>
     @state.shops = data.results.shop
-    @emit 'change:shops'#, data
+    @emit 'change:shops', currentGeo

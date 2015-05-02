@@ -33,8 +33,14 @@ class App extends React.Component
 
     starredShopStore.on 'change:starredShops', @_onChangeStarredShops
 
-  _onChangeShops: =>
+  _onChangeShops: (currentGeo) =>
     @setState shops: shopStore.getShops()
+
+    # Provisional
+    geos = shopStore.getShops().map (el) ->
+      lat: el.lat, lng: el.lng, id: el.id
+
+    @refs.googleMap.updateByCurrentGeo (if currentGeo? then currentGeo else geos[0]), geos
 
   _onChangeStarredShops: =>
     @setState starredShops: starredShopStore.getStarredShops()
