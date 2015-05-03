@@ -32,3 +32,10 @@ ignore
 public/css/main.css
 public/css/octicons.css
 public/js/main.js
+design/*.html
+design/**/*.css
+design/**/*.eot
+design/**/*.svg
+design/**/*.ttf
+design/**/*.woff
+design/**/*.js

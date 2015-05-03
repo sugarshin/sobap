@@ -1,0 +1,96 @@
+@charset "utf-8"
+
+.shop
+  _starWidth = 10%
+  background clr_wh
+  width 32.5%
+  margin-bottom 1.25%
+  box-sizing border-box
+  padding .68%
+  color clr_bk
+  position relative
+  @media screen and (max-width: 767px)
+    width 47.5%
+    margin 1.25%
+    padding: 1.25%;
+
+  @media screen and (max-width: 481px)
+    width 98.75%
+    padding: 2.5%;
+
+  .shop-name
+    margin-top 0
+    border-bottom 1px solid clr_lgry
+    line-height 2
+    padding-right _starWidth
+    a
+      color inherit
+      text-decoration none
+      &:hover
+        text-decoration underline
+      @media screen and (max-width: 481px)
+        display block
+
+  .shop-g-static-map
+    margin 16px 0
+    overflow hidden
+    img
+      width 100%
+      height auto
+      vertical-align top
+      transition transform .1s ease-out
+    a:hover
+      img
+        transform scale(1.06)
+  .shop-link-external
+    margin 16px 0
+    a
+      margin 0 4% 4% 0
+  .shop-memo-container
+    border-top 1px solid clr_lgry
+  .star-button
+    appearance none
+    border 0
+    background none
+    display block
+    _unstarClr = lighten(clr_bk, 70%)
+    position absolute
+    top 0
+    right 2%
+    width _starWidth
+    min-width 32px
+    text-align center
+    background _unstarClr
+    padding 0 0 3%
+    outline none
+    .star-button-inner
+      padding-top 35%
+      span
+        // text-longshadow(lighten(clr_bk, 30%))
+        color #fff
+        font-size 20px
+        transition font-size .1s ease-out
+    .star-button-f
+      position absolute
+      display block
+      width 50%
+      height 16px
+      bottom -8px
+      box-sizing border-box
+      z-index 1
+      background _unstarClr
+      &.left
+        left 0
+        transform skewY(-30deg)
+      &.right
+        right 0
+        transform skewY(30deg)
+    &:hover,
+    &.starred
+      background clr_bk
+      .star-button-f
+        background clr_bk
+    &.starred
+      .star-button-inner
+        span
+          color clr_yl

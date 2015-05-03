@@ -1,0 +1,11 @@
+makelongshadow(clr, max)
+  val = 0 0 clr
+  for $i in 1..max
+    val = val, unit($i, px) unit($i, px) alpha(clr, 1 - ($i / max))
+  val
+
+text-longshadow(clr, max = 128)
+  text-shadow makelongshadow(clr, max)
+
+box-longshadow(clr, max = 128)
+  box-shadow makelongshadow(clr, max)

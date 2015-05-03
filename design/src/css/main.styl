@@ -1,0 +1,38 @@
+@charset "utf-8"
+@import "nib"
+
+normalize-css()
+
+@import "import/_function"
+@import "import/_variable"
+@import "import/_base"
+@import "import/_partial"
+@import "import/_g-header"
+@import "import/_g-footer"
+@import "import/_shop"
+
+.google-map
+  height 38vh
+  background #fff
+
+.main
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  position relative
+  z-index 1
+  min-height 100%
+
+.shops
+  max-width 1024px
+  padding 1.25% .68%
+  margin 0 auto
+  box-sizing border-box
+  transition .3s top ease-out
+  display flex
+  flex-flow row wrap
+  justify-content space-between
+  align-content flex-start
+  align-items flex-start
+
+.shops.starred-shops
+  margin-bottom 5%
