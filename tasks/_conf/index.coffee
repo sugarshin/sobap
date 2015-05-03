@@ -7,6 +7,14 @@ S =
 module.exports =
   S: S
 
+  design:
+    notify: false
+    startPath: S.PATH
+    host: '127.0.0.1'
+    open: 'external'
+    server:
+      baseDir: './design'
+
   serve:
     notify: false
     startPath: S.PATH
@@ -43,8 +51,8 @@ module.exports =
 
   minifyCss:
     src: [
-      "#{S.DEST}#{S.PATH}/css/octicons.css"
       "#{S.DEST}#{S.PATH}/css/main.css"
+      "#{S.DEST}#{S.PATH}/css/octicons.css"
     ]
     dest: "#{S.DEST}#{S.PATH}/css"
 
