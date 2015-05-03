@@ -54,6 +54,7 @@ module.exports =
     src: "#{S.DEST}#{S.PATH}/index.html"
     dest: "#{S.DEST}#{S.PATH}"
     replacements: [
+      ['<link rel="stylesheet" href="css/octicons.css">', '']
       ['main.js?v', "main.min.js?v#{Date.now()}"]
       ['main.css?v', "main.min.css?v#{Date.now()}"]
     ]
