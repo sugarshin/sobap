@@ -13,13 +13,24 @@ html(lang="ja")
     #container.container
       header.g-header
         h1: a(href="./") SOBAP
+        .g-menu
+          ul
+            li: a(href="#")
+              span.octicon.octicon-search
+              | Search
+            li: a(href="#")
+              span.octicon.octicon-star
+              | Star
+
+      .search-bar-container
         .search-bar
           .search-near-button
             span.mega-octicon.octicon-location(onClick=onClickLocation)
           .search-keyword-container
             input(type="search")
             .search-keyword-button
-              button.octicon.octicon-search(onClick=onClickSearchKeyword)
+              button(onClick=onClickSearchKeyword)
+                span.octicon.octicon-search
 
       .google-map
 
@@ -70,3 +81,57 @@ html(lang="ja")
                 span.star-button-f.left
                 span.star-button-f.right
                 span.octicon.octicon-star
+
+
+
+          .shop
+            h3.shop-name
+              a(href="#" target="_blank")
+                | ○○○○○○○○○○○
+                img(
+                  src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+                  height="0"
+                  width="0"
+                  border="0"
+                )
+
+            p.shop-address あああ
+
+            .shop-g-static-map
+              a(href="https://maps.google.co.jp/maps?q=" target="_blank")
+                img(src="http://maps.googleapis.com/maps/api/staticmap?center=26.3977775564,127.7250637952&zoom=15&markers=color:white%7C26.3977775564,127.7250637952&size=320x180&scale=2&key=AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k&sensor=false")
+
+            .shop-catch-container
+              p ○○○○○○○○○○○○○○○○○○○○
+              p ○○○○○○○○○○○○○○○○○○○○
+              p ○○○○○○○○○○○○○○○○○○○○
+
+            .shop-link-external
+              a.btn(href="//www.google.com/search?q=" target="_blank")
+                | Google
+                span.octicon.octicon-link-external
+              a.btn(href="#" target="_blank")
+                img(
+                  src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+                  height="0"
+                  width="0"
+                  border="0"
+                )
+                | Hotpepper
+                span.octicon.octicon-link-external
+
+            .shop-memo-container
+              p ○○○○○○○○○○○○○○○○○○○○
+              p ○○○○○○○○○○○○○○○○○○○○
+
+            button.star-button(type="button" class="")
+              .star-button-inner
+                span.star-button-f.left
+                span.star-button-f.right
+                span.octicon.octicon-star
+
+      footer.g-footer
+        p.copyright: small
+          | &copy; 2015 
+          a(href="https://github.com/sugarshin/sobap" target="_blank") SOBAP beta 
+          | | Powered by HOT PEPPER
