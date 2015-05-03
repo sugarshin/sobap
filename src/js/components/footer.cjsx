@@ -10,7 +10,7 @@ class Footer extends React.Component
   constructor: (props) ->
     super props
 
-  render: -> template()
+  render: -> template year: new Date().getFullYear()
 
 # Footer.propTypes =
 # Footer.defaultProps =
