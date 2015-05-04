@@ -40,8 +40,8 @@ class GoogleMap extends React.Component
         longitude: el.lng
       , el.id
       @_markers.push m
-      google.maps.event.addListener m, 'click', ->
-        location.hash = m.url
+      # google.maps.event.addListener m, 'click', ->
+      #   location.hash = m.url
 
   removeAllMarker: ->
     for marker in @_markers
