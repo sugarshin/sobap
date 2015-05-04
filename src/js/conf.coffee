@@ -7,6 +7,6 @@ module.exports =
     # large_area: 'Z011'
     format: 'jsonp'
     food: 'R012'
-    type: 'lite'
+    # type: 'lite'
     range: 5
     count: 100

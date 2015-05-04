@@ -27,14 +27,15 @@ class Actions
       currentGeo =
         lat: geoPos.coords.latitude
         lng: geoPos.coords.longitude
-      getShopData API_GOURMET, assign {}, BASE_QUERY, currentGeo
+      getShopData API_GOURMET, assign {}, BASE_QUERY, currentGeo, type: 'lite'
     .then (data) =>
+      console.log data
       @dispatcher.emit 'updateShops', data, currentGeo　# Provisional
 
   updateShopsByKeyword: (keyword) ->
     Promise.resolve()
     .then ->
-      getShopData API_GOURMET, assign {}, BASE_QUERY, keyword: keyword
+      getShopData API_GOURMET, assign {}, BASE_QUERY, keyword: keyword, type: 'lite'
     .then (data) =>
       @dispatcher.emit 'updateShops', data
 
