@@ -1,11 +1,13 @@
+"use strict"
+
 React = require 'react'
 { Route, Redirect } = require 'react-router'
 
-App = require './app'
-Search = require './search'
-Star = require './star'
-# Shop = require './shop'
-# NotFound = require './notfound.cjsx'
+App = require './components/app'
+Search = require './components/search'
+Star = require './components/star'
+# Shop = require './components/shop'
+# NotFound = require './components/notfound'
 
 module.exports =
 routes =

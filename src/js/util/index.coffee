@@ -1,6 +1,6 @@
 "use strict"
 
 module.exports =
-  store: require './store'
+  localStorage: require './local-storage'
   getShopData: require './get-shop-data'
   getCurrentGeo: require './get-current-geo'

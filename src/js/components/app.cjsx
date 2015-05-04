@@ -37,7 +37,7 @@ class App extends React.Component
   _onChangeStarredShops: =>
     @setState starredShops: starredShopStore.getStarredShops()
 
-  componentDidMount: ->
+  componentWillMount: ->
     actions.updateStarredShops()
     actions.updateShopsByGeo()
 

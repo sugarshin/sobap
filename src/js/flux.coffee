@@ -1,3 +1,5 @@
+"use strict"
+
 EventEmitter = require 'eventemitter3'
 
 Actions = require './actions/actions'

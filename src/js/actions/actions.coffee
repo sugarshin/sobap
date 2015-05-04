@@ -5,14 +5,14 @@ includes = require 'lodash.includes'
 remove = require 'lodash.remove'
 
 { API_GOURMET, BASE_QUERY } = require '../conf'
-{ getShopData, getCurrentGeo, store } = require '../util/'
+{ getShopData, getCurrentGeo, localStorage } = require '../util/'
 
 module.exports =
 class Actions
 
   constructor: (@dispatcher) ->
     # Pseudo API
-    @_starredIDs = store 'starredShopsIDs'
+    @_starredIDs = localStorage 'starredShopsIDs'
 
   updateMap: (geos, currentGeo) ->
     @dispatcher.emit 'updateMap', geos, currentGeo
@@ -64,4 +64,4 @@ class Actions
     else
       @_addStarredID id
 
-  _saveStarredID: -> store 'starredShopsIDs', @_starredIDs
+  _saveStarredID: -> localStorage 'starredShopsIDs', @_starredIDs

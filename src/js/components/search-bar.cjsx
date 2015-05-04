@@ -20,7 +20,7 @@ class SearchBar extends React.Component
     # 上記 warning の回避のため
 
   _onClickSearchKeyword: =>
-    v = React.findDOMNode(@refs.inputSearch).value
+    return unless v = @refs.inputSearch.getDOMNode().value # todo
     @props.onClickSearchKeyword v
     return
     # Returning `false` from an event handler is

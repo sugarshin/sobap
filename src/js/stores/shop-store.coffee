@@ -7,7 +7,7 @@ class ShopStore extends EventEmitter
 
   constructor: (dispatcher) ->
     super
-    dispatcher.on 'updateShops', @updateShops#ByGeo
+    dispatcher.on 'updateShops', @updateShops
     @state = shops: []
 
   getShops: -> @state.shops

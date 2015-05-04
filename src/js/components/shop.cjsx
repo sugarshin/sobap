@@ -10,8 +10,7 @@ class Shop extends React.Component
   constructor: (props) ->
     super props
 
-  render: ->
-    template @props
+  render: -> template @props
 
 Shop.propTypes =
   data: React.PropTypes.object

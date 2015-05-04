@@ -2,6 +2,7 @@
 
 React = require 'react'
 includes = require 'lodash.includes'
+
 Shop = require './shop'
 
 module.exports =
