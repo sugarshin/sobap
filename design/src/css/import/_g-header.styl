@@ -19,6 +19,7 @@
     a
       display block
       color clr_bk
+      font-size 16px
       text-decoration none
 
   .g-menu
@@ -65,10 +66,18 @@
         @media screen and (max-width: 567px)
           color: #f4f7f9;
           font-size: 12px;
-        span
+        .octicon
           display none
           @media screen and (max-width: 567px)
             display: block;
+      .active
+        color clr_wh
+        background clr_bk
+        @media screen and (max-width: 567px)
+          &[href*=search]
+            color clr_rd
+          &[href*=star]
+            color clr_yl
 
 .search-bar-container
   padding 4px 1.25% 4px
@@ -78,6 +87,7 @@
   position relative
   background clr_bk
   box-shadow 0 0 4px 0 clr_bk
+  z-index 9
 
 .search-near-button
   position absolute
