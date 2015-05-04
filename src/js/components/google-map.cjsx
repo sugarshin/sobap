@@ -2,6 +2,8 @@
 
 React = require 'react'
 
+{ actions, mapStore } = require '../flux' # todo
+
 # todo
 module.exports =
 class GoogleMap extends React.Component
@@ -9,20 +11,25 @@ class GoogleMap extends React.Component
   constructor: (props) ->
     super props
 
-  map: null
-  currentMarker: null
-  markers: []
-  infoWindow: null
+    mapStore.on 'change:map', @_onUpdateMap
+
+    @_map = null
+    @_currentMarker = null
+    @_markers = []
+    @_infoWindow = null
+
+  _onUpdateMap: (geos, currentGeo) =>
+    @updateByCurrentGeo geos, currentGeo
 
   updateByCurrentGeo: (geos, center) ->
     # todo
     if center?
-      @map.panTo new google.maps.LatLng center.lat, center.lng
+      @_map.panTo new google.maps.LatLng center.lat, center.lng
     else
       bounds = new google.maps.LatLngBounds
       geos.forEach (el) ->
         bounds.extend new google.maps.LatLng el.lat, el.lng
-      @map.fitBounds bounds
+      @_map.fitBounds bounds
 
     @removeAllMarker()
 
@@ -32,19 +39,19 @@ class GoogleMap extends React.Component
         latitude: el.lat
         longitude: el.lng
       , el.id
-      @markers.push m
+      @_markers.push m
       google.maps.event.addListener m, 'click', ->
         location.hash = m.url
 
   removeAllMarker: ->
-    for marker in @markers
+    for marker in @_markers
       marker.setMap null
 
   componentDidMount: ->
     # todo
-    @map = @createMap latitude: 35.6895, longitude: 139.69164
-    # google.maps.event.addListener @map, 'zoom_changed', => @onZoomChange()
-    # google.maps.event.addListener @map, 'dragend', => @onDragEnd()
+    @_map = @createMap latitude: 35.6895, longitude: 139.69164
+    # google.maps.event.addListener @_map, 'zoom_changed', => @onZoomChange()
+    # google.maps.event.addListener @_map, 'dragend', => @onDragEnd()
 
   createMap: (coords) ->
     mapOpts =
@@ -57,13 +64,13 @@ class GoogleMap extends React.Component
   createMarker: (coords, id) ->
     new google.maps.Marker
       position: new google.maps.LatLng coords.latitude, coords.longitude
-      map: @map
+      map: @_map
       url: id
 
   createInfoWindow: ->
     contentString = '<div class="InfoWindow"></div>'
-    infoWindow = new google.maps.InfoWindow
-      map: @map
+    @_infoWindow = new google.maps.InfoWindow
+      map: @_map
       anchor: @marker
       content: contentString
 
@@ -75,6 +82,3 @@ class GoogleMap extends React.Component
     <div className="google-map">
       <div ref="mapCanvas" style={'height': '100%'}></div>
     </div>
-
-# GoogleMap.propTypes =
-# GoogleMap.defaultProps =

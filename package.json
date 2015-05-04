@@ -1,6 +1,6 @@
 {
   "name": "sobap",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "description": "SOBAP",
   "private": true,
   "scripts": {
@@ -47,6 +47,7 @@
     "octicons": "^2.2.0",
     "qs": "^2.4.1",
     "react": "^0.13.2",
-    "react-jade": "^2.4.0"
+    "react-jade": "^2.4.0",
+    "react-router": "^0.13.3"
   }
 }

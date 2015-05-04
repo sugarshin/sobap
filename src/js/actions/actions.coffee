@@ -14,8 +14,8 @@ class Actions
     # Pseudo API
     @_starredIDs = store 'starredShopsIDs'
 
-  # updateMapByCurrentGeo: ->
-  #   @dispatcher.emit 'updateMap'
+  updateMap: (geos, currentGeo) ->
+    @dispatcher.emit 'updateMap', geos, currentGeo
 
   updateShopsByGeo: ->
 

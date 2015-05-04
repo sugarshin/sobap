@@ -1,6 +1,9 @@
 "use strict"
 
 React = require 'react'
-App = require './components/app'
+{ run, HashLocation } = require 'react-router'
 
-React.render <App />, document.getElementById 'container'
+routes = require './components/routes'
+
+run routes, HashLocation, (Root) ->
+  React.render <Root />, document.getElementById 'container'

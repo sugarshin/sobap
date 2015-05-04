@@ -1,8 +1,7 @@
 "use strict"
 
 React = require 'react'
-jade = require 'react-jade'
-template = jade.compileFile "#{__dirname}/../templates/header.jade"
+{ Link } = require 'react-router'
 
 module.exports =
 class Header extends React.Component
@@ -10,26 +9,26 @@ class Header extends React.Component
   constructor: (props) ->
     super props
 
-  _onClickLocation: =>
-    @props.onClickLocation()
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
-
-  _onClickSearchKeyword: =>
-    @props.onClickSearchKeyword()
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
-
   render: ->
-    template
-      onClickLocation: @_onClickLocation
-      onClickSearchKeyword: @_onClickSearchKeyword
+    <header className="g-header">
+      <h1><a href="./">SOBAP</a></h1>
+      <div className="g-menu">
+        <ul>
+          <li>
+            <Link to="search">
+              <span className="octicon octicon-search"></span>
+              <span>Search</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="star">
+              <span className="octicon octicon-star"></span>
+              <span>Star</span>
+            </Link>
+          </li>
+        </ul>
+      </div>
+    </header>
 
 # Header.propTypes =
 # Header.defaultProps =

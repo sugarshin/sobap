@@ -1,23 +1,12 @@
 "use strict"
 
 React = require 'react'
-EventEmitter = require 'eventemitter3'
+{ RouteHandler } = require 'react-router'
 
 Header = require './header'
-GoogleMap = require './google-map'
-Shops = require './shops'
 Footer = require './footer'
 
-Actions = require '../actions/actions'
-ShopStore = require '../stores/shop-store'
-StarredShopStore = require '../stores/starred-shop-store'
-
-dispatcher = new EventEmitter
-
-actions = new Actions dispatcher
-
-shopStore = new ShopStore dispatcher
-starredShopStore = new StarredShopStore dispatcher
+{ actions, shopStore, starredShopStore } = require '../flux'
 
 module.exports =
 class App extends React.Component
@@ -40,7 +29,10 @@ class App extends React.Component
     geos = shopStore.getShops().map (el) ->
       lat: el.lat, lng: el.lng, id: el.id
 
-    @refs.googleMap.updateByCurrentGeo geos, (if currentGeo? then currentGeo else null)
+    actions.updateMap geos, (if currentGeo? then currentGeo else null)
+
+  _onChangeMap: (geos, currentGeo) =>
+    @setState mapData: mapStore.get()
 
   _onChangeStarredShops: =>
     @setState starredShops: starredShopStore.getStarredShops()
@@ -51,15 +43,11 @@ class App extends React.Component
 
   onClickLocation: => actions.updateShopsByGeo()
 
-  onClickSearchKeyword: =>
-    # TODO
-    v = React.findDOMNode @refs.header
-        .querySelector 'input[type=search]'
-        .value
-    actions.updateShopsByKeyword v
+  onClickSearchKeyword: (value) =>
+    actions.updateShopsByKeyword value
 
-  onClickStar: (e) =>
-    actions.updateStarredShops e.currentTarget.id
+  onClickStar: (id) =>
+    actions.updateStarredShops id
     return
     # Returning `false` from an event handler is
     # deprecated and will be ignored in a future release.
@@ -68,26 +56,15 @@ class App extends React.Component
 
   render: ->
     <div className="app">
-      <Header
-        ref="header"
+      <Header />
+      <RouteHandler
+        shops={@state.shops}
+        starredShops={@state.starredShops}
         onClickLocation={@onClickLocation}
         onClickSearchKeyword={@onClickSearchKeyword}
+        onClickStar={@onClickStar}
+        starredIDs={starredShopStore.getStarredIDs()}
       />
-      <GoogleMap ref="googleMap" />
-      <div className="main">
-        <Shops
-          classNames={'shops starred-shops'}
-          shops={@state.starredShops}
-          onClickStar={@onClickStar}
-          starredIDs={starredShopStore.getStarredIDs()}
-        />
-        <Shops
-          classNames={'shops'}
-          shops={@state.shops}
-          onClickStar={@onClickStar}
-          starredIDs={starredShopStore.getStarredIDs()}
-        />
-      </div>
       <Footer />
     </div>
 

@@ -21,6 +21,8 @@ class Shops extends React.Component
         />}
     </div>
 
-# Shops.propTypes =
+Shops.propTypes =
+  shops: React.PropTypes.array
+
 Shops.defaultProps =
   shops: []
