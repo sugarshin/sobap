@@ -1,6 +1,8 @@
 "use strict"
 
 EventEmitter = require 'eventemitter3'
+remove = require 'lodash.remove'
+
 defaultShopDetail = require './default-shop-detail'
 
 module.exports =
@@ -10,14 +12,14 @@ class Store extends EventEmitter
     super
     dispatcher.on 'updateShops', @updateShops
     dispatcher.on 'updateMap', @updateMap
-    dispatcher.on 'updateStarredShops', @updateStarredShops
+    dispatcher.on 'removeStarredShop', @removeStarredShop
+    dispatcher.on 'addStarredShop', @addStarredShop
     dispatcher.on 'updateShopDetail', @updateShopDetail
 
     @state =
       shops: []
       starredShops: []
       shopDetail: defaultShopDetail
-
 
   getShops: -> @state.shops
   getStarredShops: -> @state.starredShops
@@ -34,9 +36,14 @@ class Store extends EventEmitter
     @state.shops = data.results.shop
     @emit 'change:shops', currentGeo
 
-  updateStarredShops: (data) =>
-    @state.starredShops = data.results.shop
-    @emit 'change:starredShops'#, data
+  addStarredShop: (data) =>
+    @state.starredShops.push data.results.shop[0]
+    @emit 'change:starredShops'
+
+  removeStarredShop: (id) =>
+    remove @state.starredShops, (shop) ->
+      shop.id is id
+    @emit 'change:starredShops'
 
   # currentGeo Provisional
   updateMap: (geos, currentGeo) =>

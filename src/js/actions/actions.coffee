@@ -14,6 +14,30 @@ class Actions
     # Pseudo API
     @_starredIDs = localStorage 'starredShopsIDs'
 
+  fetchStarredShops: ->
+    @_starredIDs.forEach (id) => @addStarredShop id
+
+  addStarredShop: (id) ->
+    Promise.resolve()
+    .then =>
+      getShopData API_GOURMET, assign {}, BASE_QUERY, id: id
+    .then (data) =>
+      @dispatcher.emit 'addStarredShop', data
+
+  removeStarredShop: (id) ->
+    @dispatcher.emit 'removeStarredShop', id
+
+  updateStarredIDs: (id) ->
+    if includes(@_starredIDs, id)
+      @_removeStarredID id
+      @removeStarredShop id
+    else
+      @_addStarredID id
+      @addStarredShop id
+    @saveStarredIDs()
+
+  saveStarredIDs: -> localStorage 'starredShopsIDs', @_starredIDs
+
   updateShopDetail: (id) ->
     Promise.resolve()
     .then ->
@@ -44,30 +68,6 @@ class Actions
     .then (data) =>
       @dispatcher.emit 'updateShops', data
 
-  updateStarredShops: (id) ->
-    # todo
-    if id?
-      @_toggleStarredID id
-      @_saveStarredID()
-
-    # todo
-    if @_starredIDs.length is 0
-      return @dispatcher.emit 'updateStarredShops', results: shop: []
-
-    Promise.resolve()
-    .then =>
-      getShopData API_GOURMET, assign {}, BASE_QUERY, id: @_starredIDs
-    .then (data) =>
-      @dispatcher.emit 'updateStarredShops', data
-
   _addStarredID: (id) ->　@_starredIDs.push id
 
   _removeStarredID: (id) ->　remove @_starredIDs, (el) -> el is id
-
-  _toggleStarredID: (id) ->
-    if includes(@_starredIDs, id)
-      @_removeStarredID id
-    else
-      @_addStarredID id
-
-  _saveStarredID: -> localStorage 'starredShopsIDs', @_starredIDs

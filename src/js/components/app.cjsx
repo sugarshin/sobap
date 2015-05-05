@@ -42,7 +42,8 @@ class App extends React.Component
     @setState starredShops: store.getStarredShops()
 
   componentWillMount: ->
-    actions.updateStarredShops()
+    actions.fetchStarredShops()
+    # actions.updateStarredShops()
     actions.updateShopsByGeo()
 
   onUpdateShopDetail: (id) =>
@@ -54,7 +55,7 @@ class App extends React.Component
     actions.updateShopsByKeyword value
 
   onClickStar: (id) =>
-    actions.updateStarredShops id
+    actions.updateStarredIDs id
     return
     # Returning `false` from an event handler is
     # deprecated and will be ignored in a future release.
