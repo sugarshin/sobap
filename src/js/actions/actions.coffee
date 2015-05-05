@@ -14,11 +14,17 @@ class Actions
     # Pseudo API
     @_starredIDs = localStorage 'starredShopsIDs'
 
+  updateShopDetail: (id) ->
+    Promise.resolve()
+    .then ->
+      getShopData API_GOURMET, assign {}, BASE_QUERY, id: id
+    .then (data) =>
+      @dispatcher.emit 'updateShopDetail', data
+
   updateMap: (geos, currentGeo) ->
     @dispatcher.emit 'updateMap', geos, currentGeo
 
   updateShopsByGeo: ->
-
     currentGeo = null # Provisional
 
     Promise.resolve()
@@ -29,8 +35,7 @@ class Actions
         lng: geoPos.coords.longitude
       getShopData API_GOURMET, assign {}, BASE_QUERY, currentGeo, type: 'lite'
     .then (data) =>
-      console.log data
-      @dispatcher.emit 'updateShops', data, currentGeo　# Provisional
+      @dispatcher.emit 'updateShops', data, currentGeo# Provisional
 
   updateShopsByKeyword: (keyword) ->
     Promise.resolve()
