@@ -6,7 +6,7 @@ React = require 'react'
 Header = require './header'
 Footer = require './footer'
 
-{ actions, shopStore, starredShopStore } = require '../flux'
+{ actions, store } = require '../flux'
 
 module.exports =
 class App extends React.Component
@@ -15,18 +15,17 @@ class App extends React.Component
     super props
 
     @state =
-      shops: []
-      starredShops: []
+      shops: store.getShops()
+      starredShops: store.getStarredShops()
 
-    shopStore.on 'change:shops', @_onChangeShops
-
-    starredShopStore.on 'change:starredShops', @_onChangeStarredShops
+    store.on 'change:shops', @_onChangeShops
+    store.on 'change:starredShops', @_onChangeStarredShops
 
   _onChangeShops: (currentGeo) =>
-    @setState shops: shopStore.getShops()
+    @setState shops: store.getShops()
 
     # Provisional
-    geos = shopStore.getShops().map (el) ->
+    geos = @state.shops.map (el) ->
       lat: el.lat, lng: el.lng, id: el.id
 
     actions.updateMap geos, (if currentGeo? then currentGeo else null)
@@ -35,7 +34,7 @@ class App extends React.Component
     @setState mapData: mapStore.get()
 
   _onChangeStarredShops: =>
-    @setState starredShops: starredShopStore.getStarredShops()
+    @setState starredShops: store.getStarredShops()
 
   componentWillMount: ->
     actions.updateStarredShops()
@@ -63,7 +62,7 @@ class App extends React.Component
         onClickLocation={@onClickLocation}
         onClickSearchKeyword={@onClickSearchKeyword}
         onClickStar={@onClickStar}
-        starredIDs={starredShopStore.getStarredIDs()}
+        starredIDs={store.getStarredIDs()}
       />
       <Footer />
     </div>

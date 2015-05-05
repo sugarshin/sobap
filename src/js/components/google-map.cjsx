@@ -2,7 +2,7 @@
 
 React = require 'react'
 
-{ actions, mapStore } = require '../flux' # todo
+{ actions, store } = require '../flux' # todo
 
 # todo
 module.exports =
@@ -11,7 +11,7 @@ class GoogleMap extends React.Component
   constructor: (props) ->
     super props
 
-    mapStore.on 'change:map', @_onUpdateMap
+    store.on 'change:map', @_onUpdateMap
 
     @_map = null
     @_currentMarker = null
@@ -82,3 +82,6 @@ class GoogleMap extends React.Component
     <div className="google-map">
       <div ref="mapCanvas" style={'height': '100%'}></div>
     </div>
+
+# GoogleMap.propTypes =
+# GoogleMap.defaultProps =
