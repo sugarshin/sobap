@@ -5,7 +5,8 @@ include ./_helper.jade
 
 .shop
   h3.shop-name
-    a(href= createURI(data.urls.pc) target="_blank")
+    //- a(href= createURI(data.urls.pc) target="_blank")
+    a(href="#/shop/" + data.id)
       img(
         src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
         height="0"

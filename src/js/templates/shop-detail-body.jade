@@ -1,0 +1,118 @@
+include ./_helper.jade
+
+- var KEY = 'AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k';
+- var latlng = data.lat + ',' + data.lng;
+
+.shop-detail
+  h2.shop-detail-name
+    img(src= data.logo_image alt="")
+    a(href= createURI(data.urls.pc) target="_blank")
+      span= data.name
+      img(
+        src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+        height="0"
+        width="0"
+        border="0"
+      )
+
+  p.shop-detail-access= data.access
+  p.shop-detail-catch= data.catch
+  p.shop-detail-coupon
+    a(href= data.coupon_urls.pc target="_blank") クーポン
+  p.shop-detail-photo
+    img(src= data.photo.pc.l alt="")
+
+  .shop-detail-table: table: tbody
+    tr
+      th 店名
+      td= data.name
+    tr
+      th 住所
+      td= data.address
+    tr
+      th 最寄り駅
+      td= data.station_name
+    tr
+      th 予算
+      td= data.budget.average
+    tr
+      th クレジットカード
+      td= data.card
+    tr
+      th お子様連れ
+      td= data.child
+    tr
+      th 定休日
+      td= data.close
+    tr
+      th コース
+      td= data.course
+    tr
+      th 掘りごたつ
+      td= data.horigotatsu
+    tr
+      th カラオケ
+      td= data.karaoke
+    tr
+      th 携帯
+      td= data.ktai
+    tr
+      th ランチ
+      td= data.lunch
+    tr
+      th 喫煙席
+      td= data.non_smoking
+    tr
+      th 営業時間
+      td= data.open
+    tr
+      th 駐車場
+      td= data.parking
+    tr
+      th ペット
+      td= data.pet
+    tr
+      th 個室
+      td= data.private_room
+    tr
+      th 席数
+      td= data.capacity
+    tr
+      th 座敷
+      td= data.tatami
+    tr
+      th テレビ
+      td= data.tv
+    tr
+      th Wi-Fi
+      td= data.wifi
+
+  .shop-g-static-map
+    a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
+      img(src="http://maps.googleapis.com/maps/api/staticmap?center=" + latlng + "&zoom=15&markers=color:white%7C" + latlng + "&size=320x180&scale=2&key=" + KEY + "&sensor=false")
+
+  .shop-catch-container
+    p= data.catch
+    p= data.genre.catch
+    p= data.food.catch
+
+  .shop-link-external
+    a.btn(href= createURI(data.urls.pc) target="_blank")
+      img(
+        src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
+        height="0"
+        width="0"
+        border="0"
+      )
+      | Hotpepper
+      span.octicon.octicon-link-external
+
+  .shop-memo-container
+    p= data.shop_detial_memo
+    p= data.other_memo
+
+  button.star-button(type="button" onClick=onClickStar id=data.id class= ((isStarred)? 'starred' : ''))
+    .star-button-inner
+      span.star-button-f.left
+      span.star-button-f.right
+      span.octicon.octicon-star

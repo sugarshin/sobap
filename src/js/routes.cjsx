@@ -6,7 +6,7 @@ React = require 'react'
 App = require './components/app'
 Search = require './components/search'
 Star = require './components/star'
-# Shop = require './components/shop'
+Shop = require './components/shop-detail'
 NotFound = require './components/notfound'
 
 module.exports =
@@ -30,6 +30,15 @@ routes =
       handler={Star}
       props={
         starredShops: @starredShops
+        starredIDs: @starredIDs
+        onClickStar: @onClickStar
+      }
+    />
+    <Route
+      name="shop"
+      path="shop/:id"
+      handler={Shop}
+      props={
         starredIDs: @starredIDs
         onClickStar: @onClickStar
       }

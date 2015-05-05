@@ -17,9 +17,14 @@ class App extends React.Component
     @state =
       shops: store.getShops()
       starredShops: store.getStarredShops()
+      shopDetail: store.getShopDetail()
 
     store.on 'change:shops', @_onChangeShops
     store.on 'change:starredShops', @_onChangeStarredShops
+    store.on 'change:shopDetail', @_onChangeShopDetail
+
+  _onChangeShopDetail: =>
+    @setState shopDetail: store.getShopDetail()
 
   _onChangeShops: (currentGeo) =>
     @setState shops: store.getShops()
@@ -39,6 +44,9 @@ class App extends React.Component
   componentWillMount: ->
     actions.updateStarredShops()
     actions.updateShopsByGeo()
+
+  onUpdateShopDetail: (id) =>
+    actions.updateShopDetail id
 
   onClickLocation: => actions.updateShopsByGeo()
 
@@ -62,7 +70,9 @@ class App extends React.Component
         onClickLocation={@onClickLocation}
         onClickSearchKeyword={@onClickSearchKeyword}
         onClickStar={@onClickStar}
+        onUpdateShopDetail={@onUpdateShopDetail}
         starredIDs={store.getStarredIDs()}
+        shopDetail={@state.shopDetail}
       />
       <Footer />
     </div>
