@@ -1,13 +1,13 @@
 "use strict"
 
 React = require 'react'
-{ Route, Redirect } = require 'react-router'
+{ Route, Redirect, NotFoundRoute } = require 'react-router'
 
 App = require './components/app'
 Search = require './components/search'
 Star = require './components/star'
 # Shop = require './components/shop'
-# NotFound = require './components/notfound'
+NotFound = require './components/notfound'
 
 module.exports =
 routes =
@@ -35,4 +35,5 @@ routes =
       }
     />
     <Redirect from="/" to="search" />
+    <NotFoundRoute handler={NotFound} />
   </Route>
