@@ -3,9 +3,9 @@ browserSync = require 'browser-sync'
 runSequence = require 'run-sequence'
 requireDir = require 'require-dir'
 $ = require('gulp-load-plugins')()
-conf = require './tasks/_conf/'
+conf = require './gulp/conf'
 
-tasks = requireDir './tasks'
+tasks = requireDir './gulp/tasks'
 Object.keys(tasks).forEach (name) -> tasks[name] gulp, conf, $
 
 reload = browserSync.reload
