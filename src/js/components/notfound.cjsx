@@ -16,5 +16,5 @@ class NotFound extends React.Component
       <RouteHandler />
     </div>
 
-# NotFound.propTypes =
-# NotFound.defaultProps =
+  # @propTypes:
+  # @defaultProps:

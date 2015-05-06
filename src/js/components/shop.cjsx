@@ -12,8 +12,8 @@ class Shop extends React.Component
 
   render: -> template @props
 
-Shop.propTypes =
-  data: React.PropTypes.object
-  onClickStar: React.PropTypes.func
-  isStarred: React.PropTypes.bool
-# Shop.defaultProps =
+  @propTypes:
+    data: React.PropTypes.object
+    onClickStar: React.PropTypes.func
+    isStarred: React.PropTypes.bool
+  # @defaultProps:

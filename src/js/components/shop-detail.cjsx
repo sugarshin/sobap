@@ -34,4 +34,4 @@ class ShopDetail extends React.Component
     shopDetail: React.PropTypes.object
     onClickStar: React.PropTypes.func
     starredIDs: React.PropTypes.array
-  # @defaultProps =
+  # @defaultProps:

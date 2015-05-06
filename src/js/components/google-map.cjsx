@@ -83,5 +83,5 @@ class GoogleMap extends React.Component
       <div ref="mapCanvas" style={'height': '100%'}></div>
     </div>
 
-# GoogleMap.propTypes =
-# GoogleMap.defaultProps =
+  # @propTypes:
+  # @defaultProps:

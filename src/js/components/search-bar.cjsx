@@ -33,7 +33,7 @@ class SearchBar extends React.Component
       onClickLocation: @_onClickLocation
       onClickSearchKeyword: @_onClickSearchKeyword
 
-SearchBar.propTypes =
-  onClickLocation: React.PropTypes.func
-  onClickSearchKeyword: React.PropTypes.func
-# SearchBar.defaultProps =
+  @propTypes:
+    onClickLocation: React.PropTypes.func
+    onClickSearchKeyword: React.PropTypes.func
+  # @defaultProps:

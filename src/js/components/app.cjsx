@@ -41,11 +41,6 @@ class App extends React.Component
   _onChangeStarredShops: =>
     @setState starredShops: store.getStarredShops()
 
-  componentWillMount: ->
-    actions.fetchStarredShops()
-    # actions.updateStarredShops()
-    actions.updateShopsByGeo()
-
   onUpdateShopDetail: (id) =>
     actions.updateShopDetail id
 
@@ -61,6 +56,10 @@ class App extends React.Component
     # deprecated and will be ignored in a future release.
     # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
     # 上記 warning の回避のため
+
+  componentWillMount: ->
+    actions.updateShopsByGeo()
+    actions.fetchStarredShops()
 
   render: ->
     <div className="app">
@@ -78,5 +77,5 @@ class App extends React.Component
       <Footer />
     </div>
 
-# App.propTypes =
-# App.defaultProps =
+  # @propTypes:
+  # @defaultProps:

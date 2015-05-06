@@ -7,6 +7,8 @@ SearchBar = require './search-bar'
 GoogleMap = require './google-map'
 Shops = require './shops'
 
+{ actions } = require '../flux'
+
 module.exports =
 class Search extends React.Component
 
@@ -37,6 +39,9 @@ class Search extends React.Component
     # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
     # 上記 warning の回避のため
 
+  # componentWillMount: ->
+  #   actions.updateShopsByGeo()
+
   render: ->
     <div>
       <SearchBar
@@ -55,10 +60,10 @@ class Search extends React.Component
       <RouteHandler />
     </div>
 
-Search.propTypes =
-  shops: React.PropTypes.array
-  starredIDs: React.PropTypes.array
-  onClickLocation: React.PropTypes.func
-  onClickSearchKeyword: React.PropTypes.func
-  onClickStar: React.PropTypes.func
-# Search.defaultProps =
+  @propTypes:
+    shops: React.PropTypes.array
+    starredIDs: React.PropTypes.array
+    onClickLocation: React.PropTypes.func
+    onClickSearchKeyword: React.PropTypes.func
+    onClickStar: React.PropTypes.func
+  # @defaultProps =

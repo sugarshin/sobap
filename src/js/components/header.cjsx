@@ -30,5 +30,5 @@ class Header extends React.Component
       </div>
     </header>
 
-# Header.propTypes =
-# Header.defaultProps =
+  # @propTypes:
+  # @defaultProps:

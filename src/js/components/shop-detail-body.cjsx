@@ -17,4 +17,4 @@ class ShopDetailBody extends React.Component
     data: React.PropTypes.object
     onClickStar: React.PropTypes.func
     isStarred: React.PropTypes.bool
-  # @defaultProps =
+  # @defaultProps:

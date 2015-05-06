@@ -5,6 +5,8 @@ React = require 'react'
 
 Shops = require './shops'
 
+# { actions } = require '../flux'
+
 module.exports =
 class Star extends React.Component
 
@@ -34,8 +36,8 @@ class Star extends React.Component
       <RouteHandler />
     </div>
 
-Star.propTypes =
-  starredShops: React.PropTypes.array
-  starredIDs: React.PropTypes.array
-  onClickStar: React.PropTypes.func
-# Star.defaultProps =
+  @propTypes:
+    starredShops: React.PropTypes.array
+    starredIDs: React.PropTypes.array
+    onClickStar: React.PropTypes.func
+  # @defaultProps:
