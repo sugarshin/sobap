@@ -11,12 +11,10 @@ class ShopDetailBody extends React.Component
   constructor: (props) ->
     super props
 
-  # componentWillMount: ->
-  #   @props.onUpdateShopDetail @props.params.id
-
   render: -> template @props
 
   @propTypes:
+    data: React.PropTypes.object
     onClickStar: React.PropTypes.func
     isStarred: React.PropTypes.bool
   # @defaultProps =

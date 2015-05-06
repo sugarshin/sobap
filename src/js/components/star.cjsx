@@ -20,7 +20,9 @@ class Star extends React.Component
     # 上記 warning の回避のため
 
   render: ->
-    <div style={padding: '40px 0 0'}>
+    <div style={
+      padding: '40px 0 0'
+    }>
       <div className="main">
         <Shops
           classNames={'shops starred-shops'}

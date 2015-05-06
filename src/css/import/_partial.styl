@@ -17,3 +17,52 @@
   &:hover
     background clr_wh
     color clr_gry
+
+.star-button
+  appearance none
+  border 0
+  background none
+  display block
+  _unstarClr = lighten(clr_bk, 70%)
+  position relative
+  min-width 32px
+  text-align center
+  background _unstarClr
+  padding 0 0 3%
+  outline none
+  .star-button-inner
+    padding-top 35%
+    span
+      color #fff
+      font-size 20px
+      transition font-size .1s ease-out
+  .star-button-f
+    position absolute
+    display block
+    width 50%
+    height 16px
+    bottom -8px
+    box-sizing border-box
+    z-index 1
+    background _unstarClr
+    &.left
+      left 0
+      transform skewY(-30deg)
+    &.right
+      right 0
+      transform skewY(30deg)
+  &:hover,
+  &.starred
+    background clr_bk
+    .star-button-f
+      background clr_bk
+
+  &.starred
+    .star-button-inner
+      span
+        color clr_yl
+
+  &.starred:hover
+    .star-button-inner
+      span
+        color #fff

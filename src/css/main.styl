@@ -10,6 +10,8 @@ normalize-css()
 @import "import/_g-header"
 @import "import/_g-footer"
 @import "import/_shop"
+@import "import/_shop-detail"
+@import "import/_shop-detail-body"
 
 .google-map
   height 38vh
@@ -20,12 +22,13 @@ normalize-css()
   box-shadow 0 0 4px 0 clr_bk
   position relative
   z-index 1
-  min-height 100%
+  height 100%
   @media screen and (max-width: 567px)
     padding-bottom 50px
 
 .shops
   max-width 1024px
+  min-height 100%
   padding 1.25% .68%
   margin 0 auto
   box-sizing border-box

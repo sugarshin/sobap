@@ -34,14 +34,23 @@
   .shop-g-static-map
     margin 16px 0
     overflow hidden
+    a
+      display block
+      position relative
+      &:hover
+        .octicon-link-external
+          color clr_gry
     img
       width 100%
       height auto
       vertical-align top
       transition transform .1s ease-out
-    a:hover
-      img
-        transform scale(1.06)
+    .octicon-link-external
+      position absolute
+      top 4%
+      right 2.25%
+      color lighten(clr_bk, 70%)
+
   .shop-link-external
     margin 16px 0
     a
@@ -49,54 +58,7 @@
   .shop-memo-container
     border-top 1px solid clr_lgry
   .star-button
-    appearance none
-    border 0
-    background none
-    display block
-    _unstarClr = lighten(clr_bk, 70%)
+    width _starWidth
     position absolute
     top 0
     right 2%
-    width _starWidth
-    min-width 32px
-    text-align center
-    background _unstarClr
-    padding 0 0 3%
-    outline none
-    .star-button-inner
-      padding-top 35%
-      span
-        // text-longshadow(lighten(clr_bk, 30%))
-        color #fff
-        font-size 20px
-        transition font-size .1s ease-out
-    .star-button-f
-      position absolute
-      display block
-      width 50%
-      height 16px
-      bottom -8px
-      box-sizing border-box
-      z-index 1
-      background _unstarClr
-      &.left
-        left 0
-        transform skewY(-30deg)
-      &.right
-        right 0
-        transform skewY(30deg)
-    &:hover,
-    &.starred
-      background clr_bk
-      .star-button-f
-        background clr_bk
-
-    &.starred
-      .star-button-inner
-        span
-          color clr_yl
-
-    &.starred:hover
-      .star-button-inner
-        span
-          color #fff

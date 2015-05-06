@@ -19,6 +19,7 @@ include ./_helper.jade
   .shop-g-static-map
     a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
       img(src="http://maps.googleapis.com/maps/api/staticmap?center=" + latlng + "&zoom=15&markers=color:white%7C" + latlng + "&size=320x180&scale=2&key=" + KEY + "&sensor=false")
+      span.octicon.octicon-link-external
 
   .shop-catch-container
     p= data.catch

@@ -1,0 +1,78 @@
+@charset "utf-8"
+
+.shop-detail-body
+  width 100%
+  max-width 960px
+  margin 0 auto
+  padding 2%
+  background clr_wh
+  box-sizing border-box
+  border-radius 2px
+  box-shadow 1px 1px 0 2px darken(clr_wh, 10%), 2px 2px 8px 2px darken(clr_bk, 75%)
+  position relative
+
+  .shop-detail-name
+    margin-top 0
+    padding-right 8%
+    line-height 1.2
+    .shop-detail-name-logo
+      margin-right 2%
+      max-width 64px
+      height auto
+      vertical-align middle
+    a
+      vertical-align middle
+      color inherit
+      text-decoration none
+      &:hover
+        text-decoration underline
+    .octicon-link-external
+      margin-left .5em
+
+  .shop-g-static-map
+    a
+      display block
+      position relative
+      max-width 640px
+      margin 0 auto
+      &:hover
+        .octicon-link-external
+          color clr_gry
+    img
+      width 100%
+      height auto
+    .octicon-link-external
+      position absolute
+      top 4%
+      right 2.25%
+      color lighten(clr_bk, 70%)
+
+  .shop-detail-photo
+    text-align center
+    img
+      max-width 100%
+      height auto
+
+  .shop-detail-table
+    margin 4% 0
+    table
+      margin 0 auto
+    tr:nth-child(odd)
+      background lighten(clr_lgry, 62.5%)
+    th, td
+      padding .4em 1em
+    th
+      border-right 1px solid clr_wh
+
+
+  .star-button
+    width 6%
+    max-width 60px
+    position absolute
+    top -1px
+    right 2%
+    .star-button-inner
+      span
+        font-size 26px
+        @media screen and (max-width: 767px)
+          font-size 20px
