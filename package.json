@@ -48,6 +48,7 @@
     "qs": "^2.4.1",
     "react": "^0.13.2",
     "react-jade": "^2.4.0",
-    "react-router": "^0.13.3"
+    "react-router": "^0.13.3",
+    "react-social": "git://github.com/sugarshin/react-social.git"
   }
 }
