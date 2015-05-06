@@ -1,7 +1,6 @@
 "use strict"
 
 React = require 'react'
-
 { FacebookButton, TwitterButton } = require 'react-social'
 
 module.exports =
