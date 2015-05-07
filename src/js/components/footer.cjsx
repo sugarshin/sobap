@@ -1,7 +1,7 @@
 "use strict"
 
 React = require 'react'
-{ FacebookButton, TwitterButton } = require 'react-social'
+{ FacebookButton, TwitterButton } = require '@sugarshin/react-social'
 
 module.exports =
 class Footer extends React.Component
