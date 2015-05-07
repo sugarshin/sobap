@@ -12,8 +12,7 @@ class Store extends EventEmitter
     super
     dispatcher.on 'updateShops', @updateShops
     dispatcher.on 'updateMap', @updateMap
-    dispatcher.on 'removeStarredShop', @removeStarredShop
-    dispatcher.on 'addStarredShop', @addStarredShop
+    dispatcher.on 'updateStarredShops', @updateStarredShops
     dispatcher.on 'updateShopDetail', @updateShopDetail
 
     @state =
@@ -27,6 +26,7 @@ class Store extends EventEmitter
     @state.starredShops.map (shop) -> shop.id
   getShopDetail: -> @state.shopDetail
 
+
   updateShopDetail: (data) =>
     @state.shopDetail = data.results.shop[0]
     @emit 'change:shopDetail'
@@ -36,13 +36,12 @@ class Store extends EventEmitter
     @state.shops = data.results.shop
     @emit 'change:shops', currentGeo
 
-  addStarredShop: (data) =>
-    @state.starredShops.push data.results.shop[0]
-    @emit 'change:starredShops'
-
-  removeStarredShop: (id) =>
-    remove @state.starredShops, (shop) ->
-      shop.id is id
+  updateStarredShops: (dataOrID) =>
+    # todo
+    if dataOrID.results?.shop?
+      @state.starredShops.push dataOrID.results.shop[0]
+    else
+      remove @state.starredShops, (shop) -> shop.id is dataOrID
     @emit 'change:starredShops'
 
   # currentGeo Provisional

@@ -22,10 +22,10 @@ class Actions
     .then =>
       getShopData API_GOURMET, assign {}, BASE_QUERY, id: id
     .then (data) =>
-      @dispatcher.emit 'addStarredShop', data
+      @dispatcher.emit 'updateStarredShops', data
 
   removeStarredShop: (id) ->
-    @dispatcher.emit 'removeStarredShop', id
+    @dispatcher.emit 'updateStarredShops', id
 
   updateStarredIDs: (id) ->
     if includes(@_starredIDs, id)
