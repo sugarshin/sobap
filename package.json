@@ -38,6 +38,7 @@
     "watchify": "^3.2.1"
   },
   "dependencies": {
+    "@sugarshin/react-social": "0.0.1",
     "bluebird": "^2.9.25",
     "eventemitter3": "^1.0.1",
     "jsonp": "^0.2.0",
@@ -48,7 +49,6 @@
     "qs": "^2.4.1",
     "react": "^0.13.2",
     "react-jade": "^2.4.0",
-    "react-router": "^0.13.3",
-    "react-social": "git://github.com/sugarshin/react-social.git"
+    "react-router": "^0.13.3"
   }
 }
