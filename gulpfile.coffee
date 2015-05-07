@@ -31,7 +31,7 @@ gulp.task 'serve', -> browserSync conf.serve
 
 gulp.task 'prestart', (cb) ->
   runSequence(
-    ['jade', 'stylus', 'browserify']
+    ['jade', 'stylus', 'browserify', 'copy']
     'watchify'
     'serve'
     cb
