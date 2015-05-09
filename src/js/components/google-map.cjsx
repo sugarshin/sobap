@@ -14,9 +14,9 @@ class GoogleMap extends React.Component
     store.on 'change:map', @_onUpdateMap
 
     @_map = null
-    @_currentMarker = null
     @_markers = []
-    @_infoWindow = null
+    # @_currentMarker = null
+    # @_infoWindow = null
 
   _onUpdateMap: (geos, currentGeo) =>
     @updateByCurrentGeo geos, currentGeo
@@ -67,12 +67,12 @@ class GoogleMap extends React.Component
       map: @_map
       url: id
 
-  createInfoWindow: ->
-    contentString = '<div class="InfoWindow"></div>'
-    @_infoWindow = new google.maps.InfoWindow
-      map: @_map
-      anchor: @marker
-      content: contentString
+  # createInfoWindow: ->
+  #   contentString = '<div class="InfoWindow"></div>'
+  #   @_infoWindow = new google.maps.InfoWindow
+  #     map: @_map
+  #     anchor: @marker
+  #     content: contentString
 
   # onZoomChange: ->
   #
@@ -80,8 +80,13 @@ class GoogleMap extends React.Component
 
   render: ->
     <div className="google-map">
-      <div ref="mapCanvas" style={'height': '100%'}></div>
+      <div ref="mapCanvas" className="google-map-canvas"></div>
     </div>
 
   # @propTypes:
+  #   mapOptions: React.PropTypes.shape
+  #     minZoom: React.PropTypes.number
+  #     zoom: React.PropTypes.number
+  #   markers: React.PropTypes.array
+  #   currentGeo: React.PropTypes.arrayOf React.PropTypes.number
   # @defaultProps:
