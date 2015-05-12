@@ -39,6 +39,7 @@
     "coffee-script": "^1.9.2",
     "del": "^1.1.1",
     "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
     "gulp-jade": "^1.0.0",
     "gulp-load-plugins": "^0.10.0",
     "gulp-minify-css": "^1.1.1",
