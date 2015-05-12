@@ -42,6 +42,7 @@ class Star extends React.Component
     <div style={padding: '40px 0 0'}>
       <div className="main">
         <Shops
+          key={'starred-shops'}
           classNames={'shops starred-shops'}
           shops={@state.shops}
           onClickStar={@_handleClickStar}

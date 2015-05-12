@@ -62,6 +62,7 @@ class Search extends React.Component
       />
       <div className="main">
         <Shops
+          key={'search-shops'}
           classNames={'shops'}
           shops={@state.shops}
           onClickStar={@_handleClickStar}

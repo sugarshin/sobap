@@ -26,7 +26,7 @@ class Shops extends React.Component
     <div className={@props.classNames}>
       {@props.shops.map (shop) =>
         <Shop
-          key={"#{shop.id}:#{randomstring.generate(16)}"}
+          key={shop.id}
           data={shop}
           onClickStar={@props.onClickStar}
           isStarred={includes @props.starredIDs, shop.id}
