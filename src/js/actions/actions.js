@@ -95,7 +95,7 @@ class Actions {
   }
 
   _removeStarredShop(shopIDs, id) {
-    remove(shopIDs, i => { i === id });
+    remove(shopIDs, i => { return i === id });
     localStorage(STARRED_SHOP_KEY, shopIDs)
     .then((nextShopIDs) => {
       dispatcher.dispatch({
