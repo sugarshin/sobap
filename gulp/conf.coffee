@@ -1,15 +1,16 @@
-# conf
-S =
+# configure
+
+D =
   PATH: '/'
   SRC: 'src'
   DEST: 'public'
 
 module.exports =
-  S: S
+  D: D
 
   design:
     notify: false
-    startPath: S.PATH
+    startPath: D.PATH
     host: '127.0.0.1'
     open: 'external'
     server:
@@ -17,50 +18,50 @@ module.exports =
 
   serve:
     notify: false
-    startPath: S.PATH
+    startPath: D.PATH
     host: '127.0.0.1'
     open: 'external'
     server:
       baseDir: './'
-      index: "#{S.DEST}#{S.PATH}/"
+      index: "#{D.DEST}#{D.PATH}/"
       routes:
-        "#{S.PATH}": "#{S.DEST}#{S.PATH}/"
+        "#{D.PATH}": "#{D.DEST}#{D.PATH}/"
 
   scripts:
     browserifyOpts:
-      entries: ["./#{S.SRC}/js/main.cjsx"]
-      extensions: ['.coffee', '.cjsx']
-      transform: ['coffee-reactify', 'react-jade']
-    dest: "#{S.DEST}#{S.PATH}/js"
+      entries: ["./#{D.SRC}/js/main.jsx"]
+      extensions: ['.jsx', '.cjsx', '.coffee']
+      transform: ['babelify', 'coffee-reactify', 'react-jade']
+    dest: "#{D.DEST}#{D.PATH}/js"
 
   uglify:
-    src: "#{S.DEST}#{S.PATH}/js/main.js"
-    dest: "#{S.DEST}#{S.PATH}/js"
+    src: "#{D.DEST}#{D.PATH}/js/main.js"
+    dest: "#{D.DEST}#{D.PATH}/js"
 
   jade:
     src: [
-      "#{S.SRC}/index.jade"
+      "#{D.SRC}/html/index.jade"
     ]
-    dest: "#{S.DEST}#{S.PATH}"
+    dest: "#{D.DEST}#{D.PATH}"
 
   stylus:
     src: [
-      "#{S.SRC}/css/main.styl"
+      "#{D.SRC}/css/main.styl"
     ]
-    dest: "#{S.DEST}#{S.PATH}/css"
+    dest: "#{D.DEST}#{D.PATH}/css"
 
   minifyCss:
     src: [
-      "#{S.DEST}#{S.PATH}/css/main.css"
-      "#{S.DEST}#{S.PATH}/css/octicons.css"
+      "#{D.DEST}#{D.PATH}/css/main.css"
+      "#{D.DEST}#{D.PATH}/css/octicons.css"
     ]
-    dest: "#{S.DEST}#{S.PATH}/css"
+    dest: "#{D.DEST}#{D.PATH}/css"
 
-  clean: ["#{S.DEST}#{S.PATH}"]
+  clean: ["#{D.DEST}#{D.PATH}"]
 
   replace:
-    src: "#{S.DEST}#{S.PATH}/index.html"
-    dest: "#{S.DEST}#{S.PATH}"
+    src: "#{D.DEST}#{D.PATH}/index.html"
+    dest: "#{D.DEST}#{D.PATH}"
     replacements: [
       ['<link rel="stylesheet" href="css/octicons.css">', '']
       ['main.js?v', "main.min.js?v#{Date.now()}"]
@@ -71,4 +72,4 @@ module.exports =
     src: [
       './node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff}'
     ]
-    dest: "#{S.DEST}/css"
+    dest: "#{D.DEST}/css"

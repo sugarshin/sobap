@@ -14,14 +14,14 @@ reload = browserSync.reload
 
 gulp.task 'serve:design', -> browserSync conf.design
 
-gulp.task 'predesign', (cb) ->
+gulp.task 'pre-design', (cb) ->
   runSequence(
     ['jade:design', 'stylus:design', 'copy:design']
     'serve:design'
     cb
   )
 
-gulp.task 'design', ['predesign'], ->
+gulp.task 'design', ['pre-design'], ->
   gulp.watch ['./design/src/*.jade'], ['jade:design', reload]
   gulp.watch ['./design/src/css/**/*.styl'], ['stylus:design', reload]
 
@@ -29,7 +29,7 @@ gulp.task 'design', ['predesign'], ->
 
 gulp.task 'serve', -> browserSync conf.serve
 
-gulp.task 'prestart', (cb) ->
+gulp.task 'pre-default', (cb) ->
   runSequence(
     ['jade', 'stylus', 'browserify', 'copy']
     'watchify'
@@ -37,7 +37,7 @@ gulp.task 'prestart', (cb) ->
     cb
   )
 
-gulp.task 'default', ['prestart'], ->
+gulp.task 'default', ['pre-default'], ->
   gulp.watch ["./#{conf.S.SRC}/index.jade"], ['jade', reload]
   gulp.watch ["./#{conf.S.SRC}/css/**/*.styl"], ['stylus', reload]
   gulp.watch ["./#{conf.S.DEST}/**/*.js"], reload
