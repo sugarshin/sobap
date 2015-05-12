@@ -38,9 +38,9 @@ gulp.task 'pre-default', (cb) ->
   )
 
 gulp.task 'default', ['pre-default'], ->
-  gulp.watch ["./#{conf.S.SRC}/index.jade"], ['jade', reload]
-  gulp.watch ["./#{conf.S.SRC}/css/**/*.styl"], ['stylus', reload]
-  gulp.watch ["./#{conf.S.DEST}/**/*.js"], reload
+  gulp.watch ["./#{conf.D.SRC}/index.jade"], ['jade', reload]
+  gulp.watch ["./#{conf.D.SRC}/css/**/*.styl"], ['stylus', reload]
+  gulp.watch ["./#{conf.D.DEST}/**/*.js"], reload
 
 gulp.task 'build', (cb) ->
   runSequence(
