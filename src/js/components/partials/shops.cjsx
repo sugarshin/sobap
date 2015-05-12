@@ -2,8 +2,6 @@
 
 React = require 'react'
 includes = require 'lodash.includes'
-# todo
-randomstring = require 'randomstring'
 
 Shop = require './shop'
 
