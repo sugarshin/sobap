@@ -6,6 +6,10 @@ React = require 'react'
 module.exports =
 class NotFound extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
 
@@ -15,6 +19,3 @@ class NotFound extends React.Component
       <p>Page Not Found...</p>
       <RouteHandler />
     </div>
-
-  # @propTypes:
-  # @defaultProps:

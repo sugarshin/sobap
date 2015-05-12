@@ -6,6 +6,10 @@ React = require 'react'
 module.exports =
 class Footer extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
 
@@ -36,6 +40,3 @@ class Footer extends React.Component
         </small>
       </p>
     </footer>
-
-  # @propTypes:
-  # @defaultProps:

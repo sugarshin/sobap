@@ -4,34 +4,49 @@ React = require 'react'
 { RouteHandler } = require 'react-router'
 includes = require 'lodash.includes'
 
-ShopDetailBody = require './shop-detail-body'
+ShopDetailBody = require './partials/shop-detail-body'
+
+actions = require '../actions/actions'
+shopDetailStore = require '../stores/shop-detail-store'
+# todo
+starredShopStore = require '../stores/starred-shop-store'
 
 module.exports =
 class ShopDetail extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
 
-  _onClickStar: (e) =>
-    @props.onClickStar e.currentTarget.id
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
+    @state =
+      shop: shopDetailStore.getShop()
+      starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  componentWillMount: ->
-    @props.onUpdateShopDetail @props.params.id
+  _handleClickStar: (e) =>
+    actions.updateStarredShop e.currentTarget.id
+
+  _changeShop: => @setState shop: shopDetailStore.getShop()
+
+  _changeStarredShops: =>
+    @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+
+  componentDidMount: ->
+    shopDetailStore.addChangeListener @_changeShop
+    starredShopStore.addChangeListener @_changeStarredShops
+
+    actions.fetchStarredShop()
+    actions.updateShopDetail @props.params.id
+
+  componentWillUnmount: ->
+    shopDetailStore.removeChangeListener @_changeShop
+    starredShopStore.removeChangeListener @_changeStarredShops
 
   render: ->
     <ShopDetailBody
-      data={@props.shopDetail}
-      onClickStar={@_onClickStar}
-      isStarred={includes @props.starredIDs, @props.params.id}
+      data={@state.shop}
+      onClickStar={@_handleClickStar}
+      isStarred={includes @state.starredIDs, @props.params.id}
     />
-
-  @propTypes:
-    shopDetail: React.PropTypes.object
-    onClickStar: React.PropTypes.func
-    starredIDs: React.PropTypes.array
-  # @defaultProps:

@@ -3,41 +3,50 @@
 React = require 'react'
 { RouteHandler } = require 'react-router'
 
-Shops = require './shops'
+Shops = require './partials/shops'
 
-# { actions } = require '../flux'
+actions = require '../actions/actions'
+starredShopStore = require '../stores/starred-shop-store'
 
 module.exports =
 class Star extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
 
-  _onClickStar: (e) =>
-    @props.onClickStar e.currentTarget.id
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
+    @state =
+      shops: starredShopStore.getShops()
+      starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+
+  _changeStarredShops: =>
+    @setState
+      shops: starredShopStore.getShops()
+      starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+
+  _handleClickStar: (e) =>
+    actions.updateStarredShop e.currentTarget.id
+
+  componentDidMount: ->
+    starredShopStore.addChangeListener @_changeStarredShops
+
+    actions.fetchStarredShop()
+
+  componentWillUnmount: ->
+    starredShopStore.removeChangeListener @_changeStarredShops
 
   render: ->
-    <div style={
-      padding: '40px 0 0'
-    }>
+    <div style={padding: '40px 0 0'}>
       <div className="main">
         <Shops
           classNames={'shops starred-shops'}
-          shops={@props.starredShops}
-          onClickStar={@_onClickStar}
-          starredIDs={@props.starredIDs}
+          shops={@state.shops}
+          onClickStar={@_handleClickStar}
+          starredIDs={@state.starredIDs}
         />
       </div>
       <RouteHandler />
     </div>
-
-  @propTypes:
-    starredShops: React.PropTypes.array
-    starredIDs: React.PropTypes.array
-    onClickStar: React.PropTypes.func
-  # @defaultProps:

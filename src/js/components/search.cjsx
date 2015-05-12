@@ -3,67 +3,70 @@
 React = require 'react'
 { RouteHandler } = require 'react-router'
 
-SearchBar = require './search-bar'
-GoogleMap = require './google-map'
-Shops = require './shops'
+SearchBar = require './partials/search-bar'
+GoogleMap = require './partials/google-map'
+Shops = require './partials/shops'
 
-{ actions } = require '../flux'
+actions = require '../actions/actions'
+shopStore = require '../stores/shop-store'
+# todo
+starredShopStore = require '../stores/starred-shop-store'
 
 module.exports =
 class Search extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps =
+
   constructor: (props) ->
     super props
 
-  _onClickLocation: =>
-    @props.onClickLocation()
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
+    @state =
+      shops: shopStore.getShops()
+      starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  _onClickSearchKeyword: (value) =>
-    @props.onClickSearchKeyword value
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
+  _handleClickLocation: =>
+    actions.searchShopByLocation()
 
-  _onClickStar: (e) =>
-    @props.onClickStar e.currentTarget.id
-    return
-    # Returning `false` from an event handler is
-    # deprecated and will be ignored in a future release.
-    # Instead, manually call e.stopPropagation() or e.preventDefault(), as appropriate.
-    # 上記 warning の回避のため
+  _handleClickSearchKeyword: (value) =>
+    actions.searchShopByKeyword value
 
-  # componentWillMount: ->
-  #   actions.updateShopsByGeo()
+  _handleClickStar: (e) =>
+    actions.updateStarredShop e.currentTarget.id
+
+  _changeShops: => @setState shops: shopStore.getShops()
+
+  _changeStarredShops: =>
+    @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+
+  componentDidMount: ->
+    shopStore.addChangeListener @_changeShops
+    starredShopStore.addChangeListener @_changeStarredShops
+
+    actions.fetchStarredShop()
+    actions.searchShopByLocation()
+
+  componentWillUnmount: ->
+    shopStore.removeChangeListener @_changeShops
+    starredShopStore.removeChangeListener @_changeStarredShops
 
   render: ->
     <div>
       <SearchBar
-        onClickLocation={@_onClickLocation}
-        onClickSearchKeyword={@_onClickSearchKeyword}
+        onClickLocation={@_handleClickLocation}
+        onClickSearchKeyword={@_handleClickSearchKeyword}
       />
-      <GoogleMap />
+      <GoogleMap
+        markers={@state.shops.map (shop) -> lat: shop.lat, lng: shop.lng, id: shop.id}
+      />
       <div className="main">
         <Shops
           classNames={'shops'}
-          shops={@props.shops}
-          onClickStar={@_onClickStar}
-          starredIDs={@props.starredIDs}
+          shops={@state.shops}
+          onClickStar={@_handleClickStar}
+          starredIDs={@state.starredIDs}
         />
       </div>
       <RouteHandler />
     </div>
-
-  @propTypes:
-    shops: React.PropTypes.array
-    starredIDs: React.PropTypes.array
-    onClickLocation: React.PropTypes.func
-    onClickSearchKeyword: React.PropTypes.func
-    onClickStar: React.PropTypes.func
-  # @defaultProps =

@@ -1,17 +1,19 @@
+# TODO
+
 "use strict"
 
 React = require 'react'
 
-{ actions, store } = require '../flux' # todo
-
-# todo
 module.exports =
 class GoogleMap extends React.Component
 
+  @propTypes:
+    markers: React.PropTypes.array
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
-
-    store.on 'change:map', @_onUpdateMap
 
     @_map = null
     @_markers = []
@@ -47,6 +49,11 @@ class GoogleMap extends React.Component
     for marker in @_markers
       marker.setMap null
 
+  componentWillReceiveProps: (nextProps) ->
+    # console.log '@props', @props.markers
+    # console.log 'nextProps', nextProps.markers
+    @updateByCurrentGeo nextProps.markers if nextProps.markers.length > 0
+
   componentDidMount: ->
     # todo
     @_map = @createMap latitude: 35.6895, longitude: 139.69164
@@ -59,7 +66,7 @@ class GoogleMap extends React.Component
       zoom: 13
       center: new google.maps.LatLng coords.latitude, coords.longitude
 
-    new google.maps.Map @refs.mapCanvas.getDOMNode(), mapOpts
+    new google.maps.Map React.findDOMNode(@refs.mapCanvas), mapOpts
 
   createMarker: (coords, id) ->
     new google.maps.Marker
@@ -82,11 +89,3 @@ class GoogleMap extends React.Component
     <div className="google-map">
       <div ref="mapCanvas" className="google-map-canvas"></div>
     </div>
-
-  # @propTypes:
-  #   mapOptions: React.PropTypes.shape
-  #     minZoom: React.PropTypes.number
-  #     zoom: React.PropTypes.number
-  #   markers: React.PropTypes.array
-  #   currentGeo: React.PropTypes.arrayOf React.PropTypes.number
-  # @defaultProps:

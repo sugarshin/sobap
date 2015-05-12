@@ -6,6 +6,10 @@ React = require 'react'
 module.exports =
 class Header extends React.Component
 
+  # @propTypes:
+
+  # @defaultProps:
+
   constructor: (props) ->
     super props
 
@@ -29,6 +33,3 @@ class Header extends React.Component
         </ul>
       </div>
     </header>
-
-  # @propTypes:
-  # @defaultProps:
