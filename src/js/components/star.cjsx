@@ -33,8 +33,6 @@ class Star extends React.Component
   componentDidMount: ->
     starredShopStore.addChangeListener @_changeStarredShops
 
-    actions.fetchStarredShop()
-
   componentWillUnmount: ->
     starredShopStore.removeChangeListener @_changeStarredShops
 

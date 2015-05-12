@@ -11,7 +11,8 @@ import {gourmetApi, baseQuery} from '../config/settings';
 
 import {
   SEARCH_SHOP,
-  FETCH_STARRED_SHOP,
+  ADD_STARRED_SHOP,
+  REMOVE_STARRED_SHOP,
   UPDATE_SHOP_DETAIL
 } from '../constants/constants';
 
@@ -63,7 +64,7 @@ class Actions {
           id: id
         }, TYPE_LITE).then((data) => {
           dispatcher.dispatch({
-            actionType: FETCH_STARRED_SHOP,
+            actionType: ADD_STARRED_SHOP,
             data: data
           });
         });
@@ -74,33 +75,49 @@ class Actions {
   updateStarredShop(id) {
     localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
       if (includes(shopIDs, id)) {
-        this._removeStarredShop(shopIDs, id);
+        this.removeStarredShop(id);
       } else {
-        this._addStarredShop(shopIDs, id);
+        this.addStarredShop(id);
       }
     });
   }
 
-  _addStarredShop(shopIDs, id) {
-    shopIDs.push(id);
-    localStorage(STARRED_SHOP_KEY, shopIDs)
-    .then((nextShopIDs) => {
+  addStarredShop(id) {
+    this._addStarredID(id).then(() => {
       this._requestShopData({id: id}, TYPE_LITE).then((data) => {
         dispatcher.dispatch({
-          actionType: FETCH_STARRED_SHOP,
+          actionType: ADD_STARRED_SHOP,
           data: data
         });
       });
     });
   }
 
-  _removeStarredShop(shopIDs, id) {
-    remove(shopIDs, i => i === id);
-    localStorage(STARRED_SHOP_KEY, shopIDs)
-    .then((nextShopIDs) => {
+  removeStarredShop(id) {
+    this._removeStarredID(id).then(() => {
       dispatcher.dispatch({
-        actionType: FETCH_STARRED_SHOP,
+        actionType: REMOVE_STARRED_SHOP,
         id: id
+      });
+    });
+  }
+
+  _addStarredID(id) {
+    return new Promise((resolve) => {
+      localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
+        shopIDs.push(id);
+        localStorage(STARRED_SHOP_KEY, shopIDs)
+        .then(resolve);
+      });
+    });
+  }
+
+  _removeStarredID(id) {
+    return new Promise((resolve) => {
+      localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
+        remove(shopIDs, i => i === id);
+        localStorage(STARRED_SHOP_KEY, shopIDs)
+        .then(resolve);
       });
     });
   }

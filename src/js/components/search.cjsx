@@ -44,7 +44,6 @@ class Search extends React.Component
     shopStore.addChangeListener @_changeShops
     starredShopStore.addChangeListener @_changeStarredShops
 
-    actions.fetchStarredShop()
     actions.searchShopByLocation()
 
   componentWillUnmount: ->

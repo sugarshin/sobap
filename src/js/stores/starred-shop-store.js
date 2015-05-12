@@ -2,7 +2,10 @@ import EventEmitter from 'eventemitter3';
 import remove from 'lodash.remove';
 
 import dispatcher from '../dispatcher/dispatcher';
-import {FETCH_STARRED_SHOP} from '../constants/constants';
+import {
+  ADD_STARRED_SHOP,
+  REMOVE_STARRED_SHOP
+} from '../constants/constants';
 
 class StarredShopStore extends EventEmitter {
 
@@ -28,10 +31,6 @@ class StarredShopStore extends EventEmitter {
     this.emit('change');
   }
 
-  _fetchShop(shops) {
-    this._starredShops = shops;
-  }
-
   _addShop(shop) {
     this._starredShops.push(shop);
   }
@@ -42,12 +41,13 @@ class StarredShopStore extends EventEmitter {
 
   _handler(action) {
     switch (action.actionType) {
-      case FETCH_STARRED_SHOP:
-        if (action.data) {
-          this._addShop(action.data.results.shop[0]);
-        } else if (action.id) {
-          this._removeShop(action.id);
-        }
+      case ADD_STARRED_SHOP:
+        this._addShop(action.data.results.shop[0]);
+        this._emitChange();
+        break;
+
+      case REMOVE_STARRED_SHOP:
+        this._removeShop(action.id);
         this._emitChange();
         break;
 

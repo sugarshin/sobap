@@ -37,7 +37,6 @@ class ShopDetail extends React.Component
     shopDetailStore.addChangeListener @_changeShop
     starredShopStore.addChangeListener @_changeStarredShops
 
-    actions.fetchStarredShop()
     actions.updateShopDetail @props.params.id
 
   componentWillUnmount: ->
