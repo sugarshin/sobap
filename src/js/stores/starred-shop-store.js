@@ -37,7 +37,7 @@ class StarredShopStore extends EventEmitter {
   }
 
   _removeShop(id) {
-    remove(this._starredShops, shop => { return shop.id === id });
+    remove(this._starredShops, shop => shop.id === id);
   }
 
   _handler(action) {
