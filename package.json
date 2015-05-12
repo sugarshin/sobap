@@ -26,7 +26,6 @@
     "object-assign": "^2.0.0",
     "octicons": "^2.2.0",
     "qs": "^2.4.2",
-    "randomstring": "^1.0.5",
     "react": "~0.13.3",
     "react-jade": "^2.4.0",
     "react-router": "^0.13.3"
