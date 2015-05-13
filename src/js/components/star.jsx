@@ -24,14 +24,14 @@ export default class Star extends React.Component {
     super(props);
 
     this.state = {
-      shops: starredShopStore.getShops()
+      shops: starredShopStore.getShops(),
       starredIDs: starredShopStore.getShops().map(shop => shop.id)
     };
   }
 
   _changeStarredShops() {
     this.setState({
-      shops: starredShopStore.getShops()
+      shops: starredShopStore.getShops(),
       starredIDs: starredShopStore.getShops().map(shop => shop.id)
     });
   }
