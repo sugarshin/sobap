@@ -1,16 +1,13 @@
-"use strict"
+import React from 'react';
+import { Route, Redirect, NotFoundRoute } from 'react-router';
 
-React = require 'react'
-{ Route, Redirect, NotFoundRoute } = require 'react-router'
+import App from '../components/app';
+import Search from '../components/search';
+import Star from '../components/star';
+import ShopDetail from '../components/shop-detail';
+import NotFound from '../components/notfound';
 
-App = require '../components/app'
-Search = require '../components/search'
-Star = require '../components/star'
-ShopDetail = require '../components/shop-detail'
-NotFound = require '../components/notfound'
-
-module.exports =
-routes =
+export default (
   <Route path="/" handler={App}>
     <Route
       name="search"
@@ -30,3 +27,4 @@ routes =
     <Redirect from="/" to="search" />
     <NotFoundRoute handler={NotFound} />
   </Route>
+)
