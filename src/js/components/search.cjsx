@@ -7,10 +7,8 @@ SearchBar = require './partials/search-bar'
 GoogleMap = require './partials/google-map'
 Shops = require './partials/shops'
 
-actions = require '../actions/actions'
 shopStore = require '../stores/shop-store'
-# todo
-starredShopStore = require '../stores/starred-shop-store'
+starredShopStore = require '../stores/starred-shop-store'# todo
 
 module.exports =
 class Search extends React.Component
@@ -26,36 +24,22 @@ class Search extends React.Component
       shops: shopStore.getShops()
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  _handleClickLocation: =>
-    actions.searchShopByLocation()
+  componentDidMount: ->
+    shopStore.addChangeListener @_changeShops
+    starredShopStore.addChangeListener @_changeStarredShops
 
-  _handleClickSearchKeyword: (value) =>
-    actions.searchShopByKeyword value
-
-  _handleClickStar: (e) =>
-    actions.updateStarredShop e.currentTarget.id
+  componentWillUnmount: ->
+    shopStore.removeChangeListener @_changeShops
+    starredShopStore.removeChangeListener @_changeStarredShops
 
   _changeShops: => @setState shops: shopStore.getShops()
 
   _changeStarredShops: =>
     @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  componentDidMount: ->
-    shopStore.addChangeListener @_changeShops
-    starredShopStore.addChangeListener @_changeStarredShops
-
-    actions.searchShopByLocation()
-
-  componentWillUnmount: ->
-    shopStore.removeChangeListener @_changeShops
-    starredShopStore.removeChangeListener @_changeStarredShops
-
   render: ->
     <div>
-      <SearchBar
-        onClickLocation={@_handleClickLocation}
-        onClickSearchKeyword={@_handleClickSearchKeyword}
-      />
+      <SearchBar />
       <GoogleMap
         markers={@state.shops.map (shop) -> lat: shop.lat, lng: shop.lng, id: shop.id}
       />
@@ -64,7 +48,6 @@ class Search extends React.Component
           key={'search-shops'}
           classNames={'shops'}
           shops={@state.shops}
-          onClickStar={@_handleClickStar}
           starredIDs={@state.starredIDs}
         />
       </div>

@@ -11,7 +11,6 @@ class Shops extends React.Component
   @propTypes:
     classNames: React.PropTypes.string
     shops: React.PropTypes.array
-    onClickStar: React.PropTypes.func
     starredIDs: React.PropTypes.array
 
   @defaultProps:
@@ -26,7 +25,6 @@ class Shops extends React.Component
         <Shop
           key={shop.id}
           data={shop}
-          onClickStar={@props.onClickStar}
           isStarred={includes @props.starredIDs, shop.id}
         />}
     </div>

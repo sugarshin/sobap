@@ -8,8 +8,7 @@ ShopDetailBody = require './partials/shop-detail-body'
 
 actions = require '../actions/actions'
 shopDetailStore = require '../stores/shop-detail-store'
-# todo
-starredShopStore = require '../stores/starred-shop-store'
+starredShopStore = require '../stores/starred-shop-store'# todo
 
 module.exports =
 class ShopDetail extends React.Component
@@ -25,14 +24,6 @@ class ShopDetail extends React.Component
       shop: shopDetailStore.getShop()
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  _handleClickStar: (e) =>
-    actions.updateStarredShop e.currentTarget.id
-
-  _changeShop: => @setState shop: shopDetailStore.getShop()
-
-  _changeStarredShops: =>
-    @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
-
   componentDidMount: ->
     shopDetailStore.addChangeListener @_changeShop
     starredShopStore.addChangeListener @_changeStarredShops
@@ -43,9 +34,13 @@ class ShopDetail extends React.Component
     shopDetailStore.removeChangeListener @_changeShop
     starredShopStore.removeChangeListener @_changeStarredShops
 
+  _changeShop: => @setState shop: shopDetailStore.getShop()
+
+  _changeStarredShops: =>
+    @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+
   render: ->
     <ShopDetailBody
       data={@state.shop}
-      onClickStar={@_handleClickStar}
       isStarred={includes @state.starredIDs, @props.params.id}
     />

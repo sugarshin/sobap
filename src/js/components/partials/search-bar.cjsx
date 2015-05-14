@@ -3,6 +3,8 @@
 React = require 'react'
 jade = require 'react-jade'
 
+actions = require '../../actions/actions'
+
 template = jade.compileFile "#{__dirname}/../../templates/search-bar.jade"
 
 module.exports =
@@ -17,14 +19,14 @@ class SearchBar extends React.Component
   constructor: (props) ->
     super props
 
-  _onClickLocation: =>
-    @props.onClickLocation()
+  _handleClickLocation: =>
+    actions.searchShopByLocation()
 
-  _onClickSearchKeyword: =>
+  _handleClickSearchKeyword: =>
     return unless v = React.findDOMNode(@refs.inputSearch).value # todo
-    @props.onClickSearchKeyword v
+    actions.searchShopByKeyword v
 
   render: ->
     template
-      onClickLocation: @_onClickLocation
-      onClickSearchKeyword: @_onClickSearchKeyword
+      onClickLocation: @_handleClickLocation
+      onClickSearchKeyword: @_handleClickSearchKeyword

@@ -5,7 +5,6 @@ React = require 'react'
 
 Shops = require './partials/shops'
 
-actions = require '../actions/actions'
 starredShopStore = require '../stores/starred-shop-store'
 
 module.exports =
@@ -27,9 +26,6 @@ class Star extends React.Component
       shops: starredShopStore.getShops()
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
-  _handleClickStar: (e) =>
-    actions.updateStarredShop e.currentTarget.id
-
   componentDidMount: ->
     starredShopStore.addChangeListener @_changeStarredShops
 
@@ -43,7 +39,6 @@ class Star extends React.Component
           key={'starred-shops'}
           classNames={'shops starred-shops'}
           shops={@state.shops}
-          onClickStar={@_handleClickStar}
           starredIDs={@state.starredIDs}
         />
       </div>
