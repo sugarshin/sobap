@@ -2,9 +2,9 @@
 
 React = require 'react'
 { RouteHandler } = require 'react-router'
+{ GoogleMaps, Marker } = require 'react-google-maps'
 
 SearchBar = require './partials/search-bar'
-GoogleMap = require './partials/google-map'
 Shops = require './partials/shops'
 
 shopStore = require '../stores/shop-store'
@@ -15,7 +15,7 @@ class Search extends React.Component
 
   # @propTypes:
 
-  # @defaultProps =
+  # @defaultProps:
 
   constructor: (props) ->
     super props
@@ -23,6 +23,8 @@ class Search extends React.Component
     @state =
       shops: shopStore.getShops()
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+      markers: shopStore.getShops().map (shop) ->
+        lat: shop.lat, lng: shop.lng, id: shop.id
 
   componentDidMount: ->
     shopStore.addChangeListener @_changeShops
@@ -32,17 +34,41 @@ class Search extends React.Component
     shopStore.removeChangeListener @_changeShops
     starredShopStore.removeChangeListener @_changeStarredShops
 
-  _changeShops: => @setState shops: shopStore.getShops()
+  componentDidUpdate: ->
+    bounds = new google.maps.LatLngBounds
+    @state.markers.forEach (marker) ->
+      bounds.extend new google.maps.LatLng marker.lat, marker.lng
+    @refs.googlemaps.fitBounds bounds
+
+  _changeShops: =>
+    shops = shopStore.getShops()
+    @setState
+      shops: shops
+      markers: shops.map (shop) -> lat: shop.lat, lng: shop.lng, id: shop.id
 
   _changeStarredShops: =>
     @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
 
+  _handleMarkerClick: (id) => location.hash = "/shop/#{id}"
+
   render: ->
     <div>
       <SearchBar />
-      <GoogleMap
-        markers={@state.shops.map (shop) -> lat: shop.lat, lng: shop.lng, id: shop.id}
-      />
+      <div className={'google-map-container'}>
+        <GoogleMaps
+          containerProps={style: height: '100%'}
+          ref="googlemaps"
+          googleMapsApi={google.maps}
+        >
+          {@state.markers.map (marker) =>
+            console.log +marker.lat
+            <Marker
+              key={"marker_#{marker.id}"}
+              position={lat: +marker.lat, lng: +marker.lng}
+              onClick={=> @_handleMarkerClick marker.id}
+            />}
+        </GoogleMaps>
+      </div>
       <div className="main">
         <Shops
           key={'search-shops'}
