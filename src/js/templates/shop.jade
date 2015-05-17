@@ -7,12 +7,14 @@ include ./_helper.jade
   h3.shop-name
     //- a(href= createURI(data.urls.pc) target="_blank")
     a(href="#/shop/" + data.id)
+      span= data.name
       img(
         src="http://ad.jp.ap.valuecommerce.com/servlet/gifbanner?sid=3210627&pid=883436145"
         height="0"
         width="0"
         border="0"
-      )= data.name
+      )
+      span.octicon.octicon-info
 
   p.shop-address= data.address
 
