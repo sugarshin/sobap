@@ -67,9 +67,3 @@ module.exports =
       ['main.js?v', "main.min.js?v#{Date.now()}"]
       ['main.css?v', "main.min.css?v#{Date.now()}"]
     ]
-
-  copy:
-    src: [
-      './node_modules/octicons/octicons/octicons.{css,eot,svg,ttf,woff}'
-    ]
-    dest: "#{D.DEST}/css"

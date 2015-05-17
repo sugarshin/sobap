@@ -31,7 +31,7 @@ gulp.task 'serve', -> browserSync conf.serve
 
 gulp.task 'pre-default', (cb) ->
   runSequence(
-    ['jade', 'stylus', 'browserify', 'copy']
+    ['jade', 'stylus', 'browserify', 'copy:octicon', 'copy:favicon']
     'watchify'
     'serve'
     cb
@@ -45,7 +45,7 @@ gulp.task 'default', ['pre-default'], ->
 gulp.task 'build', (cb) ->
   runSequence(
     'clean'
-    ['jade', 'stylus', 'browserify', 'copy']
+    ['jade', 'stylus', 'browserify', 'copy:octicon', 'copy:favicon']
     ['replace', 'minify-css', 'uglify']
     cb
   )

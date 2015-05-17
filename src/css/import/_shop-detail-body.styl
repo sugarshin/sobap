@@ -13,8 +13,10 @@
 
   .shop-detail-name
     margin-top 0
+    padding-bottom 2%
     padding-right 8%
     line-height 1.2
+    border-bottom 1px solid clr_lgry
     .shop-detail-name-logo
       margin-right 2%
       max-width 64px
@@ -56,14 +58,19 @@
   .shop-detail-table
     margin 4% 0
     table
+      width 100%
       margin 0 auto
     tr:nth-child(odd)
       background lighten(clr_lgry, 62.5%)
-    th, td
-      padding .4em 1em
+    tr:nth-child(even)
+      th
+        border-right 1px solid lighten(clr_lgry, 62.5%)
     th
+      padding .4em
+      min-width 4em
       border-right 1px solid clr_wh
-
+    td
+      padding .4em 1em
 
   .star-button
     width 6%
