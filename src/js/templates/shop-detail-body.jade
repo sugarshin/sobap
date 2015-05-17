@@ -28,6 +28,9 @@ include ./_helper.jade
 
     .shop-detail-table: table: tbody
       tr
+        th かな
+        td= data.name_kana
+      tr
         th 店名
         td= data.name
       tr
@@ -70,6 +73,9 @@ include ./_helper.jade
         th 営業時間
         td= data.open
       tr
+        th 深夜営業（23時~）
+        td= data.midnight
+      tr
         th 駐車場
         td= data.parking
       tr
@@ -90,6 +96,9 @@ include ./_helper.jade
       tr
         th Wi-Fi
         td= data.wifi
+      tr
+        th 備考
+        td= data.shop_detail_memo
 
     .shop-g-static-map
       a(href="https://maps.google.co.jp/maps?q=" + latlng target="_blank")
