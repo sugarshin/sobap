@@ -22,6 +22,7 @@ class Search extends React.Component
 
     shops = shopStore.getShops()
     @state =
+      isSearchResultsByCurrentLocation: shopStore.getSearchResultsByCurrentLocation()
       shops: shops
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
       markers: shops.map (shop) -> lat: +shop.lat, lng: +shop.lng, id: shop.id
@@ -37,6 +38,7 @@ class Search extends React.Component
   _changeShops: =>
     shops = shopStore.getShops()
     @setState
+      isSearchResultsByCurrentLocation: shopStore.getSearchResultsByCurrentLocation()
       shops: shops
       markers: shops.map (shop) -> lat: +shop.lat, lng: +shop.lng, id: shop.id
 
@@ -45,7 +47,9 @@ class Search extends React.Component
 
   render: ->
     <div>
-      <SearchBar />
+      <SearchBar
+        isSearchResultsByCurrentLocation={@state.isSearchResultsByCurrentLocation}
+      />
       <GoogleMap
         markers={@state.markers}
       />

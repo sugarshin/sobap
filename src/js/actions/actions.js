@@ -40,6 +40,7 @@ class Actions {
       }, TYPE_LITE).then((data) => {
         dispatcher.dispatch({
           actionType: SEARCH_SHOP,
+          isSearchResultsByCurrentLocation: true,
           data: data
         });
       });

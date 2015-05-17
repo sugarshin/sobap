@@ -1,0 +1,80 @@
+@charset "utf-8"
+
+.search-bar-container
+  padding 4px 1.25% 4px
+  height 32px
+  top 40px
+  line-height 32px
+  position relative
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  z-index 9
+
+.search-near-button
+  position absolute
+  top 4px
+  left 50%
+  transform translateX(-50%)
+  display inline-block
+  width 48px
+  height 48px
+  line-height 52px
+  border-radius 50%
+  box-sizing border-box
+  text-align center
+  cursor pointer
+  background clr_bk
+  box-shadow 0 0 4px 0 clr_bk
+  z-index 1
+  span
+    color #fff
+    transition .1s font-size ease-out
+  &.is-active, &:hover
+    span
+      font-size 34px
+      color clr_red
+
+.search-keyword-container
+  position absolute
+  top 4px
+  right 4px
+  line-height 1
+  input[type="search"]
+    width 128px
+    height 24px
+    padding 0 .2em
+    box-sizing border-box
+    line-height 24px
+    appearance none
+    border 0
+    vertical-align middle
+    @media screen and (max-width: 767px)
+      width 96px
+
+    @media screen and (max-width: 567px)
+      width 64px
+
+  .search-keyword-button
+    display inline-block
+    text-align center
+    cursor pointer
+    vertical-align middle
+    margin-left 4px
+    button
+      width 32px
+      height 32px
+      display inline-block
+      padding 0
+      appearance none
+      background none
+      border 0
+      outline none
+      vertical-align middle
+      span
+        vertical-align bottom
+        transition .1s font-size ease-out
+      &:hover
+        span
+          font-size 19px
+  .octicon
+    color #fff

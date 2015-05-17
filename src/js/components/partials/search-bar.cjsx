@@ -11,10 +11,10 @@ module.exports =
 class SearchBar extends React.Component
 
   @propTypes:
-    onClickLocation: React.PropTypes.func
-    onClickSearchKeyword: React.PropTypes.func
+    isSearchResultsByCurrentLocation: React.PropTypes.bool
 
-  # @defaultProps:
+  @defaultProps:
+    isSearchResultsByCurrentLocation: false
 
   constructor: (props) ->
     super props
@@ -28,5 +28,6 @@ class SearchBar extends React.Component
 
   render: ->
     template
+      isSearchResultsByCurrentLocation: @props.isSearchResultsByCurrentLocation
       onClickLocation: @_handleClickLocation
       onClickSearchKeyword: @_handleClickSearchKeyword
