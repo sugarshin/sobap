@@ -8,82 +8,67 @@ module.exports =
 class GoogleMap extends React.Component
 
   @propTypes:
+    initialCenterPos: React.PropTypes.shape
+      lat: React.PropTypes.number
+      lng: React.PropTypes.number
     markers: React.PropTypes.array
 
-  # @defaultProps:
+  @defaultProps:
+    initialCenterPos:
+      lat: 35.6895
+      lng: 139.69164
 
   constructor: (props) ->
     super props
-
     @_map = null
     @_markers = []
-    # @_currentMarker = null
-    # @_infoWindow = null
+    @_centerPos = @props.initialCenterPos
 
-  _onUpdateMap: (geos, currentGeo) =>
-    @updateByCurrentGeo geos, currentGeo
-
-  updateByCurrentGeo: (geos, center) ->
-    # todo
-    if center?
-      @_map.panTo new google.maps.LatLng center.lat, center.lng
-    else
-      bounds = new google.maps.LatLngBounds
-      geos.forEach (el) ->
-        bounds.extend new google.maps.LatLng el.lat, el.lng
-      @_map.fitBounds bounds
-
-    @removeAllMarker()
-
-    # todo
-    geos.forEach (el) =>
-      m = @createMarker
-        latitude: el.lat
-        longitude: el.lng
-      , el.id
-      @_markers.push m
-      google.maps.event.addListener m, 'click', ->
-        location.hash = "/shop/#{m.url}"
-
-  removeAllMarker: ->
-    for marker in @_markers
-      marker.setMap null
-
-  componentWillReceiveProps: (nextProps) ->
-    # console.log '@props', @props.markers
-    # console.log 'nextProps', nextProps.markers
-    @updateByCurrentGeo nextProps.markers if nextProps.markers.length > 0
-
-  componentDidMount: ->
-    # todo
-    @_map = @createMap latitude: 35.6895, longitude: 139.69164
-    # google.maps.event.addListener @_map, 'zoom_changed', => @onZoomChange()
-    # google.maps.event.addListener @_map, 'dragend', => @onDragEnd()
+  updateMarker: (markers) ->
+    @_removeAllMarker()
+    @_markers = markers.map (marker) =>
+      @createMarker {lat: marker.lat, lng: marker.lng}, marker.id
+    @_fitBounds markers
+    @_setCenterPos()
 
   createMap: (coords) ->
-    mapOpts =
+    opts =
       minZoom: 5
       zoom: 13
-      center: new google.maps.LatLng coords.latitude, coords.longitude
-
-    new google.maps.Map React.findDOMNode(@refs.mapCanvas), mapOpts
+      center: new google.maps.LatLng @_centerPos.lat, @_centerPos.lng
+    new google.maps.Map React.findDOMNode(@refs.mapCanvas), opts
 
   createMarker: (coords, id) ->
-    new google.maps.Marker
-      position: new google.maps.LatLng coords.latitude, coords.longitude
+    marker = new google.maps.Marker
+      position: new google.maps.LatLng coords.lat, coords.lng
       map: @_map
-      url: id
+    google.maps.event.addListener marker, 'click', ->
+      location.hash = "/shop/#{id}"
+    return marker
 
-  # createInfoWindow: ->
-  #   contentString = '<div class="InfoWindow"></div>'
-  #   @_infoWindow = new google.maps.InfoWindow
-  #     map: @_map
-  #     anchor: @marker
-  #     content: contentString
+  _setCenterPos: ->
+    center = @_map.getCenter()
+    @_centerPos.lat = center.lat()
+    @_centerPos.lat = center.lng()
 
-  # onZoomChange: ->
-  #
-  # onDragEnd: ->
+  _removeAllMarker: ->
+    for marker in @_markers
+      marker.setMap null
+    @_markers.length = 0
+
+  _fitBounds: (markers) ->
+    bounds = new google.maps.LatLngBounds
+    markers.forEach (marker) =>
+      bounds.extend new google.maps.LatLng marker.lat, marker.lng
+    @_map.fitBounds bounds
+
+  componentWillReceiveProps: (nextProps) ->
+    @updateMarker nextProps.markers if nextProps.markers.length > 0
+
+  componentDidMount: ->
+    { markers } = @props
+    @_map = @createMap()
+    @updateMarker markers if markers.length > 0
 
   render: ->
     <div className="google-map">

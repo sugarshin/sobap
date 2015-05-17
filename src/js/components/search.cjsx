@@ -20,9 +20,11 @@ class Search extends React.Component
   constructor: (props) ->
     super props
 
+    shops = shopStore.getShops()
     @state =
-      shops: shopStore.getShops()
+      shops: shops
       starredIDs: starredShopStore.getShops().map (shop) -> shop.id
+      markers: shops.map (shop) -> lat: +shop.lat, lng: +shop.lng, id: shop.id
 
   componentDidMount: ->
     shopStore.addChangeListener @_changeShops
@@ -32,7 +34,11 @@ class Search extends React.Component
     shopStore.removeChangeListener @_changeShops
     starredShopStore.removeChangeListener @_changeStarredShops
 
-  _changeShops: => @setState shops: shopStore.getShops()
+  _changeShops: =>
+    shops = shopStore.getShops()
+    @setState
+      shops: shops
+      markers: shops.map (shop) -> lat: +shop.lat, lng: +shop.lng, id: shop.id
 
   _changeStarredShops: =>
     @setState starredIDs: starredShopStore.getShops().map (shop) -> shop.id
@@ -41,7 +47,7 @@ class Search extends React.Component
     <div>
       <SearchBar />
       <GoogleMap
-        markers={@state.shops.map (shop) -> lat: shop.lat, lng: shop.lng, id: shop.id}
+        markers={@state.markers}
       />
       <div className="main">
         <Shops
