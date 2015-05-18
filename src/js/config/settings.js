@@ -7,5 +7,6 @@ export default {
     food: 'R012',
     range: 5,
     count: 100
-  }
+  },
+  maxMultiRequestByID: 20
 }

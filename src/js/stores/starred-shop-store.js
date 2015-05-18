@@ -42,7 +42,9 @@ class StarredShopStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
       case ADD_STARRED_SHOP:
-        this._addShop(action.data.results.shop[0]);
+        action.data.results.shop.forEach(shop => {
+          this._addShop(shop);
+        });
         this._emitChange();
         break;
 

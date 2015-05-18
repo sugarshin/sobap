@@ -2,12 +2,17 @@ import Promise from 'bluebird';
 import assign from 'object-assign';
 import includes from 'lodash.includes';
 import remove from 'lodash.remove';
+import partitionSize from 'partition-size';
 
 import dispatcher from '../dispatcher/dispatcher';
 import request from '../utils/request';
 import geolocation from '../utils/geolocation';
 import localStorage from '../utils/local-storage';
-import {gourmetApi, baseQuery} from '../config/settings';
+import {
+  gourmetApi,
+  baseQuery,
+  maxMultiRequestByID
+} from '../config/settings';
 
 import {
   SEARCH_SHOP,
@@ -17,7 +22,7 @@ import {
 } from '../constants/constants';
 
 const TYPE_LITE = {type: 'lite'};
-const STARRED_SHOP_KEY = 'starredShopsIDs';
+const STARRED_SHOP_IDS_KEY = 'starredShopsIDs';
 
 class Actions {
 
@@ -59,10 +64,11 @@ class Actions {
   }
 
   fetchStarredShop() {
-    localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
-      shopIDs.forEach(id => {
+    localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
+      if (shopIDs.length === 0) return; // todo
+      partitionSize(shopIDs, maxMultiRequestByID).forEach(ids => {
         this._requestShopData({
-          id: id
+          id: ids
         }, TYPE_LITE).then((data) => {
           dispatcher.dispatch({
             actionType: ADD_STARRED_SHOP,
@@ -74,7 +80,7 @@ class Actions {
   }
 
   updateStarredShop(id) {
-    localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
+    localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
       if (includes(shopIDs, id)) {
         this.removeStarredShop(id);
       } else {
@@ -105,9 +111,9 @@ class Actions {
 
   _addStarredID(id) {
     return new Promise((resolve) => {
-      localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
+      localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
         shopIDs.push(id);
-        localStorage(STARRED_SHOP_KEY, shopIDs)
+        localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
         .then(resolve);
       });
     });
@@ -115,9 +121,9 @@ class Actions {
 
   _removeStarredID(id) {
     return new Promise((resolve) => {
-      localStorage(STARRED_SHOP_KEY).then((shopIDs) => {
+      localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
         remove(shopIDs, i => i === id);
-        localStorage(STARRED_SHOP_KEY, shopIDs)
+        localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
         .then(resolve);
       });
     });
