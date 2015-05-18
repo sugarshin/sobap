@@ -1,5 +1,10 @@
 # SOBAPリリースノート
 
+## 0.7.6 (15/05/19)
+
+* add partition-size package
+* close #6
+
 ## 0.7.5 (15/05/18)
 
 * gulpタスク調整
