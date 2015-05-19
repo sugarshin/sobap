@@ -1,5 +1,9 @@
 # SOBAPリリースノート
 
+## 0.7.7 (15/05/19)
+
+* actions 非同期メソッドのリファクタリング
+
 ## 0.7.6 (15/05/19)
 
 * add partition-size package
