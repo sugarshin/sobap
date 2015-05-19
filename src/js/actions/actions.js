@@ -43,9 +43,9 @@ class Actions {
         lat: pos.coords.latitude,
         lng: pos.coords.longitude
       }, TYPE_LITE).then((data) => {
+        data.isResultsByGeolocation = true;
         dispatcher.dispatch({
           actionType: SEARCH_SHOP,
-          isSearchResultsByCurrentLocation: true,
           data: data
         });
       });

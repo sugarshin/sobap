@@ -7,7 +7,7 @@ class ShopStore extends EventEmitter {
 
   constructor() {
     super();
-    this._isSearchResultsByCurrentLocation = false;
+    this._isResultsByGeolocation = false;
     this._shops = [];
     dispatcher.register(this._handler.bind(this));
   }
@@ -16,8 +16,8 @@ class ShopStore extends EventEmitter {
     return this._shops;
   }
 
-  getSearchResultsByCurrentLocation() {
-    return this._isSearchResultsByCurrentLocation;
+  getResultsByGeolocation() {
+    return this._isResultsByGeolocation;
   }
 
   addChangeListener(callback) {
@@ -36,16 +36,16 @@ class ShopStore extends EventEmitter {
     this._shops = shops;
   }
 
-  _setSearchResultsByCurrentLocation(isSearchResultsByCurrentLocation) {
-    this._isSearchResultsByCurrentLocation = isSearchResultsByCurrentLocation;
+  _setResultsByGeolocation(isResultsByGeolocation) {
+    this._isResultsByGeolocation = isResultsByGeolocation;
   }
 
   _handler(action) {
     switch (action.actionType) {
       case SEARCH_SHOP:
         this._fetchShop(action.data.results.shop);
-        this._setSearchResultsByCurrentLocation(
-          action.isSearchResultsByCurrentLocation || false
+        this._setResultsByGeolocation(
+          action.data.isResultsByGeolocation || false
         );
         this._emitChange();
         break;
