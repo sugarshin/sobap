@@ -81,7 +81,7 @@ class Actions {
           return this._requestShopData({
             id: ids
           }, TYPE_LITE);
-        })
+        });
       );
     })
     .then((dataList) => {
