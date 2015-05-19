@@ -81,10 +81,11 @@ class Actions {
           return this._requestShopData({
             id: ids
           }, TYPE_LITE);
-        });
+        })
       );
     })
     .then((dataList) => {
+      if (!dataList) return; // todo
       dispatcher.dispatch({
         actionType: FETCH_STARRED_SHOP,
         dataList: dataList
