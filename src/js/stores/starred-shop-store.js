@@ -3,6 +3,7 @@ import remove from 'lodash.remove';
 
 import dispatcher from '../dispatcher/dispatcher';
 import {
+  FETCH_STARRED_SHOP,
   ADD_STARRED_SHOP,
   REMOVE_STARRED_SHOP
 } from '../constants/constants';
@@ -31,6 +32,10 @@ class StarredShopStore extends EventEmitter {
     this.emit('change');
   }
 
+  _fetchShop(shops) {
+    this._starredShops = shops;
+  }
+
   _addShop(shop) {
     this._starredShops.push(shop);
   }
@@ -41,6 +46,15 @@ class StarredShopStore extends EventEmitter {
 
   _handler(action) {
     switch (action.actionType) {
+      case FETCH_STARRED_SHOP:
+        let _shops = action.dataList.reduce((prev, current) => {
+          current.results.shop.forEach(shop => { prev.push(shop); });
+          return prev;
+        }, []);
+        this._fetchShop(_shops);
+        this._emitChange();
+        break;
+
       case ADD_STARRED_SHOP:
         action.data.results.shop.forEach(shop => {
           this._addShop(shop);

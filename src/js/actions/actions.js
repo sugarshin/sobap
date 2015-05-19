@@ -16,6 +16,7 @@ import {
 
 import {
   SEARCH_SHOP,
+  FETCH_STARRED_SHOP,
   ADD_STARRED_SHOP,
   REMOVE_STARRED_SHOP,
   UPDATE_SHOP_DETAIL
@@ -27,7 +28,9 @@ const STARRED_SHOP_IDS_KEY = 'starredShopsIDs';
 class Actions {
 
   updateShopDetail(id) {
-    this._requestShopData({id: id}).then((data) => {
+    Promise.resolve()
+    .then(() => { return this._requestShopData({id: id}); })
+    .then((data) => {
       dispatcher.dispatch({
         actionType: UPDATE_SHOP_DETAIL,
         data: data
@@ -39,23 +42,28 @@ class Actions {
     Promise.resolve()
     .then(geolocation)
     .then((pos) => {
-      this._requestShopData({
+      return this._requestShopData({
         lat: pos.coords.latitude,
         lng: pos.coords.longitude
-      }, TYPE_LITE).then((data) => {
-        data.isResultsByGeolocation = true;
-        dispatcher.dispatch({
-          actionType: SEARCH_SHOP,
-          data: data
-        });
+      }, TYPE_LITE);
+    })
+    .then((data) => {
+      data.isResultsByGeolocation = true;
+      dispatcher.dispatch({
+        actionType: SEARCH_SHOP,
+        data: data
       });
     });
   }
 
   searchShopByKeyword(keyword) {
-    this._requestShopData({
-      keyword: keyword
-    }, TYPE_LITE).then((data) => {
+    Promise.resolve()
+    .then(() => {
+      return this._requestShopData({
+        keyword: keyword
+      }, TYPE_LITE);
+    })
+    .then((data) => {
       dispatcher.dispatch({
         actionType: SEARCH_SHOP,
         data: data
@@ -64,23 +72,30 @@ class Actions {
   }
 
   fetchStarredShop() {
-    localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
+    Promise.resolve()
+    .then(() => { return localStorage(STARRED_SHOP_IDS_KEY); })
+    .then((shopIDs) => {
       if (shopIDs.length === 0) return; // todo
-      partitionSize(shopIDs, maxMultiRequestByID).forEach(ids => {
-        this._requestShopData({
-          id: ids
-        }, TYPE_LITE).then((data) => {
-          dispatcher.dispatch({
-            actionType: ADD_STARRED_SHOP,
-            data: data
-          });
-        });
+      return Promise.all(
+        partitionSize(shopIDs, maxMultiRequestByID).map(ids => {
+          return this._requestShopData({
+            id: ids
+          }, TYPE_LITE);
+        })
+      );
+    })
+    .then((dataList) => {
+      dispatcher.dispatch({
+        actionType: FETCH_STARRED_SHOP,
+        dataList: dataList
       });
     });
   }
 
   updateStarredShop(id) {
-    localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
+    Promise.resolve()
+    .then(() => { return localStorage(STARRED_SHOP_IDS_KEY); })
+    .then((shopIDs) => {
       if (includes(shopIDs, id)) {
         this.removeStarredShop(id);
       } else {
@@ -90,18 +105,21 @@ class Actions {
   }
 
   addStarredShop(id) {
-    this._addStarredID(id).then(() => {
-      this._requestShopData({id: id}, TYPE_LITE).then((data) => {
-        dispatcher.dispatch({
-          actionType: ADD_STARRED_SHOP,
-          data: data
-        });
+    Promise.resolve()
+    .then(() => { return this._addStarredID(id); })
+    .then((id) => { return this._requestShopData({id: id}, TYPE_LITE); })
+    .then((data) => {
+      dispatcher.dispatch({
+        actionType: ADD_STARRED_SHOP,
+        data: data
       });
     });
   }
 
   removeStarredShop(id) {
-    this._removeStarredID(id).then(() => {
+    Promise.resolve()
+    .then(() => { return this._removeStarredID(id); })
+    .then((id) => {
       dispatcher.dispatch({
         actionType: REMOVE_STARRED_SHOP,
         id: id
@@ -114,7 +132,7 @@ class Actions {
       localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
         shopIDs.push(id);
         localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
-        .then(resolve);
+        .then(() => { return resolve(id); });
       });
     });
   }
@@ -124,7 +142,7 @@ class Actions {
       localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
         remove(shopIDs, i => i === id);
         localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
-        .then(resolve);
+        .then(() => { return resolve(id); });
       });
     });
   }
