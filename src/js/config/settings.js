@@ -8,5 +8,9 @@ export default {
     range: 5,
     count: 100
   },
-  maxMultiRequestByID: 20
+  maxMultiRequestByID: 20,
+  vcBaseUrl: 'http://ck.jp.ap.valuecommerce.com/servlet/referral',
+  vcSid: 3210627,
+  vcPid: 883436145,
+  gmapsApiKey: 'AIzaSyBPUZBpfVczPqaeVD8SuzFR4DvWlMd1D2k'
 }
