@@ -1,11 +1,9 @@
 "use strict"
 
 React = require 'react'
-jade = require 'react-jade'
+classnames = require 'classnames'
 
 actions = require '../../actions/actions'
-
-template = jade.compileFile "#{__dirname}/../../templates/search-bar.jade"
 
 module.exports =
 class SearchBar extends React.Component
@@ -27,7 +25,20 @@ class SearchBar extends React.Component
     actions.searchShopByKeyword v
 
   render: ->
-    template
-      isResultsByGeolocation: @props.isResultsByGeolocation
-      onClickLocation: @_handleClickLocation
-      onClickSearchKeyword: @_handleClickSearchKeyword
+    { isResultsByGeolocation } = @props
+
+    <div className="search-bar-container">
+      <div className="search-bar">
+        <div className={classnames 'search-near-button', 'is-active': isResultsByGeolocation}>
+          <span className="mega-octicon octicon-location" onClick={@_handleClickLocation}></span>
+        </div>
+        <div className="search-keyword-container">
+          <input type="search" ref="inputSearch" />
+          <div className="search-keyword-button">
+            <button type="button" onClick={@_handleClickSearchKeyword}>
+              <span className="octicon octicon-search"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
