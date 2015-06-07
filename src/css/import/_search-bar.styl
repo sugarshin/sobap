@@ -33,6 +33,11 @@
     span
       font-size 34px
       color clr_red
+  &.geo-loading
+    animation-duration .5s
+    animation-iteration-count infinite
+    animation-name geo-loading
+    animation-direction alternate
 
 .search-keyword-container
   position absolute
@@ -78,3 +83,13 @@
           font-size 19px
   .octicon
     color #fff
+
+
+
+@keyframes geo-loading
+  0%
+    font-size 28px
+    color #fff
+  100%
+    font-size 34px
+    color clr_red
