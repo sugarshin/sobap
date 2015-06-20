@@ -5,13 +5,16 @@ includes = require 'lodash.includes'
 
 Shop = require './shop'
 
+Component = React.Component
+PropTypes = React.PropTypes
+
 module.exports =
-class Shops extends React.Component
+class Shops extends Component
 
   @propTypes:
-    classNames: React.PropTypes.string
-    shops: React.PropTypes.array
-    starredIDs: React.PropTypes.array
+    classNames: PropTypes.string
+    shops: PropTypes.array
+    starredIDs: PropTypes.array
 
   @defaultProps:
     shops: []

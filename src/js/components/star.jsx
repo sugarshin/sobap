@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
 
 import Shops from './partials/shops';
 
 import starredShopStore from '../stores/starred-shop-store';
 
-export default class Star extends React.Component {
+export default class Star extends Component {
 
   // static get propTypes() { return {}; }
   //

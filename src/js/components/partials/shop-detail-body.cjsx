@@ -6,14 +6,17 @@ jade = require 'react-jade'
 
 actions = require '../../actions/actions'
 
+Component = React.Component
+PropTypes = React.PropTypes
+
 template = jade.compileFile "#{__dirname}/../../templates/shop-detail-body.jade"
 
 module.exports =
-class ShopDetailBody extends React.Component
+class ShopDetailBody extends Component
 
   @propTypes:
-    data: React.PropTypes.object
-    isStarred: React.PropTypes.bool
+    data: PropTypes.object
+    isStarred: PropTypes.bool
 
   # @defaultProps:
 

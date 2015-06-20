@@ -3,8 +3,10 @@
 React = require 'react'
 { FacebookButton, TwitterButton } = require '@sugarshin/react-social'
 
+Component = React.Component
+
 module.exports =
-class Footer extends React.Component
+class Footer extends Component
 
   # @propTypes:
 

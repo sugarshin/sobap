@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
 
 import dispatcher from '../dispatcher/dispatcher';
-import {UPDATE_SHOP_DETAIL} from '../constants/constants';
+import { UPDATE_SHOP_DETAIL } from '../constants/constants';
 
 // todo
 import defaultShopDetail from './default-shop-detail'

@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component, PropTypes, findDOMNode } from 'react';
 import classnames from 'classnames';
 
 import actions from '../../actions/actions';
 
-export default class SearchBar extends React.Component {
+export default class SearchBar extends Component {
 
   static get propTypes() {
     return {
-      isResultsByGeolocation: React.PropTypes.bool
+      isResultsByGeolocation: PropTypes.bool
     };
   }
 
@@ -33,7 +33,7 @@ export default class SearchBar extends React.Component {
   }
 
   _handleClickSearchKeyword() {
-    let val = React.findDOMNode(this.refs.inputSearch).value;
+    let val = findDOMNode(this.refs.inputSearch).value;
     if (!val) {
       return;
     }

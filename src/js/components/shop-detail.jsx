@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
 import includes from 'lodash.includes';
 
@@ -8,7 +8,7 @@ import actions from '../actions/actions';
 import shopDetailStore from '../stores/shop-detail-store';
 import starredShopStore from '../stores/starred-shop-store';
 
-export default class ShopDetail extends React.Component {
+export default class ShopDetail extends Component {
 
   // static get propTypes() { return {}; }
   //

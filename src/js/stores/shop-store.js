@@ -1,7 +1,7 @@
 import EventEmitter from 'eventemitter3';
 
 import dispatcher from '../dispatcher/dispatcher';
-import {SEARCH_SHOP} from '../constants/constants';
+import { SEARCH_SHOP } from '../constants/constants';
 
 class ShopStore extends EventEmitter {
 

@@ -3,8 +3,10 @@
 React = require 'react'
 { Link } = require 'react-router'
 
+Component = React.Component
+
 module.exports =
-class Header extends React.Component
+class Header extends Component
 
   # @propTypes:
 

@@ -4,14 +4,18 @@
 
 React = require 'react'
 
+Component = React.Component
+PropTypes = React.PropTypes
+findDOMNode = React.findDOMNode
+
 module.exports =
-class GoogleMap extends React.Component
+class GoogleMap extends Component
 
   @propTypes:
-    initialCenterPos: React.PropTypes.shape
-      lat: React.PropTypes.number
-      lng: React.PropTypes.number
-    markers: React.PropTypes.array
+    initialCenterPos: PropTypes.shape
+      lat: PropTypes.number
+      lng: PropTypes.number
+    markers: PropTypes.array
 
   @defaultProps:
     initialCenterPos:
@@ -36,7 +40,7 @@ class GoogleMap extends React.Component
       minZoom: 5
       zoom: 13
       center: new google.maps.LatLng @_centerPos.lat, @_centerPos.lng
-    new google.maps.Map React.findDOMNode(@refs.mapCanvas), opts
+    new google.maps.Map findDOMNode(@refs.mapCanvas), opts
 
   createMarker: (coords, id) ->
     marker = new google.maps.Marker

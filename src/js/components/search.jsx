@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { RouteHandler } from 'react-router';
 
 import SearchBar from './partials/search-bar';
@@ -8,7 +8,7 @@ import Shops from './partials/shops';
 import shopStore from '../stores/shop-store';
 import starredShopStore from '../stores/starred-shop-store';
 
-export default class Search extends React.Component {
+export default class Search extends Component {
 
   // static get propTypes() { return {}; }
   //
