@@ -7,7 +7,7 @@
     "design": "gulp design",
     "start": "gulp",
     "build": "gulp build",
-    "deploy": "git subtree push -P public --squash origin gh-pages"
+    "deploy": "git subtree push -q -P public --squash origin gh-pages"
   },
   "author": "sugarshin",
   "license": "CC-BY-ND-4.0",
