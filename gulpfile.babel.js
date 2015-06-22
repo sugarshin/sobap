@@ -15,6 +15,15 @@ gulp.task('predesign', cb => {
   );
 });
 
+gulp.task('predefault', cb => {
+  runSequence(
+    ['jade', 'stylus', 'copy:octicon', 'copy:favicon'],
+    'watchify',
+    'serve',
+    cb
+  );
+});
+
 gulp.task('design', ['predesign'], () => {
   gulp.watch(
     ['./design/src/*.jade'],
@@ -23,15 +32,6 @@ gulp.task('design', ['predesign'], () => {
   gulp.watch(
     ['./design/src/css/**/*.styl'],
     ['stylus:design', reload]
-  );
-});
-
-gulp.task('predefault', cb => {
-  runSequence(
-    ['jade', 'stylus', 'copy:octicon', 'copy:favicon'],
-    'watchify',
-    'serve',
-    cb
   );
 });
 
