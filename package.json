@@ -24,10 +24,10 @@
     "jsonp": "^0.2.0",
     "lodash.includes": "^3.1.2",
     "lodash.remove": "^3.1.0",
-    "object-assign": "^2.0.0",
+    "object-assign": "^3.0.0",
     "octicons": "^2.2.0",
     "partition-size": "~0.0.6",
-    "qs": "^2.4.2",
+    "qs": "^3.1.0",
     "react": "~0.13.3",
     "react-jade": "^2.4.0",
     "react-router": "^0.13.3"
