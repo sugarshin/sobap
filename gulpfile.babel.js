@@ -1,17 +1,11 @@
 import gulp from 'gulp';
 import requireDir from 'require-dir';
-import browserSync from 'browser-sync';
 import runSequence from 'run-sequence';
+import {reload} from 'browser-sync';
 
-import {D, serve, design} from './gulp/conf';
-
-const reload = browserSync.reload;
+import {D} from './gulp/conf';
 
 requireDir('./gulp/tasks');
-
-gulp.task('serve:design', () => {
-  browserSync(design);
-});
 
 gulp.task('predesign', cb => {
   runSequence(
@@ -32,13 +26,9 @@ gulp.task('design', ['predesign'], () => {
   );
 });
 
-gulp.task('serve', () => {
-  browserSync(serve);
-});
-
 gulp.task('predefault', cb => {
   runSequence(
-    ['jade', 'stylus', 'browserify', 'copy:octicon', 'copy:favicon'],
+    ['jade', 'stylus', 'copy:octicon', 'copy:favicon'],
     'watchify',
     'serve',
     cb
