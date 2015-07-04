@@ -3,6 +3,8 @@ import EventEmitter from 'eventemitter3';
 import dispatcher from '../dispatcher/dispatcher';
 import { SEARCH_SHOP } from '../constants/constants';
 
+const CHANGE_EVENT = 'change';
+
 class ShopStore extends EventEmitter {
 
   constructor() {
@@ -21,15 +23,15 @@ class ShopStore extends EventEmitter {
   }
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.off('change', callback);
+    this.off(CHANGE_EVENT, callback);
   }
 
   _emitChange() {
-    this.emit('change');
+    this.emit(CHANGE_EVENT);
   }
 
   _fetchShop(shops) {
@@ -56,4 +58,4 @@ class ShopStore extends EventEmitter {
 
 }
 
-export default new ShopStore
+export default new ShopStore();

@@ -6,6 +6,8 @@ import { UPDATE_SHOP_DETAIL } from '../constants/constants';
 // todo
 import defaultShopDetail from './default-shop-detail'
 
+const CHANGE_EVENT = 'change';
+
 class ShopDetailStore extends EventEmitter {
 
   constructor() {
@@ -20,15 +22,15 @@ class ShopDetailStore extends EventEmitter {
   }
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.off('change', callback);
+    this.off(CHANGE_EVENT, callback);
   }
 
   _emitChange() {
-    this.emit('change');
+    this.emit(CHANGE_EVENT);
   }
 
   _fetchShop(shop) {
@@ -48,4 +50,4 @@ class ShopDetailStore extends EventEmitter {
 
 }
 
-export default new ShopDetailStore
+export default new ShopDetailStore();

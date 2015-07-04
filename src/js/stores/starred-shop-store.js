@@ -8,6 +8,8 @@ import {
   REMOVE_STARRED_SHOP
 } from '../constants/constants';
 
+const CHANGE_EVENT = 'change';
+
 class StarredShopStore extends EventEmitter {
 
   constructor() {
@@ -21,15 +23,15 @@ class StarredShopStore extends EventEmitter {
   }
 
   addChangeListener(callback) {
-    this.on('change', callback);
+    this.on(CHANGE_EVENT, callback);
   }
 
   removeChangeListener(callback) {
-    this.off('change', callback);
+    this.off(CHANGE_EVENT, callback);
   }
 
   _emitChange() {
-    this.emit('change');
+    this.emit(CHANGE_EVENT);
   }
 
   _fetchShop(shops) {
@@ -47,7 +49,7 @@ class StarredShopStore extends EventEmitter {
   _handler(action) {
     switch (action.actionType) {
       case FETCH_STARRED_SHOP:
-        let _shops = action.dataList.reduce((prev, current) => {
+        const _shops = action.dataList.reduce((prev, current) => {
           current.results.shop.forEach(shop => { prev.push(shop); });
           return prev;
         }, []);
@@ -73,4 +75,4 @@ class StarredShopStore extends EventEmitter {
 
 }
 
-export default new StarredShopStore
+export default new StarredShopStore();

@@ -33,10 +33,8 @@ export default class SearchBar extends Component {
   }
 
   _handleClickSearchKeyword() {
-    let val = findDOMNode(this.refs.inputSearch).value;
-    if (!val) {
-      return;
-    }
+    const val = findDOMNode(this.refs.inputSearch).value;
+    if (!val) return;
     actions.searchShopByKeyword(val);
   }
 

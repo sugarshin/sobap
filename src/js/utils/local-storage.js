@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 
 export default function utilLocalStorage(namespace, payload) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     if (payload) {
       resolve(localStorage.setItem(namespace, JSON.stringify(payload)));
     }

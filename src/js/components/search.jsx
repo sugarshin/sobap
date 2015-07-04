@@ -46,7 +46,7 @@ export default class Search extends Component {
   }
 
   _changeShops() {
-    let shops = shopStore.getShops();
+    const shops = shopStore.getShops();
     this.setState({
       isResultsByGeolocation: shopStore.getResultsByGeolocation(),
       shops: shops,

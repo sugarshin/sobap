@@ -3,6 +3,7 @@ import assign from 'object-assign';
 import includes from 'lodash.includes';
 import remove from 'lodash.remove';
 import partitionSize from 'partition-size';
+import co from 'co';
 
 import dispatcher from '../dispatcher/dispatcher';
 import request from '../utils/request';
@@ -28,109 +29,126 @@ const STARRED_SHOP_IDS_KEY = 'starredShopsIDs';
 class Actions {
 
   updateShopDetail(id) {
-    Promise.resolve()
-    .then(() => { return this._requestShopData({id: id}); })
-    .then((data) => {
-      dispatcher.dispatch({
-        actionType: UPDATE_SHOP_DETAIL,
-        data: data
-      });
-    });
+    co(function* () {
+      try {
+        const data = yield this._requestShopData({id});
+        dispatcher.dispatch({
+          actionType: UPDATE_SHOP_DETAIL,
+          data
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   searchShopByLocation() {
-    Promise.resolve()
-    .then(geolocation)
-    .then((pos) => {
-      return this._requestShopData({
-        lat: pos.coords.latitude,
-        lng: pos.coords.longitude
-      }, TYPE_LITE);
-    })
-    .then((data) => {
-      data.isResultsByGeolocation = true;
-      dispatcher.dispatch({
-        actionType: SEARCH_SHOP,
-        data: data
-      });
-    });
+    co(function* () {
+      try {
+        const pos = yield geolocation();
+        const lat = pos.coords.latitude,
+              lng = pos.coords.longitude;
+
+        let data = yield this._requestShopData({lat, lng}, TYPE_LITE);
+        data.isResultsByGeolocation = true;
+
+        dispatcher.dispatch({
+          actionType: SEARCH_SHOP,
+          data: data
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   searchShopByKeyword(keyword) {
-    Promise.resolve()
-    .then(() => {
-      return this._requestShopData({
-        keyword: keyword
-      }, TYPE_LITE);
-    })
-    .then((data) => {
-      dispatcher.dispatch({
-        actionType: SEARCH_SHOP,
-        data: data
-      });
-    });
+    co(function* () {
+      try {
+        const data = yield this._requestShopData({keyword}, TYPE_LITE);
+
+        dispatcher.dispatch({
+          actionType: SEARCH_SHOP,
+          data: data
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   fetchStarredShop() {
-    Promise.resolve()
-    .then(() => { return localStorage(STARRED_SHOP_IDS_KEY); })
-    .then((shopIDs) => {
-      if (shopIDs.length === 0) return; // todo
-      return Promise.all(
-        partitionSize(shopIDs, maxMultiRequestByID).map(ids => {
-          return this._requestShopData({
-            id: ids
-          }, TYPE_LITE);
-        })
-      );
-    })
-    .then((dataList) => {
-      if (!dataList) return; // todo
-      dispatcher.dispatch({
-        actionType: FETCH_STARRED_SHOP,
-        dataList: dataList
-      });
-    });
+    co(function* () {
+      try {
+        const shopIDs = yield localStorage(STARRED_SHOP_IDS_KEY);
+        if (shopIDs.length === 0) return; // todo
+
+        const dataList = yield Promise.all(
+          partitionSize(shopIDs, maxMultiRequestByID).map(ids => {
+            return this._requestShopData({id: ids}, TYPE_LITE);
+          })
+        );
+
+        if (!dataList) return; // todo
+        dispatcher.dispatch({
+          actionType: FETCH_STARRED_SHOP,
+          dataList
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   updateStarredShop(id) {
-    Promise.resolve()
-    .then(() => { return localStorage(STARRED_SHOP_IDS_KEY); })
-    .then((shopIDs) => {
-      if (includes(shopIDs, id)) {
-        this.removeStarredShop(id);
-      } else {
-        this.addStarredShop(id);
+    co(function* () {
+      try {
+        const shopIDs = yield localStorage(STARRED_SHOP_IDS_KEY);
+
+        if (includes(shopIDs, id)) {
+          this.removeStarredShop(id);
+        } else {
+          this.addStarredShop(id);
+        }
+      } catch (err) {
+        console.log(err);
       }
-    });
+    }.bind(this));
   }
 
   addStarredShop(id) {
-    Promise.resolve()
-    .then(() => { return this._addStarredID(id); })
-    .then((id) => { return this._requestShopData({id: id}, TYPE_LITE); })
-    .then((data) => {
-      dispatcher.dispatch({
-        actionType: ADD_STARRED_SHOP,
-        data: data
-      });
-    });
+    co(function* () {
+      try {
+        yield this._addStarredID(id);
+        const data = yield this._requestShopData({id}, TYPE_LITE);
+
+        dispatcher.dispatch({
+          actionType: ADD_STARRED_SHOP,
+          data
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   removeStarredShop(id) {
-    Promise.resolve()
-    .then(() => { return this._removeStarredID(id); })
-    .then((id) => {
-      dispatcher.dispatch({
-        actionType: REMOVE_STARRED_SHOP,
-        id: id
-      });
-    });
+    co(function* () {
+      try {
+        yield this._removeStarredID(id);
+        dispatcher.dispatch({
+          actionType: REMOVE_STARRED_SHOP,
+          id
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    }.bind(this));
   }
 
   _addStarredID(id) {
     return new Promise((resolve) => {
-      localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
+      localStorage(STARRED_SHOP_IDS_KEY).then(shopIDs => {
         shopIDs.push(id);
         localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
         .then(() => { return resolve(id); });
@@ -140,7 +158,7 @@ class Actions {
 
   _removeStarredID(id) {
     return new Promise((resolve) => {
-      localStorage(STARRED_SHOP_IDS_KEY).then((shopIDs) => {
+      localStorage(STARRED_SHOP_IDS_KEY).then(shopIDs => {
         remove(shopIDs, i => i === id);
         localStorage(STARRED_SHOP_IDS_KEY, shopIDs)
         .then(() => { return resolve(id); });
@@ -150,7 +168,7 @@ class Actions {
 
   _requestShopData(...query) {
     return new Promise((resolve, reject) => {
-      let params = assign({}, baseQuery, ...query);
+      const params = assign({}, baseQuery, ...query);
       request(gourmetApi, params)
       .then(resolve)
       .catch(reject);
@@ -159,4 +177,4 @@ class Actions {
 
 }
 
-export default new Actions
+export default new Actions();
