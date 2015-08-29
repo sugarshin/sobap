@@ -10,24 +10,17 @@ import starredShopStore from '../stores/starred-shop-store';
 
 export default class Search extends Component {
 
-  // static get propTypes() { return {}; }
-  //
-  // static get defaultProps() { return {}; }
-
   constructor(props) {
     super(props);
 
-    let shops = shopStore.getShops();
+    const shops = shopStore.getShops();
     this.state = {
       isResultsByGeolocation: shopStore.getResultsByGeolocation(),
-      shops: shops,
+      shops,
       starredIDs: starredShopStore.getShops().map(shop => shop.id),
       markers: shops.map(shop => {
-        return {
-          lat: +shop.lat,
-          lng: +shop.lng,
-          id: shop.id
-        }
+        const { lat, lng, id } = shop;
+        return { lat: +lat, lng: +lng, id };
       })
     };
 
@@ -49,13 +42,10 @@ export default class Search extends Component {
     const shops = shopStore.getShops();
     this.setState({
       isResultsByGeolocation: shopStore.getResultsByGeolocation(),
-      shops: shops,
+      shops,
       markers: shops.map(shop => {
-        return {
-          lat: +shop.lat,
-          lng: +shop.lng,
-          id: shop.id
-        };
+        const { lat, lng, id } = shop;
+        return { lat: +lat, lng: +lng, id };
       })
     });
   }
@@ -76,19 +66,13 @@ export default class Search extends Component {
 
     return (
       <div>
-        <SearchBar
-          isResultsByGeolocation={isResultsByGeolocation}
-        />
-        <GoogleMap
-          markers={markers}
-        />
+        <SearchBar isResultsByGeolocation={isResultsByGeolocation} />
+        <GoogleMap markers={markers} />
         <div className="main">
-          <Shops
-            key={'search-shops'}
-            classNames={'shops'}
-            shops={shops}
-            starredIDs={starredIDs}
-          />
+          <Shops key={'search-shops'}
+                 classNames={'shops'}
+                 shops={shops}
+                 starredIDs={starredIDs} />
         </div>
         <RouteHandler />
       </div>
