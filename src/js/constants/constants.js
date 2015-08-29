@@ -1,4 +1,4 @@
-import keyMirror from 'fbjs/lib/keymirror';
+import keyMirror from 'react/lib/keyMirror';
 
 export default keyMirror({
   SEARCH_SHOP: null,
