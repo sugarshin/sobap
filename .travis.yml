@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - "0.12"
+  - '0.12'
 branches:
   only:
     - master
@@ -12,4 +12,4 @@ script:
   - npm run deploy
 env:
   global:
-    secure: IkZJ3tbBsmCC+srqb49WqoZfWvtX/9uxh+1WEBo+2c6oKOffmfwuWjrUUycxdJtAT/3kGhABzEnzySruoUjvM83GPbfRAchTil6j1h15H+lCsqFFf50XySOzDl4SalSPz8pfb8513dix6apn/GUTa6qabs0VBoQBhBTgZzmtiWjj0qNEIQaY+s+Aqwz96cu6OSV9NLyjyr3zXqbmZA6PDuzC07NXlPg8CFbJ2ZPUP6gPKpO/Ll4gjbiYY5XL0QIEjLvm9yZzU5nhiFp9/mH0TeYSd2QfzWNcwqieiVYQ8i8owlVJ52wKZY8j5maqgxicGN53l0UxxH9rDZ/6C0a4k139W/wzaoddTRryNdOTJk3lMUtEgX1FfIb7tN6Cn2EyxMeakQ+xoCaXGs+U82ofYT2U02D2sjqemfI4OWnaiNiVLiIrli4eE3JHoHUTIcdL5P/fDQg4iFBSBU9K8OnWQvZrT4FnxQ9yyRZkKE67nvvv2q/OM7dePscaitFv41EhtMKudMIWcTnTd0eG1U1pCOH2V/sBgRIiQMcGfDJEzeilxI/GwN+YuIuZCin0JmpbzE1VI8gkxBzWLLlchlpau7AgHcqPu/is/IjPjATW2dkAzmONNRzaR2/ysYE4M2pkKeGq0urX3riMQQElW8kGUf0VFTD4ZLQ7wc98cJvoGjo=
+    secure: ZNkSljmI1u9Tr5mnp3nSmCucVDwN48xcMi7H63QnVnpbZXTBDzzjh0n/njj8mR3Bs0THzP0/2hh+swNhesIRlVVPbsrJJ88PJzneFMiRriztI2z07dYr1pHfRktEdkoccU/2p8w8Z+OHJiIMKSnjJEGY6v1s6mtA3/2wXlfJC6Q=
