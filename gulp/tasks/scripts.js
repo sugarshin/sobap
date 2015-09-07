@@ -1,6 +1,7 @@
 import gulp from 'gulp';
 import browserify from 'browserify';
 import watchify from 'watchify';
+import licensify from 'licensify';
 import source from 'vinyl-source-stream';
 
 import {scripts as conf} from '../conf';
@@ -18,6 +19,8 @@ const bundler = (isWatch) => {
   } else {
     b = browserify(bOpts);
   }
+
+  b.plugin(licensify);
 
   const bundle = () => {
     return b.bundle()
