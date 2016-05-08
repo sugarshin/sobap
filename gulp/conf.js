@@ -25,13 +25,10 @@ export default {
     host: '127.0.0.1',
     open: 'external',
     server: {
-      baseDir: './',
-      index: `${D.DEST}${D.PATH}/`,
-      routes: (() => {
-        let obj = {};
-        obj[D.PATH] = `${D.DEST}${D.PATH}/`;
-        return obj;
-      })()
+      baseDir: './public',
+      routes: {
+        [D.PATH]: `${D.DEST}${D.PATH}`
+      }
     }
   },
 
