@@ -12,13 +12,9 @@ before_install:
   - npm update -g npm
 after_success:
   - npm run build
-deploy:
-  skip_cleanup: true
-  provider: script
-  script: npm run deploy
-  on:
-    branch: master
-    node: '0.12'
+  - git config --global user.name "Travis CI"
+  - git config --global user.email "travisci@localhost"
+  - npm run deploy
 env:
   global:
     secure: dD3jZU/wHC1nse3IZjxs66N+LXh07yjFuM8zIfXL+4Q7VJOcfcjEBM01oQ87nHFT22W6Tyq5KtN9iSNvN5pv8K2tZLMd2AcAZ+ULhyZdFNCKvP0qdkpw4D08apOucSIXRASxKI4cmkYcWOioJRuU8G6OGPkG4eeFVt8oVbfYwSg=
