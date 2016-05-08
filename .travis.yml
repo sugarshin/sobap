@@ -1,7 +1,7 @@
 sudo: false
 language: node_js
 node_js:
-  - '0.12'
+  - "0.12"
 branches:
   only:
     - master
@@ -14,7 +14,7 @@ after_success:
   - npm run build
   - git config --global user.name "Travis CI"
   - git config --global user.email "travisci@localhost"
-  - npm run deploy
+  - ./node_modules/.bin/gh-pages -d public -x --repo https://$GH_TOKEN@github.com/sugarshin/sobap.git
 env:
   global:
     secure: dD3jZU/wHC1nse3IZjxs66N+LXh07yjFuM8zIfXL+4Q7VJOcfcjEBM01oQ87nHFT22W6Tyq5KtN9iSNvN5pv8K2tZLMd2AcAZ+ULhyZdFNCKvP0qdkpw4D08apOucSIXRASxKI4cmkYcWOioJRuU8G6OGPkG4eeFVt8oVbfYwSg=

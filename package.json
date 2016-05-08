@@ -7,8 +7,7 @@
     "design": "gulp design",
     "start": "gulp",
     "build": "NODE_ENV=production gulp build",
-    "test": "echo \"Error: no test specified.\"",
-    "deploy": "gh-pages -d public -x --repo https://$GH_TOKEN@github.com/sugarshin/sobap.git"
+    "test": "echo \"Error: no test specified.\""
   },
   "author": "sugarshin",
   "license": "MIT",

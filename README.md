@@ -6,6 +6,12 @@ SOBAP beta | 蕎麦マップ
 
 on React and Flux architecture
 
-https://sugarshin.github.io/sobap/
+http://sugarshin.github.io/sobap/
 
-© 2015 sugarshin
+## Deploy
+
+Merge to master branch will trigger Travis CI that deploys assets to GitHub Pages.
+
+## License
+
+© sugarshin
