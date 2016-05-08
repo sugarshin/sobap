@@ -6,6 +6,6 @@ SOBAP beta | 蕎麦マップ
 
 on React and Flux architecture
 
-[http://sugarshin.github.io/sobap](http://sugarshin.github.io/sobap)
+https://sugarshin.github.io/sobap/
 
 © 2015 sugarshin
