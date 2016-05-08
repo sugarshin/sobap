@@ -2,7 +2,7 @@ import gulp from 'gulp';
 import requireDir from 'require-dir';
 import runSequence from 'run-sequence';
 import {reload} from 'browser-sync';
-
+import del from 'del';
 import {D} from './gulp/conf';
 
 requireDir('./gulp/tasks');
@@ -50,11 +50,14 @@ gulp.task('default', ['predefault'], () => {
   );
 });
 
+gulp.task('clean:build', () => del(['public/css/main.css', 'public/css/octicons.css', 'public/js/main.js']));
+
 gulp.task('build', cb => {
   runSequence(
     'clean',
     ['jade', 'stylus', 'browserify', 'copy:octicon', 'copy:favicon'],
     ['replace', 'minify-css', 'uglify'],
+    'clean:build',
     cb
   );
 });

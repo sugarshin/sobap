@@ -8,8 +8,17 @@ branches:
 cache:
   directories:
     - node_modules
-script:
-  - npm run deploy
+before_install:
+  - npm update -g npm
+after_success:
+  - npm run build
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: npm run deploy
+  on:
+    branch: master
+    node: '0.12'
 env:
   global:
-    secure: ZNkSljmI1u9Tr5mnp3nSmCucVDwN48xcMi7H63QnVnpbZXTBDzzjh0n/njj8mR3Bs0THzP0/2hh+swNhesIRlVVPbsrJJ88PJzneFMiRriztI2z07dYr1pHfRktEdkoccU/2p8w8Z+OHJiIMKSnjJEGY6v1s6mtA3/2wXlfJC6Q=
+    secure: dD3jZU/wHC1nse3IZjxs66N+LXh07yjFuM8zIfXL+4Q7VJOcfcjEBM01oQ87nHFT22W6Tyq5KtN9iSNvN5pv8K2tZLMd2AcAZ+ULhyZdFNCKvP0qdkpw4D08apOucSIXRASxKI4cmkYcWOioJRuU8G6OGPkG4eeFVt8oVbfYwSg=

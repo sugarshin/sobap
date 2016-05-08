@@ -7,7 +7,8 @@
     "design": "gulp design",
     "start": "gulp",
     "build": "NODE_ENV=production gulp build",
-    "deploy": "npm run build && gh-pages-deploy-cmd 'public/**/*'"
+    "test": "echo \"Error: no test specified.\"",
+    "deploy": "gh-pages -d public -x --repo https://$GH_TOKEN@github.com/sugarshin/sobap.git"
   },
   "author": "sugarshin",
   "license": "MIT",
@@ -41,7 +42,7 @@
     "browserify": "^11.0.1",
     "coffee-reactify": "^3.0.0",
     "del": "^1.2.0",
-    "gh-pages-deploy-cmd": "^1.0.1",
+    "gh-pages": "^0.11.0",
     "gulp": "^3.9.0",
     "gulp-concat": "^2.5.2",
     "gulp-jade": "^1.0.1",
